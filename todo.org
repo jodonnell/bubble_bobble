@@ -1,0 +1,11 @@
+* Falling Block
+** Add logins
+*** Hold personal control scheme
+**** Should force two players from disputed keys
+*** Name
+*** Win/loss ratio versus each opponent
+*** Aggregate w/l
+** Game type
+*** Change game speed
+*** Change rules for sending junk
+** Networking game
