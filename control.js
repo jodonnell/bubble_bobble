@@ -17,21 +17,17 @@ var Control = Class.extend({
         }, this));
         $(document).keyup( $.proxy( function(event) {
             switch (event.keyCode) {
-            case this.LEFT_KEY: ; break;
-            case this.RIGHT_KEY: ; break;
+            case this.LEFT_KEY: this.left = 0; break;
+            case this.RIGHT_KEY: this.right = 0; break;
             }
         }, this));
     },
 
-    isMovingRight: function() {
-        var old_right = this.right;
-        this.right = 0;
-        return old_right;
+    isHoldingRight: function() {
+        return this.right;
     },
 
-    isMovingLeft: function() {
-        var old_left = this.left;
-        this.left = 0;
-        return old_left;
+    isHoldingLeft: function() {
+        return this.left;
     }
 });

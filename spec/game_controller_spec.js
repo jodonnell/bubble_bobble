@@ -12,13 +12,13 @@ describe("GameController", function() {
     });
 
     it("should be able to move right", sinon.test(function() {
-        this.stub(gameController.control, 'isMovingRight').returns(true);
+        this.stub(gameController.control, 'isHoldingRight').returns(true);
         gameController.update();
         expect(gameController.bub.x).toBeGreaterThan(100);
     }));
 
     it("should be able to move right", sinon.test(function() {
-        this.stub(gameController.control, 'isMovingLeft').returns(true);
+        this.stub(gameController.control, 'isHoldingLeft').returns(true);
         gameController.update();
         expect(gameController.bub.x).toBeLessThan(100);
     }));

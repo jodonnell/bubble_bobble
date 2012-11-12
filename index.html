@@ -3,7 +3,6 @@
   <head>
     <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="class.js" type="text/javascript" charset="utf-8"></script>
-    <script src="options.js" type="text/javascript" charset="utf-8"></script>
     <script src="control.js" type="text/javascript" charset="utf-8"></script>
     <script src="game_init.js" type="text/javascript" charset="utf-8"></script>
     <script src="images.js" type="text/javascript" charset="utf-8"></script>
@@ -41,7 +40,7 @@ var gameController = new GameController(gameInit);
 window.onEachFrame(function() {
     var time = gameController.updateWithTime();
     gameController.update();
-    console.log(time)
+//console.log(time)
 });
 
     </script>

@@ -11,11 +11,17 @@ var GameController = Class.extend({
 
     update: function() {
         this.clearScreen();
-        if (this.control.isMovingRight())
+
+        this.bub.update();
+
+        if (this.control.isHoldingRight())
             this.bub.moveRight();
 
-        if (this.control.isMovingLeft())
+        if (this.control.isHoldingLeft())
             this.bub.moveLeft();
+
+        if (!this.control.isHoldingLeft() && !this.control.isHoldingRight())
+            this.bub.setAction('standing');
 
         this.bub.draw(this.images, this.context);
     },
