@@ -6,10 +6,10 @@ var GameInit = Class.extend({
     },
 
     createCanvas: function() {
-        var width = $(document).width();
-        var height = $(document).height() - 40;
+        this.width = $(document).width();
+        this.height = $(document).height() - 40;
 
-        var canvas = '<canvas id="gameCanvas" width="' + width + '" height="' + height + '"></canvas>';
+        var canvas = '<canvas id="gameCanvas" width="' + this.width + '" height="' + this.height + '"></canvas>';
         $('body').append(canvas);
         $("#gameCanvas").css('position', 'absolute');
         $("#gameCanvas").css('top', '40px');

@@ -1,18 +1,31 @@
 var Player = Class.extend({
+    RIGHT: 1,
+    LEFT: 2,
+
     init: function() {
         this.x = 100;
         this.y = 100;
         this.currentImage = 'bub';
         this.timer = 0;
         this.currentAction = "standing";
+        this.direction = this.RIGHT;
+        this.jumping = 0;
     },
 
     update: function() {
         this.timer++;
         if (this.currentAction === 'standing')
             this.standingAnimation();
-        else if (this.currentAction === 'walkingRight')
+        else if (this.currentAction === 'walkingRight' || this.currentAction == 'walkingLeft')
             this.walkingRightAnimation();
+
+        if (this.jumping) {
+            this.y -= 6;
+
+            this.jumping++;
+            if (this.jumping > 40)
+                this.jumping = 0;
+        }
     },
 
     standingAnimation: function() {
@@ -41,21 +54,17 @@ var Player = Class.extend({
 
     draw: function(images, context) {
         var image = images[this.currentImage];
-        //context.scale(-1, -1);
-        //context.scale(-1, 1);
-        
         context.drawImage(image, this.x, this.y);
-
     },
 
     moveRight: function() {
         this.setAction('walkingRight');
-        this.x += 2;
+        this.x += 4;
     },
 
     moveLeft: function() {
         this.setAction('walkingLeft');
-        this.x -= 2;
+        this.x -= 4;
     },
 
     setAction: function(action) {
@@ -63,14 +72,35 @@ var Player = Class.extend({
             return;
 
         this.currentAction = action;
-        if (this.currentAction == 'walkingRight')
+        if (this.currentAction == 'walkingRight') {
             this.currentImage = 'bub_right';
-        else if (this.currentAction == 'walkingLeft')
+            this.direction = this.RIGHT;
+        }
+        else if (this.currentAction == 'walkingLeft') {
             this.currentImage = 'bub_right';
+            this.direction = this.LEFT;
+        }
         else if (this.currentAction == 'standing')
             this.currentImage = 'bub';
 
         this.timer = 0;
+    },
+
+    fall: function() {
+        this.y += 3;
+    },
+
+    height: function(images) {
+        return images[this.currentImage].height;
+    },
+
+    width: function(images) {
+        return images[this.currentImage].width;
+    },
+
+    jump: function() {
+        this.jumping = 1;
     }
+
 
 });

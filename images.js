@@ -9,6 +9,9 @@ var Images = Class.extend({
         this.bub_right_tail = new Image();
         this.bub_right_tail.src = "assets/bub_walk_tail.png";
 
+        this.wall = new Image();
+        this.wall.src = "assets/wall.png";
+
         this.bub = new Image();
         this.bub.src = "assets/bub.png";
         this.bub.onload = callback;

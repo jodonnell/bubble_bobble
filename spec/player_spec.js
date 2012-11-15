@@ -36,4 +36,19 @@ describe("Player", function() {
         expect(player.x).toBeLessThan(100);
     });
 
+    it("should be able to jump", function() {
+        player.jump();
+
+        player.update();
+        expect(player.y).toBe(94);
+
+        player.update();
+        expect(player.y).toBe(88);
+
+        for (var i = 0; i < 50; i++)
+            player.update();
+        
+        expect(player.y).toBe(-140);
+    });
+
 });
