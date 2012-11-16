@@ -16,34 +16,25 @@
 var gameInit = new GameInit();
 var gameController = new GameController(gameInit);
 
-(function() {
-    var onEachFrame;
-    if (window.webkitRequestAnimationFrame) {
-        onEachFrame = function(cb) {
-            var _cb = function() { cb(); webkitRequestAnimationFrame(_cb); }
-            _cb();
-        };
-    } else if (window.mozRequestAnimationFrame) {
-        onEachFrame = function(cb) {
-            var _cb = function() { cb(); mozRequestAnimationFrame(_cb); }
-            _cb();
-        };
-    } else {
-        onEachFrame = function(cb) {
-            setInterval(cb, 1000 / 60);
-        }
-    }
-    
-    window.onEachFrame = onEachFrame;
+window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       || 
+              window.webkitRequestAnimationFrame || 
+              window.mozRequestAnimationFrame    || 
+              window.oRequestAnimationFrame      || 
+              window.msRequestAnimationFrame     || 
+              function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+              };
 })();
 
-
-window.onEachFrame(function() {
-//var time = gameController.updateWithTime();
+(function animloop(){
+    requestAnimFrame(animloop);
+    //var time = gameController.updateWithTime();
     gameController.update();
     gameController.draw();
-//console.log(time)
-});
+    //console.log(time)
+})();
+
 
     </script>
   </body>
