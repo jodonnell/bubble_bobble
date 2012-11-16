@@ -1,20 +1,32 @@
 var Images = Class.extend({
     init: function(callback) {
-        this.bub_tail = new Image();
-        this.bub_tail.src = "assets/bub_tail.png";
+        this.bubTailRight = new Image();
+        this.bubTailRight.src = "assets/bub_tail.png";
 
-        this.bub_right = new Image();
-        this.bub_right.src = "assets/bub_walk.png";
+        this.bubTailLeft = new Image();
+        this.bubTailLeft.src = "assets/bub_tail_left.png";
 
-        this.bub_right_tail = new Image();
-        this.bub_right_tail.src = "assets/bub_walk_tail.png";
+        this.bubWalkRight = new Image();
+        this.bubWalkRight.src = "assets/bub_walk.png";
+
+        this.bubWalkLeft = new Image();
+        this.bubWalkLeft.src = "assets/bub_walk_left.png";
+
+        this.bubWalkTailRight = new Image();
+        this.bubWalkTailRight.src = "assets/bub_walk_tail.png";
+
+        this.bubWalkTailLeft = new Image();
+        this.bubWalkTailLeft.src = "assets/bub_walk_tail_left.png";
 
         this.wall = new Image();
         this.wall.src = "assets/wall.png";
 
-        this.bub = new Image();
-        this.bub.src = "assets/bub.png";
-        this.bub.onload = callback;
+        this.bubLeft = new Image();
+        this.bubLeft.src = "assets/bub_left.png";
+
+        this.bubRight = new Image();
+        this.bubRight.src = "assets/bub.png";
+        this.bubRight.onload = callback;
     },
 
 });

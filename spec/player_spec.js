@@ -16,7 +16,7 @@ describe("Player", function() {
         for (var i = 0; i < 20; i++)
             player.update();
 
-        expect(player.currentImage).toBe("bub_tail");
+        expect(player.currentImage).toBe("bubTail");
     });
 
     it("should change remove tail wag frame after 20 more frames have passed", function() {

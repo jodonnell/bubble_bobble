@@ -42,8 +42,8 @@ var Player = Class.extend({
             this.timer = 0;
             
             if (this.currentImage === "bub")
-                this.currentImage = 'bub_tail';
-            else if (this.currentImage === "bub_tail")
+                this.currentImage = 'bubTail';
+            else if (this.currentImage === "bubTail")
                 this.currentImage = 'bub';
         }
 
@@ -53,16 +53,16 @@ var Player = Class.extend({
         if (this.timer == 20) {
             this.timer = 0;
 
-            if (this.currentImage === 'bub_right')
-                this.currentImage = 'bub_right_tail';
-            else if (this.currentImage === "bub_right_tail")
-                this.currentImage = 'bub_right';
+            if (this.currentImage === 'bubWalk')
+                this.currentImage = 'bubWalkTail';
+            else if (this.currentImage === "bubWalkTail")
+                this.currentImage = 'bubWalk';
         }
 
     },
 
     draw: function(images, context) {
-        var image = images[this.currentImage];
+        var image = images[this.getImageName()];
         context.drawImage(image, this.x, this.y);
     },
 
@@ -82,11 +82,11 @@ var Player = Class.extend({
 
         this.currentAction = action;
         if (this.currentAction == 'walkingRight') {
-            this.currentImage = 'bub_right';
+            this.currentImage = 'bubWalk';
             this.direction = this.RIGHT;
         }
         else if (this.currentAction == 'walkingLeft') {
-            this.currentImage = 'bub_right';
+            this.currentImage = 'bubWalk';
             this.direction = this.LEFT;
         }
         else if (this.currentAction == 'standing')
@@ -101,16 +101,25 @@ var Player = Class.extend({
     },
 
     height: function(images) {
-        return images[this.currentImage].height;
+        return images[this.getImageName()].height;
     },
 
     width: function(images) {
-        return images[this.currentImage].width;
+        return images[this.getImageName()].width;
     },
 
     jump: function() {
         if (this.jumping || this.falling) return;
         this.jumping = 1;
+    },
+
+    getImageName: function() {
+        var imageName = this.currentImage;
+        if (this.direction == this.LEFT)
+            imageName += 'Left';
+        else
+            imageName += 'Right';
+        return imageName;
     }
 
 
