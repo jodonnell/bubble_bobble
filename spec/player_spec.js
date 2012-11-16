@@ -26,17 +26,17 @@ describe("Player", function() {
         expect(player.currentImage).toBe("bub");
     });
 
-    it("should be able to move right", function() {
+    it("can move right", function() {
         player.moveRight();
         expect(player.x).toBeGreaterThan(100);
     });
 
-    it("should be able to move left", function() {
+    it("can move left", function() {
         player.moveLeft();
         expect(player.x).toBeLessThan(100);
     });
 
-    it("should be able to jump", function() {
+    it("can jump", function() {
         player.jump();
 
         player.update();
@@ -49,6 +49,21 @@ describe("Player", function() {
             player.update();
         
         expect(player.y).toBe(-140);
+    });
+
+    xit("cannot jump twice", function() {
+        pending
+        player.jump();
+
+        for (var i = 0; i < 44; i++) {
+            player.jump();
+            player.update(player.falling);
+            console.log(player.jumping);
+        }
+
+        var oldY = player.y;
+        player.update(player.falling);
+        expect(player.y).toBeGreaterThan(oldY);
     });
 
 });

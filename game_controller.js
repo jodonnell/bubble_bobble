@@ -21,10 +21,7 @@ var GameController = Class.extend({
 
     update: function() {
 
-        this.bub.update();
-
-        if (!this.isStandingOnFloor())
-            this.bub.fall();
+        this.bub.update(!this.isStandingOnFloor());
 
         if (this.control.isHoldingRight())
             this.bub.moveRight();

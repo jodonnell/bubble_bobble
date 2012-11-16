@@ -10,9 +10,10 @@ var Player = Class.extend({
         this.currentAction = "standing";
         this.direction = this.RIGHT;
         this.jumping = 0;
+        this.falling = false;
     },
 
-    update: function() {
+    update: function(isFalling) {
         this.timer++;
         if (this.currentAction === 'standing')
             this.standingAnimation();
@@ -23,9 +24,17 @@ var Player = Class.extend({
             this.y -= 6;
 
             this.jumping++;
-            if (this.jumping > 40)
+            if (this.jumping > 40) {
                 this.jumping = 0;
+                this.falling = true;
+            }
         }
+
+        if (isFalling)
+            this.fall();
+        else
+            this.falling = false;
+
     },
 
     standingAnimation: function() {
@@ -87,6 +96,7 @@ var Player = Class.extend({
     },
 
     fall: function() {
+        this.falling = true;
         this.y += 3;
     },
 
@@ -99,6 +109,7 @@ var Player = Class.extend({
     },
 
     jump: function() {
+        if (this.jumping || this.falling) return;
         this.jumping = 1;
     }
 
