@@ -6,7 +6,15 @@ var GameController = Class.extend({
         this.bub = new Player();
         this.images = new Images();
         this.context = $('#gameCanvas').get(0).getContext("2d");
+
         this.walls = [new Wall(100, 200)];
+
+        // this.walls=[];
+        // for (var i = 0; i < 100; i++) {
+        //     var randomX=Math.floor(Math.random()*811)
+        //     var randomY=Math.floor(Math.random()*611)
+        //     this.walls.push(new Wall(randomX, randomY));
+        // }
     },
 
     draw: function() {
@@ -29,7 +37,7 @@ var GameController = Class.extend({
         if (this.control.isHoldingLeft())
             this.bub.moveLeft();
 
-        if (this.control.notHoldingRightOrLeft())
+        if (this.control.notHoldingRightOrLeft() && !this.bub.jumping)
             this.bub.setAction('standing');
 
         if (this.control.isJumping())

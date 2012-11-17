@@ -51,6 +51,16 @@ describe("Player", function() {
         expect(player.y).toBe(-140);
     });
 
+    it("can transition to the jumping animation", function() {
+        player.jump();
+        expect(player.currentImage).toBe("bubJump");
+
+        for (var i = 0; i < 20; i++)
+            player.update();
+
+        expect(player.currentImage).toBe("bubJumpArm");
+    });
+
     xit("cannot jump twice", function() {
         pending
         player.jump();

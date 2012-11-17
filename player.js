@@ -11,54 +11,31 @@ var Player = Class.extend({
         this.direction = this.RIGHT;
         this.jumping = 0;
         this.falling = false;
+        this.playerAnimations = new PlayerAnimations(this);
     },
 
     update: function(isFalling) {
         this.timer++;
-        if (this.currentAction === 'standing')
-            this.standingAnimation();
-        else if (this.currentAction === 'walkingRight' || this.currentAction == 'walkingLeft')
-            this.walkingRightAnimation();
 
-        if (this.jumping) {
-            this.y -= 6;
+        this.playerAnimations.changeAnimation();
 
-            this.jumping++;
-            if (this.jumping > 40) {
-                this.jumping = 0;
-                this.falling = true;
-            }
-        }
+        if (this.jumping)
+            this.jumpingUpdate();
 
         if (isFalling)
             this.fall();
         else
             this.falling = false;
-
     },
 
-    standingAnimation: function() {
-        if (this.timer == 20) {
-            this.timer = 0;
-            
-            if (this.currentImage === "bub")
-                this.currentImage = 'bubTail';
-            else if (this.currentImage === "bubTail")
-                this.currentImage = 'bub';
+    jumpingUpdate: function() {
+        this.y -= 6;
+
+        this.jumping++;
+        if (this.jumping > 40) {
+            this.jumping = 0;
+            this.falling = true;
         }
-
-    },
-
-    walkingRightAnimation: function() {
-        if (this.timer == 20) {
-            this.timer = 0;
-
-            if (this.currentImage === 'bubWalk')
-                this.currentImage = 'bubWalkTail';
-            else if (this.currentImage === "bubWalkTail")
-                this.currentImage = 'bubWalk';
-        }
-
     },
 
     draw: function(images, context) {
@@ -91,6 +68,8 @@ var Player = Class.extend({
         }
         else if (this.currentAction == 'standing')
             this.currentImage = 'bub';
+        else if (this.currentAction == 'jumping')
+            this.currentImage = 'bubJump';
 
         this.timer = 0;
     },
@@ -110,6 +89,7 @@ var Player = Class.extend({
 
     jump: function() {
         if (this.jumping || this.falling) return;
+        this.setAction('jumping');
         this.jumping = 1;
     },
 
