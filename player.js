@@ -14,22 +14,33 @@ var Player = Class.extend({
         this.playerAnimations = new PlayerAnimations(this);
     },
 
-    update: function(isFalling) {
+    update: function(options) {
         this.timer++;
+
+        if (options.isHoldingRight)
+            this.moveRight();
+
+        if (options.isHoldingLeft)
+            this.moveLeft();
+
+        if (!(options.isHoldingLeft && options.isHoldingRight) && !this.jumping && !this.falling)
+            this.setAction('standing');
+
+        if (options.isJumping)
+            this.jump();
 
         this.playerAnimations.changeAnimation();
 
         if (this.jumping)
             this.jumpingUpdate();
-
-        if (isFalling)
+        else if (!options.isOnPlatform)
             this.fall();
         else
             this.falling = false;
     },
 
     jumpingUpdate: function() {
-        this.y -= 6;
+        this.y -= 4;
 
         this.jumping++;
         if (this.jumping > 40) {
@@ -66,6 +77,9 @@ var Player = Class.extend({
             this.currentImage = 'bubWalk';
             this.direction = this.LEFT;
         }
+        else if (this.currentAction == 'falling') {
+            this.currentImage = 'bubFall';
+        }
         else if (this.currentAction == 'standing')
             this.currentImage = 'bub';
         else if (this.currentAction == 'jumping')
@@ -75,6 +89,7 @@ var Player = Class.extend({
     },
 
     fall: function() {
+        this.setAction('falling');
         this.falling = true;
         this.y += 3;
     },

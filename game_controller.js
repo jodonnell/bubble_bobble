@@ -28,20 +28,8 @@ var GameController = Class.extend({
     },
 
     update: function() {
-
-        this.bub.update(!this.isStandingOnFloor());
-
-        if (this.control.isHoldingRight())
-            this.bub.moveRight();
-
-        if (this.control.isHoldingLeft())
-            this.bub.moveLeft();
-
-        if (this.control.notHoldingRightOrLeft() && !this.bub.jumping)
-            this.bub.setAction('standing');
-
-        if (this.control.isJumping())
-            this.bub.jump();
+        var options = {isOnPlatform: this.isStandingOnFloor(), isJumping: this.control.isJumping(), isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight()};
+        this.bub.update(options);
     },
 
     clearScreen: function() {

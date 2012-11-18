@@ -35,7 +35,7 @@ describe("GameController", function() {
     });
 
     it("should fall at the left boundary", function() {
-        gameController.bub.x = gameController.walls[0].x - gameController.bub.width(gameController.images);
+        gameController.bub.x = gameController.walls[0].x; //- gameController.bub.width(gameController.images);
         for (var i = 0; i < 100; i++)
             gameController.update();
         expect(gameController.bub.y).toBe(157);

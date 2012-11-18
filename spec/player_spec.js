@@ -1,8 +1,10 @@
 describe("Player", function() {
     var player;
+    var worldState;
     
     beforeEach(function() {
         player = new Player();
+        worldState = {isHoldingRight: false, isHoldingLeft: false, isJumping: false, isOnPlatform: false};
     });
 
     it("should have a location", function() {
@@ -11,17 +13,19 @@ describe("Player", function() {
     });
 
     it("should change to tail wag frame after 20 frames have passed", function() {
+        worldState.isOnPlatform = true;
         expect(player.currentImage).toBe("bub");
 
         for (var i = 0; i < 20; i++)
-            player.update();
+            player.update(worldState);
 
         expect(player.currentImage).toBe("bubTail");
     });
 
     it("should change remove tail wag frame after 20 more frames have passed", function() {
+        worldState.isOnPlatform = true;
         for (var i = 0; i < 40; i++)
-            player.update();
+            player.update(worldState);
 
         expect(player.currentImage).toBe("bub");
     });
@@ -37,18 +41,17 @@ describe("Player", function() {
     });
 
     it("can jump", function() {
-        player.jump();
+        worldState.isJumping = true;
+        player.update(worldState);
+        expect(player.y).toBe(96);
 
-        player.update();
-        expect(player.y).toBe(94);
-
-        player.update();
-        expect(player.y).toBe(88);
+        player.update(worldState);
+        expect(player.y).toBe(92);
 
         for (var i = 0; i < 50; i++)
-            player.update();
+            player.update(worldState);
         
-        expect(player.y).toBe(-140);
+        expect(player.y).toBe(-24);
     });
 
     it("can transition to the jumping animation", function() {
@@ -56,9 +59,19 @@ describe("Player", function() {
         expect(player.currentImage).toBe("bubJump");
 
         for (var i = 0; i < 20; i++)
-            player.update();
+            player.update(worldState);
 
         expect(player.currentImage).toBe("bubJumpTail");
+    });
+
+    it("can transition to the falling animation", function() {
+        player.update(true);
+        expect(player.currentImage).toBe("bubFall");
+
+        for (var i = 0; i < 20; i++)
+            player.update(true);
+
+        expect(player.currentImage).toBe("bubFallTail");
     });
 
     xit("cannot jump twice", function() {
