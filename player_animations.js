@@ -4,7 +4,9 @@ var PlayerAnimations = Class.extend({
     },
 
     changeAnimation: function() {
-        if (this.player.currentAction === 'standing')
+        if (this.player.currentAction === 'falling')
+            this.fallingAnimation();
+        else if (this.player.currentAction === 'standing')
             this.standingAnimation();
         else if (this.player.currentAction === 'walkingRight' || this.player.currentAction == 'walkingLeft')
             this.walkingRightAnimation();
@@ -12,6 +14,9 @@ var PlayerAnimations = Class.extend({
             this.jumpingAnimation();
     },
 
+    fallingAnimation: function() {
+        this.transitionState('bubFall', 'bubFallTail');
+    },
 
     standingAnimation: function() {
         this.transitionState('bub', 'bubTail');
