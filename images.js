@@ -31,6 +31,17 @@ var Images = Class.extend({
         this.bubJumpTailLeft = new Image();
         this.bubJumpTailLeft.src = "assets/bub_jump_tail_left.png";
 
+        this.bubFallRight = new Image();
+        this.bubFallRight.src = "assets/bub_fall.png";
+
+        this.bubFallTailRight = new Image();
+        this.bubFallTailRight.src = "assets/bub_fall_tail.png";
+
+        this.bubFallLeft = new Image();
+        this.bubFallLeft.src = "assets/bub_fall_left.png";
+
+        this.bubFallTailLeft = new Image();
+        this.bubFallTailLeft.src = "assets/bub_fall_tail_left.png";
 
         this.wall = new Image();
         this.wall.src = "assets/wall.png";
