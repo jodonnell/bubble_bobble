@@ -29,11 +29,13 @@ window.requestAnimFrame = (function(){
 })();
 
 (function animloop(){
-    requestAnimFrame(animloop);
-    //var time = gameController.updateWithTime();
+//        var startTime = new Date().getTime();
     gameController.update();
     gameController.draw();
-    //console.log(time)
+    requestAnimFrame(animloop);
+
+//var pow = (new Date().getTime()) - startTime
+//if (pow > 1)console.log(pow);
 })();
 
 

@@ -48,12 +48,6 @@ var GameController = Class.extend({
         $('#gameCanvas').get(0).width = $('#gameCanvas').get(0).width;
     },
 
-    updateWithTime: function() {
-        var startTime = new Date().getTime();
-        this.update();
-        return new Date().getTime() - startTime;
-    },
-
     isStandingOnFloor: function() {
         for (var i = 0; i < this.walls.length; i++) {
             if (this.doesBottomCollide(this.walls[i]) && this.xMatchUp(this.walls[i])) {

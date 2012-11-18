@@ -18,7 +18,7 @@ var PlayerAnimations = Class.extend({
     },
 
     jumpingAnimation: function() {
-        this.transitionState('bubJump', 'bubJumpArm');
+        this.transitionState('bubJump', 'bubJumpTail');
     },
 
     walkingRightAnimation: function() {

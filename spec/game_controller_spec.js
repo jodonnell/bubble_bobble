@@ -34,10 +34,14 @@ describe("GameController", function() {
         expect(gameController.bub.y).toBe(157);
     });
 
-    it("should not land on a platform while falling if no platform", function() {
-        gameController.bub.x = 100 - 46;
+    it("should fall at the left boundary", function() {
+        gameController.bub.x = gameController.walls[0].x - gameController.bub.width(gameController.images);
         for (var i = 0; i < 100; i++)
             gameController.update();
+        expect(gameController.bub.y).toBe(157);
+
+        gameController.bub.x -= 1;
+        gameController.update();
         expect(gameController.bub.y).toBeGreaterThan(157);
     });
 

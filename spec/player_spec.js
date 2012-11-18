@@ -58,7 +58,7 @@ describe("Player", function() {
         for (var i = 0; i < 20; i++)
             player.update();
 
-        expect(player.currentImage).toBe("bubJumpArm");
+        expect(player.currentImage).toBe("bubJumpTail");
     });
 
     xit("cannot jump twice", function() {
