@@ -2,6 +2,8 @@ var PlayerAnimations = Class.extend({
     RIGHT: 1,
     LEFT: 2,
 
+    ANIMATION_LENGTH: 20,
+
     init: function() {
         this.timer = 0;
         this.currentImage = 'bub';
@@ -63,7 +65,7 @@ var PlayerAnimations = Class.extend({
     },
 
     transitionState: function(animationA, animationB) {
-        if (this.timer == 20) {
+        if (this.timer == this.ANIMATION_LENGTH) {
             this.timer = 0;
 
             if (this.currentImage === animationA)
