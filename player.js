@@ -1,39 +1,32 @@
 var Player = Class.extend({
-    RIGHT: 1,
-    LEFT: 2,
-
     init: function() {
         this.x = 100;
         this.y = 100;
-        this.currentImage = 'bub';
-        this.timer = 0;
-        this.currentAction = "standing";
-        this.direction = this.RIGHT;
         this.jumping = 0;
         this.falling = false;
-        this.playerAnimations = new PlayerAnimations(this);
+        this.playerAnimations = new PlayerAnimations();
     },
 
-    update: function(options) {
-        this.timer++;
+    update: function(worldState) {
+        this.playerAnimations.timer++;
 
-        if (options.isHoldingRight)
+        if (worldState.isHoldingRight)
             this.moveRight();
 
-        if (options.isHoldingLeft)
+        if (worldState.isHoldingLeft)
             this.moveLeft();
 
-        if (!(options.isHoldingLeft && options.isHoldingRight) && !this.jumping && !this.falling)
-            this.setAction('standing');
+        if (!(worldState.isHoldingLeft && worldState.isHoldingRight) && !this.jumping && !this.falling)
+            this.playerAnimations.setAction('standing');
 
-        if (options.isJumping)
+        if (worldState.isJumping)
             this.jump();
 
         this.playerAnimations.changeAnimation();
 
         if (this.jumping)
             this.jumpingUpdate();
-        else if (!options.isOnPlatform)
+        else if (!worldState.isOnPlatform)
             this.fall();
         else
             this.falling = false;
@@ -50,72 +43,37 @@ var Player = Class.extend({
     },
 
     draw: function(images, context) {
-        var image = images[this.getImageName()];
+        var image = images[this.playerAnimations.getImageName()];
         context.drawImage(image, this.x, this.y);
     },
 
     moveRight: function() {
-        this.setAction('walkingRight');
+        this.playerAnimations.setAction('walkingRight');
         this.x += 4;
     },
 
     moveLeft: function() {
-        this.setAction('walkingLeft');
+        this.playerAnimations.setAction('walkingLeft');
         this.x -= 4;
     },
 
-    setAction: function(action) {
-        if (this.currentAction == action)
-            return;
-
-        this.currentAction = action;
-        if (this.currentAction == 'walkingRight') {
-            this.currentImage = 'bubWalk';
-            this.direction = this.RIGHT;
-        }
-        else if (this.currentAction == 'walkingLeft') {
-            this.currentImage = 'bubWalk';
-            this.direction = this.LEFT;
-        }
-        else if (this.currentAction == 'falling') {
-            this.currentImage = 'bubFall';
-        }
-        else if (this.currentAction == 'standing')
-            this.currentImage = 'bub';
-        else if (this.currentAction == 'jumping')
-            this.currentImage = 'bubJump';
-
-        this.timer = 0;
-    },
-
     fall: function() {
-        this.setAction('falling');
+        this.playerAnimations.setAction('falling');
         this.falling = true;
         this.y += 3;
     },
 
     height: function(images) {
-        return images[this.getImageName()].height;
+        return images[this.playerAnimations.getImageName()].height;
     },
 
     width: function(images) {
-        return images[this.getImageName()].width;
+        return images[this.playerAnimations.getImageName()].width;
     },
 
     jump: function() {
         if (this.jumping || this.falling) return;
-        this.setAction('jumping');
+        this.playerAnimations.setAction('jumping');
         this.jumping = 1;
-    },
-
-    getImageName: function() {
-        var imageName = this.currentImage;
-        if (this.direction == this.LEFT)
-            imageName += 'Left';
-        else
-            imageName += 'Right';
-        return imageName;
     }
-
-
 });

@@ -1,16 +1,46 @@
 var PlayerAnimations = Class.extend({
-    init: function(player) {
-        this.player = player;
+    RIGHT: 1,
+    LEFT: 2,
+
+    init: function() {
+        this.timer = 0;
+        this.currentImage = 'bub';
+        this.direction = this.RIGHT;
+        this.currentAction = "standing";
+    },
+
+    setAction: function(action) {
+        if (this.currentAction == action)
+            return;
+
+        this.currentAction = action;
+        if (this.currentAction == 'walkingRight') {
+            this.currentImage = 'bubWalk';
+            this.direction = this.RIGHT;
+        }
+        else if (this.currentAction == 'walkingLeft') {
+            this.currentImage = 'bubWalk';
+            this.direction = this.LEFT;
+        }
+        else if (this.currentAction == 'falling') {
+            this.currentImage = 'bubFall';
+        }
+        else if (this.currentAction == 'standing')
+            this.currentImage = 'bub';
+        else if (this.currentAction == 'jumping')
+            this.currentImage = 'bubJump';
+
+        this.timer = 0;
     },
 
     changeAnimation: function() {
-        if (this.player.currentAction === 'falling')
+        if (this.currentAction === 'falling')
             this.fallingAnimation();
-        else if (this.player.currentAction === 'standing')
+        else if (this.currentAction === 'standing')
             this.standingAnimation();
-        else if (this.player.currentAction === 'walkingRight' || this.player.currentAction == 'walkingLeft')
+        else if (this.currentAction === 'walkingRight' || this.currentAction == 'walkingLeft')
             this.walkingRightAnimation();
-        else if (this.player.currentAction === 'jumping')
+        else if (this.currentAction === 'jumping')
             this.jumpingAnimation();
     },
 
@@ -31,15 +61,22 @@ var PlayerAnimations = Class.extend({
     },
 
     transitionState: function(animationA, animationB) {
-        if (this.player.timer == 20) {
-            this.player.timer = 0;
+        if (this.timer == 20) {
+            this.timer = 0;
 
-            if (this.player.currentImage === animationA)
-                this.player.currentImage = animationB;
-            else if (this.player.currentImage === animationB)
-                this.player.currentImage = animationA;
+            if (this.currentImage === animationA)
+                this.currentImage = animationB;
+            else if (this.currentImage === animationB)
+                this.currentImage = animationA;
         }
+    },
 
+    getImageName: function() {
+        var imageName = this.currentImage;
+        if (this.direction == this.LEFT)
+            imageName += 'Left';
+        else
+            imageName += 'Right';
+        return imageName;
     }
-
 });
