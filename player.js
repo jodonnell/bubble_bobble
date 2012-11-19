@@ -16,7 +16,7 @@ var Player = Class.extend({
         if (worldState.isHoldingLeft)
             this.moveLeft();
 
-        if (!(worldState.isHoldingLeft && worldState.isHoldingRight) && !this.jumping && !this.falling)
+        if (!worldState.isHoldingLeft && !worldState.isHoldingRight && !this.jumping && !this.falling)
             this.playerAnimations.setAction('standing');
 
         if (worldState.isJumping)
