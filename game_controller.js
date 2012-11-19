@@ -29,7 +29,6 @@ var GameController = Class.extend({
 
     update: function() {
         var options = {isOnPlatform: this.isStandingOnFloor(), isJumping: this.control.isJumping(), isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight()};
-        console.log(options.isOnPlatform);
         this.bub.update(options);
     },
 
@@ -47,10 +46,6 @@ var GameController = Class.extend({
     },
 
     doesBottomCollide: function(wall) {
-        console.log(this.bub.y);
-        if (this.bub.height(this.images) == 45)
-            console.log(this.bub.playerAnimations.currentImage);
-
         return wall.y == this.bub.y + this.bub.height(this.images) ||
             wall.y + 1 == this.bub.y + this.bub.height(this.images) ||
             wall.y + 2 == this.bub.y + this.bub.height(this.images);
