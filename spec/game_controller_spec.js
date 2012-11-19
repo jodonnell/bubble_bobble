@@ -31,18 +31,18 @@ describe("GameController", function() {
     it("should land on a platform while falling", function() {
         for (var i = 0; i < 100; i++)
             gameController.update();
-        expect(gameController.bub.y).toBe(157);
+        expect(gameController.bub.y).toBe(151);
     });
 
     it("should fall at the left boundary", function() {
-        gameController.bub.x = gameController.walls[0].x; //- gameController.bub.width(gameController.images);
+        gameController.bub.x = gameController.walls[0].x - gameController.bub.width(gameController.images);
         for (var i = 0; i < 100; i++)
             gameController.update();
-        expect(gameController.bub.y).toBe(157);
+        expect(gameController.bub.y).toBe(151);
 
         gameController.bub.x -= 1;
         gameController.update();
-        expect(gameController.bub.y).toBeGreaterThan(157);
+        expect(gameController.bub.y).toBeGreaterThan(151);
     });
 
     it("should not land on a platform while falling if no platform", function() {
@@ -55,7 +55,7 @@ describe("GameController", function() {
     it("should be able to jump", sinon.test(function() {
         for (var i = 0; i < 100; i++)
             gameController.update();
-        expect(gameController.bub.y).toBe(157);
+        expect(gameController.bub.y).toBe(151);
 
         this.stub(gameController.control, 'isJumping').returns(true);
         for (var i = 0; i < 100; i++)
