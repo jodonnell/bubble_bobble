@@ -8,17 +8,7 @@ var Player = Class.extend({
     },
 
     update: function(worldState) {
-        if (worldState.isHoldingRight)
-            this.moveRight();
-
-        if (worldState.isHoldingLeft)
-            this.moveLeft();
-
-        if (!worldState.isHoldingLeft && !worldState.isHoldingRight && !this.jumping && !this.falling)
-            this.playerAnimations.setAction('standing');
-
-        if (worldState.isJumping)
-            this.jump();
+        this.respondToControls(worldState);
 
         this.playerAnimations.changeAnimation();
 
@@ -28,6 +18,20 @@ var Player = Class.extend({
             this.fall();
         else
             this.falling = false;
+    },
+
+    respondToControls: function(controls) {
+        if (controls.isHoldingRight)
+            this.moveRight();
+
+        if (controls.isHoldingLeft)
+            this.moveLeft();
+
+        if (!controls.isHoldingLeft && !controls.isHoldingRight && !this.jumping && !this.falling)
+            this.playerAnimations.setAction('standing');
+
+        if (controls.isJumping)
+            this.jump();
     },
 
     jumpingUpdate: function() {
