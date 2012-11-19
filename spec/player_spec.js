@@ -43,7 +43,6 @@ describe("Player", function() {
         for (var i = 0; i < 44; i++) {
             player.jump();
             player.update(player.falling);
-            console.log(player.jumping);
         }
 
         var oldY = player.y;
