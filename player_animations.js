@@ -34,6 +34,8 @@ var PlayerAnimations = Class.extend({
     },
 
     changeAnimation: function() {
+        this.timer++;
+
         if (this.currentAction === 'falling')
             this.fallingAnimation();
         else if (this.currentAction === 'standing')

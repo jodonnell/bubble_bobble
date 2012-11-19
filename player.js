@@ -8,8 +8,6 @@ var Player = Class.extend({
     },
 
     update: function(worldState) {
-        this.playerAnimations.timer++;
-
         if (worldState.isHoldingRight)
             this.moveRight();
 
