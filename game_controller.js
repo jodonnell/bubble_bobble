@@ -10,6 +10,49 @@ var GameController = Class.extend({
         this.walls = [];
 
 
+        this.buildLevel1();
+    },
+
+    draw: function() {
+        this.context.fillStyle = "black";
+        this.context.fillRect(0, 0, this.gameInit.width, this.gameInit.height);
+
+        for (var i = 0; i < this.walls.length; i++)
+            this.walls[i].draw(this.images, this.context);
+
+        this.bub.draw(this.images, this.context);
+    },
+
+    update: function() {
+        var options = {isOnPlatform: this.isStandingOnFloor(), isJumping: this.control.isJumping(), 
+                       isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight()};
+        this.bub.update(options);
+    },
+
+    clearScreen: function() {
+        $('#gameCanvas').get(0).width = $('#gameCanvas').get(0).width;
+    },
+
+    isStandingOnFloor: function() {
+        for (var i = 0; i < this.walls.length; i++) {
+            if (this.doesBottomCollide(this.walls[i]) && this.xMatchUp(this.walls[i])) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    doesBottomCollide: function(wall) {
+        return wall.y == this.bub.y + this.bub.height(this.images) ||
+            wall.y + 1 == this.bub.y + this.bub.height(this.images) ||
+            wall.y + 2 == this.bub.y + this.bub.height(this.images);
+    },
+
+    xMatchUp: function(wall) {
+        return wall.x <= this.bub.x + this.bub.width(this.images) && wall.x + wall.width(this.images) >= this.bub.x;
+    },
+
+    buildLevel1: function() {
         for (var i = 0; i < 2; i++) {
             for (var k = 0; k < 27; k++)  {
                 if (i == 0)
@@ -36,43 +79,5 @@ var GameController = Class.extend({
                 this.walls.push(new Wall(i * 45, k * 120 + 90));
             }
         }
-    },
-
-    draw: function() {
-        this.context.fillStyle = "black";
-        this.context.fillRect(0, 0, this.gameInit.width, this.gameInit.height);
-
-        for (var i = 0; i < this.walls.length; i++)
-            this.walls[i].draw(this.images, this.context);
-
-        this.bub.draw(this.images, this.context);
-    },
-
-    update: function() {
-        var options = {isOnPlatform: this.isStandingOnFloor(), isJumping: this.control.isJumping(), isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight()};
-        this.bub.update(options);
-    },
-
-    clearScreen: function() {
-        $('#gameCanvas').get(0).width = $('#gameCanvas').get(0).width;
-    },
-
-    isStandingOnFloor: function() {
-        for (var i = 0; i < this.walls.length; i++) {
-            if (this.doesBottomCollide(this.walls[i]) && this.xMatchUp(this.walls[i])) {
-                return true;
-            }
-        }
-        return false;
-    },
-
-    doesBottomCollide: function(wall) {
-        return wall.y == this.bub.y + this.bub.height(this.images) ||
-            wall.y + 1 == this.bub.y + this.bub.height(this.images) ||
-            wall.y + 2 == this.bub.y + this.bub.height(this.images);
-    },
-
-    xMatchUp: function(wall) {
-        return wall.x <= this.bub.x + this.bub.width(this.images) && wall.x + wall.width(this.images) >= this.bub.x;
     }
 });
