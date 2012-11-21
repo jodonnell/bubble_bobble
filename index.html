@@ -10,10 +10,22 @@
     <script src="player_animations.js" type="text/javascript" charset="utf-8"></script>
     <script src="game_controller.js" type="text/javascript" charset="utf-8"></script>
     <script src="wall.js" type="text/javascript" charset="utf-8"></script>
+    <script src="stats.js" type="text/javascript" charset="utf-8"></script>
     <title>Game</title>
   </head>
   <body>
     <script type="text/javascript">
+
+var stats = new Stats();
+stats.setMode(0); // 0: fps, 1: ms
+
+// Align top-left
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+
+document.body.appendChild( stats.domElement );
+
 var gameInit = new GameInit();
 var gameController = new GameController(gameInit);
 
@@ -30,9 +42,13 @@ window.requestAnimFrame = (function(){
 
 (function animloop(){
 //        var startTime = new Date().getTime();
+    stats.begin();
+
     gameController.update();
     gameController.draw();
     requestAnimFrame(animloop);
+    stats.end();
+
 
 //var pow = (new Date().getTime()) - startTime
 //if (pow > 1)console.log(pow);
