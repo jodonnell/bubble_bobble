@@ -1,7 +1,7 @@
 var Player = Class.extend({
-    init: function() {
-        this.x = 100;
-        this.y = 100;
+    init: function(x, y) {
+        this.x = x;
+        this.y = y;
         this.jumping = 0;
         this.falling = false;
         this.playerAnimations = new PlayerAnimations();

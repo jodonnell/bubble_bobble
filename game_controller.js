@@ -3,7 +3,7 @@ var GameController = Class.extend({
         this.gameInit = gameInit;
         this.control = new Control();
         this.clearScreen();
-        this.bub = new Player();
+        this.bub = new Player(200, 100);
         this.images = new Images();
         this.context = $('#gameCanvas').get(0).getContext("2d");
 

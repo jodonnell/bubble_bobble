@@ -3,7 +3,7 @@ describe("Player", function() {
     var worldState;
     
     beforeEach(function() {
-        player = new Player();
+        player = new Player(100, 100);
         worldState = {isHoldingRight: false, isHoldingLeft: false, isJumping: false, isOnPlatform: false};
     });
 
