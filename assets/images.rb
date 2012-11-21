@@ -18,6 +18,10 @@ def grab_row_with_bubbles(y, images)
     end
     grab_square x_num * 30 + 1, y, 16, 17, images, false, num
   end
+
+  grab_square 61, y, 16, 17, images, false, 2
+  grab_square 80, y, 16, 17, images, false, 3
+  grab_square 99, y, 16, 17, images, false, 4
 end
 
 
