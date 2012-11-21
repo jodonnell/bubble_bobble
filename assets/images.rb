@@ -9,7 +9,14 @@ end
 
 def grab_row_with_bubbles(y, images)
   images.size.times do |num|
-    grab_square num * 30 + 1, y, 16, 17, images, false, num
+    next if num == 2 or num == 3 or num == 4
+
+    if num > 4
+      x_num = num - 1
+    else
+      x_num = num
+    end
+    grab_square x_num * 30 + 1, y, 16, 17, images, false, num
   end
 end
 
