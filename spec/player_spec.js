@@ -33,7 +33,7 @@ describe("Player", function() {
         for (var i = 0; i < 50; i++)
             player.update(worldState);
         
-        expect(player.y).toBe(-24);
+        expect(player.y).toBe(11);
     });
 
     xit("cannot jump twice", function() {

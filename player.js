@@ -38,7 +38,7 @@ var Player = Class.extend({
         this.y -= 4;
 
         this.jumping++;
-        if (this.jumping > 40) {
+        if (this.jumping > 35) {
             this.jumping = 0;
             this.falling = true;
         }
