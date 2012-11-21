@@ -45,6 +45,16 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.currentImage).toBe("bubFallTail");
     });
 
+    it("can transition to the falling animation", function() {
+        playerAnimations.setAction('shooting');
+        expect(playerAnimations.currentImage).toBe("bubShoot");
+
+        nextTickNewAnimation();
+        playerAnimations.changeAnimation();
+
+        expect(playerAnimations.currentImage).toBe("bub");
+    });
+
     function nextTickNewAnimation() {
         playerAnimations.timer = playerAnimations.ANIMATION_LENGTH - 1;
     }

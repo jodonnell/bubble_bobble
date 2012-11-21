@@ -50,4 +50,11 @@ describe("Player", function() {
         expect(player.y).toBeGreaterThan(oldY);
     });
 
+    it("changes to shooting animation", sinon.test(function() {
+        spy = this.spy(player.playerAnimations, 'setAction');
+        player.shoot();
+        expect(spy.calledOnce).toBeTruthy();
+        expect(spy.calledWith('shooting')).toBeTruthy();
+    }));
+
 });

@@ -43,6 +43,12 @@ var Images = Class.extend({
         this.bubFallTailLeft = new Image();
         this.bubFallTailLeft.src = "assets/bub_fall_tail_left.png";
 
+        this.bubShootLeft = new Image();
+        this.bubShootLeft.src = "assets/bub_shoot_left.png";
+
+        this.bubShootRight = new Image();
+        this.bubShootRight.src = "assets/bub_shoot.png";
+
         this.wall = new Image();
         this.wall.src = "assets/wall.png";
 

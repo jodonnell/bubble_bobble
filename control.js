@@ -9,6 +9,7 @@ var Control = Class.extend({
     init: function() {
         this.left = 0;
         this.right = 0;
+        this.x = 0;
         this.z = 0;
         this.getKey();
     },
@@ -18,16 +19,24 @@ var Control = Class.extend({
             switch (event.keyCode) {
             case this.LEFT_KEY: this.left = 1; break;
             case this.RIGHT_KEY: this.right = 1; break;
+
             case this.Z_KEY: this.z = 1; break;
             case this.DVORAK_Z_KEY: this.z = 1; break;
+
+            case this.X_KEY: this.x = 1; break;
+            case this.DVORAK_X_KEY: this.x = 1; break;
             }
         }, this));
         $(document).keyup( $.proxy( function(event) {
             switch (event.keyCode) {
             case this.LEFT_KEY: this.left = 0; break;
             case this.RIGHT_KEY: this.right = 0; break;
+
             case this.Z_KEY: this.z = 0; break;
             case this.DVORAK_Z_KEY: this.z = 0; break;
+
+            case this.X_KEY: this.x = 0; break;
+            case this.DVORAK_X_KEY: this.x = 0; break;
             }
         }, this));
     },
@@ -42,6 +51,10 @@ var Control = Class.extend({
 
     isJumping: function() {
         return this.z;
+    },
+
+    isShooting: function() {
+        return this.x;
     },
 
     notHoldingRightOrLeft: function() {

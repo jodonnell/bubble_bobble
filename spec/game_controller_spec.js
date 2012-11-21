@@ -70,4 +70,12 @@ describe("GameController", function() {
 
     }));
 
+    it("should be able to shoot bubbles", sinon.test(function() {
+        this.stub(gameController.control, 'isShooting').returns(true);
+        expect(gameController.bubbles.length).toBe(0);
+        gameController.update();
+        expect(gameController.bubbles.length).toBe(1);
+
+    }));
+
 });

@@ -31,6 +31,8 @@ var PlayerAnimations = Class.extend({
             this.currentImage = 'bub';
         else if (this.currentAction == 'jumping')
             this.currentImage = 'bubJump';
+        else if (this.currentAction == 'shooting')
+            this.currentImage = 'bubShoot';
 
         this.timer = 0;
     },

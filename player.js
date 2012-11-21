@@ -32,6 +32,9 @@ var Player = Class.extend({
 
         if (controls.isJumping)
             this.jump();
+
+        if (controls.isShooting)
+            this.shoot();
     },
 
     jumpingUpdate: function() {
@@ -77,5 +80,9 @@ var Player = Class.extend({
         if (this.jumping || this.falling) return;
         this.playerAnimations.setAction('jumping');
         this.jumping = 1;
+    },
+
+    shoot: function() {
+        this.playerAnimations.setAction('shooting');
     }
 });

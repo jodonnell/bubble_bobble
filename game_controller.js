@@ -8,13 +8,13 @@ var GameController = Class.extend({
         this.context = $('#gameCanvas').get(0).getContext("2d");
 
         this.walls = [];
-
-
         this.buildLevel1();
+
+        this.bubbles = [];
     },
 
     draw: function() {
-        this.context.fillStyle = "black";
+        this.context.fillStyle = "#010000";
         this.context.fillRect(0, 0, this.gameInit.width, this.gameInit.height);
 
         for (var i = 0; i < this.walls.length; i++)
@@ -25,7 +25,8 @@ var GameController = Class.extend({
 
     update: function() {
         var options = {isOnPlatform: this.isStandingOnFloor(), isJumping: this.control.isJumping(), 
-                       isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight()};
+                       isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight(), 
+                       isShooting: this.control.isShooting()};
         this.bub.update(options);
     },
 
