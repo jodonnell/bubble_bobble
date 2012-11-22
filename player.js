@@ -1,4 +1,4 @@
-var Player = Class.extend({
+var Player = Sprite.extend({
     init: function(x, y) {
         this.x = x;
         this.y = y;
@@ -47,11 +47,6 @@ var Player = Class.extend({
         }
     },
 
-    draw: function(images, context) {
-        var image = images[this.playerAnimations.getImageName()];
-        context.drawImage(image, this.x, this.y);
-    },
-
     moveRight: function() {
         this.playerAnimations.setAction('walkingRight');
         this.x += 4;
@@ -68,14 +63,6 @@ var Player = Class.extend({
         this.y += 3;
     },
 
-    height: function(images) {
-        return images[this.playerAnimations.getImageName()].height;
-    },
-
-    width: function(images) {
-        return images[this.playerAnimations.getImageName()].width;
-    },
-
     jump: function() {
         if (this.jumping || this.falling) return;
         this.playerAnimations.setAction('jumping');
@@ -85,5 +72,9 @@ var Player = Class.extend({
     shoot: function() {
         this.playerAnimations.setAction('shooting');
         $(document).trigger('shootBubble');
+    },
+
+    getCurrentImage: function() {
+        return this.playerAnimations.getImageName();
     }
 });

@@ -4,6 +4,7 @@
     <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="class.js" type="text/javascript" charset="utf-8"></script>
     <script src="control.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sprite.js" type="text/javascript" charset="utf-8"></script>
     <script src="game_init.js" type="text/javascript" charset="utf-8"></script>
     <script src="images.js" type="text/javascript" charset="utf-8"></script>
     <script src="player.js" type="text/javascript" charset="utf-8"></script>
@@ -27,8 +28,12 @@ stats.domElement.style.top = '0px';
 
 document.body.appendChild( stats.domElement );
 
+
+var gameImages = new Images();
 var gameInit = new GameInit();
 var gameController = new GameController(gameInit);
+var gameContext = $('#gameCanvas').get(0).getContext("2d");
+
 
 window.requestAnimFrame = (function(){
       return  window.requestAnimationFrame       || 

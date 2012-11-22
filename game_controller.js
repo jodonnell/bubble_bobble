@@ -25,12 +25,12 @@ var GameController = Class.extend({
         this.context.fillRect(0, 0, this.gameInit.width, this.gameInit.height);
 
         for (var i = 0; i < this.walls.length; i++)
-            this.walls[i].draw(this.images, this.context);
+            this.walls[i].draw();
 
         for (var i = 0; i < this.bubbles.length; i++)
-            this.bubbles[i].draw(this.images, this.context);
+            this.bubbles[i].draw();
 
-        this.bub.draw(this.images, this.context);
+        this.bub.draw();
     },
 
     update: function() {
@@ -54,13 +54,13 @@ var GameController = Class.extend({
     },
 
     doesBottomCollide: function(wall) {
-        return wall.y == this.bub.y + this.bub.height(this.images) ||
-            wall.y + 1 == this.bub.y + this.bub.height(this.images) ||
-            wall.y + 2 == this.bub.y + this.bub.height(this.images);
+        return wall.y == this.bub.y + this.bub.height() ||
+            wall.y + 1 == this.bub.y + this.bub.height() ||
+            wall.y + 2 == this.bub.y + this.bub.height();
     },
 
     xMatchUp: function(wall) {
-        return wall.x <= this.bub.x + this.bub.width(this.images) && wall.x + wall.width(this.images) >= this.bub.x;
+        return wall.x <= this.bub.x + this.bub.width() && wall.x + wall.width() >= this.bub.x;
     },
 
     buildLevel1: function() {
