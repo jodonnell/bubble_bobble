@@ -34,6 +34,8 @@ var gameInit = new GameInit();
 var gameController = new GameController(gameInit);
 var gameContext = $('#gameCanvas').get(0).getContext("2d");
 
+var RIGHT = 1;
+var LEFT = 2;
 
 window.requestAnimFrame = (function(){
       return  window.requestAnimationFrame       || 

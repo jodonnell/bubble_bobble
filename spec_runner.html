@@ -36,6 +36,12 @@
     $(document).ready(function() { 
     window.gameImages = new Images();
     gameInit = new GameInit(true);
+
+
+    RIGHT = 1;
+    LEFT = 2;
+    
+    
     window.gameContext = $('#gameCanvas').get(0).getContext("2d");
     (function() {
       var jasmineEnv = jasmine.getEnv();

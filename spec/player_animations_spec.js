@@ -52,10 +52,10 @@ describe("PlayerAnimations", function() {
 
     it("knows if a player is going left or right", function() {
         playerAnimations.setAction('walkingLeft');
-        expect(playerAnimations.direction).toBe(playerAnimations.LEFT)
+        expect(playerAnimations.direction).toBe(LEFT)
 
         playerAnimations.setAction('walkingRight');
-        expect(playerAnimations.direction).toBe(playerAnimations.RIGHT)
+        expect(playerAnimations.direction).toBe(RIGHT)
     });
 
     function nextTickNewAnimation() {

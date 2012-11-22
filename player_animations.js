@@ -1,13 +1,10 @@
 var PlayerAnimations = Class.extend({
-    RIGHT: 1,
-    LEFT: 2,
-
     ANIMATION_LENGTH: 20,
 
     init: function() {
         this.timer = 0;
         this.currentImage = 'bub';
-        this.direction = this.RIGHT;
+        this.direction = RIGHT;
         this.currentAction = "standing";
     },
 
@@ -38,10 +35,10 @@ var PlayerAnimations = Class.extend({
 
     setDirection: function() {
         if (this.currentAction == 'walkingRight') {
-            this.direction = this.RIGHT;
+            this.direction = RIGHT;
         }
         else if (this.currentAction == 'walkingLeft') {
-            this.direction = this.LEFT;
+            this.direction = LEFT;
         }
     },
 
@@ -87,7 +84,7 @@ var PlayerAnimations = Class.extend({
 
     getImageName: function() {
         var imageName = this.currentImage;
-        if (this.direction == this.LEFT)
+        if (this.direction == LEFT)
             imageName += 'Left';
         else
             imageName += 'Right';
