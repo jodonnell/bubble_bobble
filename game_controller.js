@@ -16,8 +16,12 @@ var GameController = Class.extend({
 
     },
 
-    createBubble: function(e) {
-        this.bubbles.push(new Bubble(this.bub.x + this.bub.width(this.images) / 2, this.bub.y));
+    createBubble: function(e, direction) {
+        if (direction == RIGHT)
+            var x = this.bub.x + this.bub.width(this.images) / 2;
+        else
+            var x = this.bub.x - this.bub.width(this.images) / 2;
+        this.bubbles.push(new Bubble(x, this.bub.y, direction));
     },
 
     draw: function() {
@@ -38,6 +42,9 @@ var GameController = Class.extend({
                        isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight(), 
                        isShooting: this.control.isShooting()};
         this.bub.update(options);
+
+        for (var i = 0; i < this.bubbles.length; i++)
+            this.bubbles[i].update();
     },
 
     clearScreen: function() {

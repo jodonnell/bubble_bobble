@@ -71,7 +71,7 @@ var Player = Sprite.extend({
 
     shoot: function() {
         this.playerAnimations.setAction('shooting');
-        $(document).trigger('shootBubble');
+        $(document).trigger('shootBubble', [this.playerAnimations.direction]);
     },
 
     getCurrentImage: function() {
