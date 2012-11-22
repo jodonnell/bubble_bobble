@@ -75,7 +75,20 @@ describe("GameController", function() {
         expect(gameController.bubbles.length).toBe(0);
         gameController.update();
         expect(gameController.bubbles.length).toBe(1);
+    }));
 
+    it("should be able to shoot one bubble every once in a while", sinon.test(function() {
+        this.stub(gameController.control, 'isShooting').returns(true);
+
+        expect(gameController.bubbles.length).toBe(0);
+
+        gameController.update();
+        gameController.update();
+        expect(gameController.bubbles.length).toBe(1);
+
+        for (var i = 0; i < 34; i++)
+            gameController.update();
+        expect(gameController.bubbles.length).toBe(2);
     }));
 
 });

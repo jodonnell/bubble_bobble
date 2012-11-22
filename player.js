@@ -4,6 +4,7 @@ var Player = Sprite.extend({
         this.y = y;
         this.jumping = 0;
         this.falling = false;
+        this.shooting = 0;
         this.playerAnimations = new PlayerAnimations();
     },
 
@@ -11,6 +12,9 @@ var Player = Sprite.extend({
         this.respondToControls(worldState);
 
         this.playerAnimations.changeAnimation();
+
+        if (this.shooting)
+            this.shootingUpdate();
 
         if (this.jumping)
             this.jumpingUpdate();
@@ -35,6 +39,13 @@ var Player = Sprite.extend({
 
         if (controls.isShooting)
             this.shoot();
+    },
+
+    shootingUpdate: function() {
+        this.shooting += 1;
+        
+        if (this.shooting > 35)
+            this.shooting = 0;
     },
 
     jumpingUpdate: function() {
@@ -70,6 +81,8 @@ var Player = Sprite.extend({
     },
 
     shoot: function() {
+        if (this.shooting) return;
+        this.shooting = 1;
         this.playerAnimations.setAction('shooting');
         $(document).trigger('shootBubble', [this.playerAnimations.direction]);
     },
