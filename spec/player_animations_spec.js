@@ -48,11 +48,14 @@ describe("PlayerAnimations", function() {
     it("can transition to the falling animation", function() {
         playerAnimations.setAction('shooting');
         expect(playerAnimations.currentImage).toBe("bubShoot");
+    });
 
-        nextTickNewAnimation();
-        playerAnimations.changeAnimation();
+    it("knows if a player is going left or right", function() {
+        playerAnimations.setAction('walkingLeft');
+        expect(playerAnimations.direction).toBe(playerAnimations.LEFT)
 
-        expect(playerAnimations.currentImage).toBe("bub");
+        playerAnimations.setAction('walkingRight');
+        expect(playerAnimations.direction).toBe(playerAnimations.RIGHT)
     });
 
     function nextTickNewAnimation() {

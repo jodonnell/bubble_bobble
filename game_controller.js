@@ -11,6 +11,13 @@ var GameController = Class.extend({
         this.buildLevel1();
 
         this.bubbles = [];
+
+        $(document).on('shootBubble', $.proxy(this.createBubble, this));
+
+    },
+
+    createBubble: function(e) {
+        this.bubbles.push(new Bubble(this.bub.x + this.bub.width(this.images) / 2, this.bub.y));
     },
 
     draw: function() {
@@ -19,6 +26,9 @@ var GameController = Class.extend({
 
         for (var i = 0; i < this.walls.length; i++)
             this.walls[i].draw(this.images, this.context);
+
+        for (var i = 0; i < this.bubbles.length; i++)
+            this.bubbles[i].draw(this.images, this.context);
 
         this.bub.draw(this.images, this.context);
     },

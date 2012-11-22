@@ -15,18 +15,17 @@ var PlayerAnimations = Class.extend({
         if (this.currentAction == action)
             return;
 
+
         this.currentAction = action;
-        if (this.currentAction == 'walkingRight') {
+
+        this.setDirection();
+
+        if (this.currentAction == 'walkingRight')
             this.currentImage = 'bubWalk';
-            this.direction = this.RIGHT;
-        }
-        else if (this.currentAction == 'walkingLeft') {
+        else if (this.currentAction == 'walkingLeft')
             this.currentImage = 'bubWalk';
-            this.direction = this.LEFT;
-        }
-        else if (this.currentAction == 'falling') {
+        else if (this.currentAction == 'falling')
             this.currentImage = 'bubFall';
-        }
         else if (this.currentAction == 'standing')
             this.currentImage = 'bub';
         else if (this.currentAction == 'jumping')
@@ -35,6 +34,15 @@ var PlayerAnimations = Class.extend({
             this.currentImage = 'bubShoot';
 
         this.timer = 0;
+    },
+
+    setDirection: function() {
+        if (this.currentAction == 'walkingRight') {
+            this.direction = this.RIGHT;
+        }
+        else if (this.currentAction == 'walkingLeft') {
+            this.direction = this.LEFT;
+        }
     },
 
     changeAnimation: function() {

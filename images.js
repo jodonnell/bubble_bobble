@@ -1,5 +1,28 @@
 var Images = Class.extend({
     init: function(callback) {
+        this.bub();
+        this.bubbles();
+
+        this.bubRight = new Image();
+        this.bubRight.src = "assets/bub.png";
+        this.bubRight.onload = callback;
+    },
+
+    bubbles: function() {
+        this.smallestBubble = new Image();
+        this.smallestBubble.src = "assets/smallest_bubble.png";
+
+        this.smallBubble = new Image();
+        this.smallBubble.src = "assets/small_bubble.png";
+
+        this.mediumBubble = new Image();
+        this.mediumBubble.src = "assets/medium_bubble.png";
+
+        this.bigBubble = new Image();
+        this.bigBubble.src = "assets/big_bubble.png";
+    },
+
+    bub: function() {
         this.bubTailRight = new Image();
         this.bubTailRight.src = "assets/bub_tail.png";
 
@@ -54,10 +77,6 @@ var Images = Class.extend({
 
         this.bubLeft = new Image();
         this.bubLeft.src = "assets/bub_left.png";
-
-        this.bubRight = new Image();
-        this.bubRight.src = "assets/bub.png";
-        this.bubRight.onload = callback;
-    },
+    }
 
 });

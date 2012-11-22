@@ -84,5 +84,6 @@ var Player = Class.extend({
 
     shoot: function() {
         this.playerAnimations.setAction('shooting');
+        $(document).trigger('shootBubble');
     }
 });
