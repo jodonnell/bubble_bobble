@@ -29,13 +29,13 @@ stats.domElement.style.top = '0px';
 document.body.appendChild( stats.domElement );
 
 
+var RIGHT = 1;
+var LEFT = 2;
+
 var gameImages = new Images();
 var gameInit = new GameInit();
 var gameController = new GameController(gameInit);
 var gameContext = $('#gameCanvas').get(0).getContext("2d");
-
-var RIGHT = 1;
-var LEFT = 2;
 
 window.requestAnimFrame = (function(){
       return  window.requestAnimationFrame       || 
