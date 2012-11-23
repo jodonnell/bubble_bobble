@@ -10,6 +10,17 @@ var Bubble = Sprite.extend({
     update: function() {
         this.timer++;
 
+        if (this.isFullyFormed())
+            this.floatUp();
+        else
+            this.shootOut();
+    },
+
+    floatUp: function() {
+        this.y -= 2;
+    },
+    
+    shootOut: function() {
         if (this.direction == RIGHT)
             this.x += 5;
         else
@@ -26,5 +37,9 @@ var Bubble = Sprite.extend({
             this.currentImage = 'mediumBubble';
         else if (this.currentImage == 'mediumBubble')
             this.currentImage = 'bigBubble';
+    },
+
+    isFullyFormed: function() {
+        return this.currentImage === 'bigBubble';
     }
 });
