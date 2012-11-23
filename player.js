@@ -20,8 +20,10 @@ var Player = Sprite.extend({
             this.jumpingUpdate();
         else if (!worldState.isOnPlatform)
             this.fall();
-        else
+        else {
             this.falling = false;
+            this.playerAnimations.stopFalling()
+        }
     },
 
     respondToControls: function(controls) {
@@ -32,7 +34,7 @@ var Player = Sprite.extend({
             this.moveLeft();
 
         if (!controls.isHoldingLeft && !controls.isHoldingRight && !this.jumping && !this.falling && !this.shooting)
-            this.playerAnimations.setAction('standing');
+            this.playerAnimations.stand();
 
         if (controls.isJumping)
             this.jump();
@@ -59,31 +61,31 @@ var Player = Sprite.extend({
     },
 
     moveRight: function() {
-        this.playerAnimations.setAction('walkingRight');
+        this.playerAnimations.moveRight();
         this.x += 4;
     },
 
     moveLeft: function() {
-        this.playerAnimations.setAction('walkingLeft');
+        this.playerAnimations.moveLeft();
         this.x -= 4;
     },
 
     fall: function() {
-        this.playerAnimations.setAction('falling');
+        this.playerAnimations.fall();
         this.falling = true;
         this.y += 3;
     },
 
     jump: function() {
         if (this.jumping || this.falling) return;
-        this.playerAnimations.setAction('jumping');
+        this.playerAnimations.jump();
         this.jumping = 1;
     },
 
     shoot: function() {
         if (this.shooting) return;
         this.shooting = 1;
-        this.playerAnimations.setAction('shooting');
+        this.playerAnimations.shoot();
         $(document).trigger('shootBubble', [this.playerAnimations.direction]);
     },
 

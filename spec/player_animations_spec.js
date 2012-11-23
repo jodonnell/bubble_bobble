@@ -26,7 +26,7 @@ describe("PlayerAnimations", function() {
     });
 
     it("can transition to the jumping animation", function() {
-        playerAnimations.setAction('jumping');
+        playerAnimations.jump();
         expect(playerAnimations.currentImage).toBe("bubJump");
 
         nextTickNewAnimation();
@@ -36,7 +36,7 @@ describe("PlayerAnimations", function() {
     });
 
     it("can transition to the falling animation", function() {
-        playerAnimations.setAction('falling');
+        playerAnimations.fall();
         expect(playerAnimations.currentImage).toBe("bubFall");
 
         nextTickNewAnimation();
@@ -46,32 +46,42 @@ describe("PlayerAnimations", function() {
     });
 
     it("can transition to the falling animation", function() {
-        playerAnimations.setAction('shooting');
+        playerAnimations.shoot();
         expect(playerAnimations.currentImage).toBe("bubShoot");
     });
 
     it("knows if a player is going left or right", function() {
-        playerAnimations.setAction('walkingLeft');
+        playerAnimations.moveLeft();
         expect(playerAnimations.direction).toBe(LEFT)
 
-        playerAnimations.setAction('walkingRight');
+        playerAnimations.moveRight();
         expect(playerAnimations.direction).toBe(RIGHT)
     });
 
     it("overides all animations with the shooting animation", function() {
-        playerAnimations.setAction('shooting');
+        playerAnimations.shoot();
         expect(playerAnimations.currentImage).toBe("bubShoot");
 
-        playerAnimations.setAction('walkingRight');
+        playerAnimations.moveRight();
         expect(playerAnimations.currentImage).toBe("bubShoot");
     });
 
-    it("ends the shooting animation after 35 frame", function() {
-        playerAnimations.setAction('shooting');
-        for (var i = 0; i < 35; i++)
+    it("ends the shooting animation after 15 frame", function() {
+        playerAnimations.shoot();
+        for (var i = 0; i < 15; i++)
             playerAnimations.changeAnimation();
 
         expect(playerAnimations.currentImage).toBe("bub");
+    });
+
+    it("should go to the secondary frame when shooting finishes", function() {
+        playerAnimations.shoot();
+        for (var i = 0; i < 35; i++) {
+            if (i == 30)
+                playerAnimations.moveRight();
+            playerAnimations.changeAnimation();
+        }
+        expect(playerAnimations.currentImage).toBe("bubWalk");
     });
 
     function nextTickNewAnimation() {

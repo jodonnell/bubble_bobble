@@ -51,10 +51,9 @@ describe("Player", function() {
     });
 
     it("changes to shooting animation", sinon.test(function() {
-        spy = this.spy(player.playerAnimations, 'setAction');
+        spy = this.spy(player.playerAnimations, 'shoot');
         player.shoot();
         expect(spy.calledOnce).toBeTruthy();
-        expect(spy.calledWith('shooting')).toBeTruthy();
     }));
 
 });

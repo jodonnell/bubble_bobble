@@ -5,62 +5,119 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
         this.currentImage = 'bub';
         this.direction = RIGHT;
-        this.currentAction = "standing";
-        this.queuedAction = "standing";
+        this.queuedImage = "bub";
     },
 
-    setAction: function(action) {
-        if (this.currentAction == action)
-            return;
-
-        this.currentAction = action;
-
-        this.setDirection();
-
-        if (this.currentImage == 'bubShoot')
-            return;
-
-        if (this.currentAction == 'walkingRight')
-            this.currentImage = 'bubWalk';
-        else if (this.currentAction == 'walkingLeft')
-            this.currentImage = 'bubWalk';
-        else if (this.currentAction == 'falling')
-            this.currentImage = 'bubFall';
-        else if (this.currentAction == 'standing')
-            this.currentImage = 'bub';
-        else if (this.currentAction == 'jumping')
-            this.currentImage = 'bubJump';
-        else if (this.currentAction == 'shooting')
-            this.currentImage = 'bubShoot';
-
+    shoot: function() {
+        this.currentImage = 'bubShoot';
         this.timer = 0;
     },
 
-    setDirection: function() {
-        if (this.currentAction == 'walkingRight') {
-            this.direction = RIGHT;
+    jump: function() {
+        if (this.isShooting()) {
+            this.queuedImage = 'bubJump';
+            return;
         }
-        else if (this.currentAction == 'walkingLeft') {
-            this.direction = LEFT;
+        this.currentImage = 'bubJump';
+        this.timer = 0;
+    },
+
+    fall: function() {
+        if (this.isFalling())
+            return;
+
+        if (this.currentImage == 'bubShoot') {
+            this.queuedImage = 'bubFall';
+            return;
         }
+        this.currentImage = 'bubFall';
+        this.timer = 0;
+    },
+
+    moveRight: function() {
+        this.direction = RIGHT;
+
+        if (this.isMovingRight())
+            return;
+
+        if (this.isJumping() || this.isFalling() || this.isShooting()) {
+            this.queuedImage = 'bubWalk';
+            return;
+        }
+
+        this.currentImage = 'bubWalk';
+        this.timer = 0;
+    },
+
+    moveLeft: function() {
+        this.direction = LEFT;
+        if (this.isMovingLeft())
+            return;
+
+        if (this.isJumping() || this.isFalling() || this.isShooting()) {
+            this.queuedImage = 'bubWalk';
+            return;
+        }
+
+        this.currentImage = 'bubWalk';
+        this.timer = 0;
+    },
+
+    stopFalling: function() {
+        if (!this.isFalling())
+            return;
+
+        this.currentImage = this.queuedImage;
+        this.timer = 0;
+    },
+
+    stand: function() {
+        if (this.isStanding())
+            return;
+
+        this.currentImage = 'bub';
+        this.timer = 0;
+    },
+
+    isShooting: function() {
+        return this.currentImage == 'bubShoot';
+    },
+
+    isStanding: function() {
+        return this.currentImage == 'bub' || this.currentImage == 'bubTail';
+    },
+
+    isMovingLeft: function() {
+        return this.direction == LEFT && (this.currentImage == 'bubWalk' || this.currentImage == 'bubWalkTail');
+    },
+
+    isMovingRight: function() {
+        return this.direction == RIGHT && (this.currentImage == 'bubWalk' || this.currentImage == 'bubWalkTail');
+    },
+
+    isFalling: function() {
+        return this.currentImage == 'bubFall' || this.currentImage == 'bubFallTail';
+    },
+
+    isJumping: function() {
+        return this.currentImage == 'bubJump' || this.currentImage == 'bubJumpTail';
     },
 
     changeAnimation: function() {
         this.timer++;
         
-        if (this.currentAction === 'shooting' && this.timer === 20) {
-            this.currentImage = '';
-            this.setAction('standing');
+        if (this.isShooting() && this.timer === 15) {
+            this.timer = 0;
+            this.currentImage = this.queuedImage;
         }
             
-
-        if (this.currentAction === 'falling')
+        if (this.isFalling())
             this.fallingAnimation();
-        else if (this.currentAction === 'standing')
+        else if (this.isStanding())
             this.standingAnimation();
-        else if (this.currentAction === 'walkingRight' || this.currentAction == 'walkingLeft')
+        else if (this.isMovingRight() || this.isMovingLeft())
             this.walkingRightAnimation();
-        else if (this.currentAction === 'jumping')
+        else if (this.isJumping())
             this.jumpingAnimation();
     },
 
