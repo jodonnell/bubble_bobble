@@ -48,7 +48,7 @@ var GameController = Class.extend({
     },
 
     update: function() {
-        var options = {isOnPlatform: this.isStandingOnFloor(), isJumping: this.control.isJumping(), 
+        var options = {isOnPlatform: this.isStandingOnFloor() || this.isStandingOnBubble(), isJumping: this.control.isJumping(), 
                        isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight(), 
                        isShooting: this.control.isShooting()};
         this.bub.update(options);
@@ -62,22 +62,33 @@ var GameController = Class.extend({
     },
 
     isStandingOnFloor: function() {
-        for (var i = 0; i < this.walls.length; i++) {
-            if (this.doesBottomCollide(this.walls[i]) && this.xMatchUp(this.walls[i])) {
+        return this.isStandingOnObjects(this.walls);
+    },
+
+    isStandingOnBubble: function() {
+        var onBubble = this.isStandingOnObjects(this.bubbles);
+        if (onBubble)
+            this.bub.y -= 2;
+        return onBubble;
+    },
+
+    isStandingOnObjects: function(objects) {
+        for (var i = 0; i < objects.length; i++) {
+            if (this.doesBottomCollide(objects[i]) && this.xMatchUp(objects[i])) {
                 return true;
             }
         }
         return false;
     },
 
-    doesBottomCollide: function(wall) {
-        return wall.y == this.bub.y + this.bub.height() ||
-            wall.y + 1 == this.bub.y + this.bub.height() ||
-            wall.y + 2 == this.bub.y + this.bub.height();
+    doesBottomCollide: function(object) {
+        return object.y == this.bub.y + this.bub.height() ||
+            object.y + 1 == this.bub.y + this.bub.height() ||
+            object.y + 2 == this.bub.y + this.bub.height();
     },
 
-    xMatchUp: function(wall) {
-        return wall.x <= this.bub.x + this.bub.width() && wall.x + wall.width() >= this.bub.x;
+    xMatchUp: function(object) {
+        return object.x <= this.bub.x + this.bub.width() && object.x + object.width() >= this.bub.x;
     },
 
     buildLevel1: function() {
