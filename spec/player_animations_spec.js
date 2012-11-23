@@ -58,6 +58,22 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.direction).toBe(RIGHT)
     });
 
+    it("overides all animations with the shooting animation", function() {
+        playerAnimations.setAction('shooting');
+        expect(playerAnimations.currentImage).toBe("bubShoot");
+
+        playerAnimations.setAction('walkingRight');
+        expect(playerAnimations.currentImage).toBe("bubShoot");
+    });
+
+    it("ends the shooting animation after 35 frame", function() {
+        playerAnimations.setAction('shooting');
+        for (var i = 0; i < 35; i++)
+            playerAnimations.changeAnimation();
+
+        expect(playerAnimations.currentImage).toBe("bub");
+    });
+
     function nextTickNewAnimation() {
         playerAnimations.timer = playerAnimations.ANIMATION_LENGTH - 1;
     }

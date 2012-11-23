@@ -31,7 +31,7 @@ var Player = Sprite.extend({
         if (controls.isHoldingLeft)
             this.moveLeft();
 
-        if (!controls.isHoldingLeft && !controls.isHoldingRight && !this.jumping && !this.falling)
+        if (!controls.isHoldingLeft && !controls.isHoldingRight && !this.jumping && !this.falling && !this.shooting)
             this.playerAnimations.setAction('standing');
 
         if (controls.isJumping)

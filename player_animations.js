@@ -6,16 +6,19 @@ var PlayerAnimations = Class.extend({
         this.currentImage = 'bub';
         this.direction = RIGHT;
         this.currentAction = "standing";
+        this.queuedAction = "standing";
     },
 
     setAction: function(action) {
         if (this.currentAction == action)
             return;
 
-
         this.currentAction = action;
 
         this.setDirection();
+
+        if (this.currentImage == 'bubShoot')
+            return;
 
         if (this.currentAction == 'walkingRight')
             this.currentImage = 'bubWalk';
@@ -44,6 +47,12 @@ var PlayerAnimations = Class.extend({
 
     changeAnimation: function() {
         this.timer++;
+        
+        if (this.currentAction === 'shooting' && this.timer === 20) {
+            this.currentImage = '';
+            this.setAction('standing');
+        }
+            
 
         if (this.currentAction === 'falling')
             this.fallingAnimation();
