@@ -18,6 +18,9 @@ var Bubble = Sprite.extend({
 
     floatUp: function() {
         this.y -= 2;
+
+        if (this.y + this.height() / 2 < 0)
+            $(document).trigger('removeBubble', [this]);
     },
     
     shootOut: function() {

@@ -91,4 +91,12 @@ describe("GameController", function() {
         expect(gameController.bubbles.length).toBe(2);
     }));
 
+    it("removes bubbles after they are offscreen", function() {
+        gameController.bubbles = [new Bubble(0, 0)];
+        for (var i = 0; i < 34; i++)
+            gameController.update();
+
+        expect(gameController.bubbles.length).toBe(0);
+    });
+
 });

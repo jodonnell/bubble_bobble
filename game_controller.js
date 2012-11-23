@@ -13,7 +13,17 @@ var GameController = Class.extend({
         this.bubbles = [];
 
         $(document).on('shootBubble', $.proxy(this.createBubble, this));
+        $(document).on('removeBubble', $.proxy(this.removeBubble, this));
 
+    },
+
+    removeBubble: function(e, bubble) {
+        var remove = -1;
+        for (var i = 0; i < this.bubbles.length; i++)
+            if (this.bubbles[i] == bubble)
+                remove = i;
+        
+        this.bubbles.splice(remove, 1);
     },
 
     createBubble: function(e, direction) {
