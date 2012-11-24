@@ -99,4 +99,18 @@ describe("GameController", function() {
         expect(gameController.bubbles.length).toBe(0);
     });
 
+    it("cannot run through left wall", sinon.test(function() {
+        gameController.bub.x = 47;
+        this.stub(gameController.control, 'isHoldingLeft').returns(true);
+        gameController.update();
+        expect(gameController.bub.x).toBe(46);
+    }));
+
+    it("cannot run through right wall", sinon.test(function() {
+        gameController.bub.x = 753;
+        this.stub(gameController.control, 'isHoldingRight').returns(true);
+        gameController.update();
+        expect(gameController.bub.x).toBe(754 - gameController.bub.width());
+    }));
+
 });

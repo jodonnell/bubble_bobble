@@ -6,6 +6,7 @@ var Player = Sprite.extend({
         this.falling = false;
         this.shooting = 0;
         this.playerAnimations = new PlayerAnimations();
+        this.moveSpeed = 4;
     },
 
     update: function(worldState) {
@@ -62,12 +63,12 @@ var Player = Sprite.extend({
 
     moveRight: function() {
         this.playerAnimations.moveRight();
-        this.x += 4;
+        this.x += this.moveSpeed;
     },
 
     moveLeft: function() {
         this.playerAnimations.moveLeft();
-        this.x -= 4;
+        this.x -= this.moveSpeed;
     },
 
     fall: function() {

@@ -49,12 +49,40 @@ var GameController = Class.extend({
 
     update: function() {
         var options = {isOnPlatform: this.isStandingOnFloor() || this.isStandingOnBubble(), isJumping: this.control.isJumping(), 
-                       isHoldingLeft: this.control.isHoldingLeft(), isHoldingRight: this.control.isHoldingRight(), 
+                       isHoldingLeft: this.control.isHoldingLeft() && this.noWallToLeft(), isHoldingRight: this.control.isHoldingRight() && this.noWallToRight(), 
                        isShooting: this.control.isShooting()};
         this.bub.update(options);
 
         for (var i = 0; i < this.bubbles.length; i++)
             this.bubbles[i].update();
+    },
+
+    noWallToRight: function() {
+        if (this.bub.x + this.bub.width() + this.bub.moveSpeed >= 754) {
+            this.bub.x = 754 - this.bub.width();
+            return false;
+        }
+        return true;
+    },
+
+    noWallToLeft: function() {
+        if (this.bub.x - this.bub.moveSpeed <= 46) {
+            this.bub.x = 46;
+            return false;
+        }
+        return true;
+        // for (var i = 0; i < this.walls.length; i++) {
+        //     var leftSideOfWall = this.walls[i].x + this.walls[i].width();
+        //     var bottomOfWall = this.walls[i].y + this.walls[i].height();
+        //     if (leftSideOfWall >= this.bub.x &&
+        //         leftSideOfWall <= this.bub.x + 4 &&
+        //         this.bub.y > this.walls[i].y && this.bub.y < bottomOfWall
+        //        ) {
+        //         return false;
+        //     }
+        // }
+        // return true;
+        
     },
 
     clearScreen: function() {
