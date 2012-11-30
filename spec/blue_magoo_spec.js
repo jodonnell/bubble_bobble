@@ -16,12 +16,12 @@ describe("Blue Magoos", function() {
         this.stub(blueMagoo, 'shouldTrack').returns(false);
 
         blueMagoo.direction = LEFT;
-        blueMagoo.update(false, -10);
+        blueMagoo.update(false, -10, 2);
         expect(blueMagoo.direction).toBe(RIGHT);
 
         blueMagoo.direction = RIGHT;
         blueMagoo.x = 752 - blueMagoo.width();
-        blueMagoo.update(false, 1000);
+        blueMagoo.update(false, 1000, 2);
         expect(blueMagoo.direction).toBe(LEFT);
     }));
 

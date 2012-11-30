@@ -8,53 +8,53 @@ var BlueMagoo = Sprite.extend({
         this.timer = 0;
     },
 
-    update: function(falling, followX) {
+    update: function(falling, followX, followY) {
         this.timer++;
 
-        if (this.timer == 10) {
-            if (this.currentImage == 'blueMagooWalk')
-                this.currentImage = 'blueMagooWalkLeg';
-            else
-                this.currentImage = 'blueMagooWalk';
-            this.timer = 0;
-        }
+        this.changeAnimation();
 
         if (falling)
             this.y += 3;
-        else if (followX) {
-            this.move(followX);
+        else {
+            this.move(followX, followY);
         }
     },
+
+    changeAnimation: function() {
+        if (this.timer != 10)
+            return;
+
+        if (this.currentImage == 'blueMagooWalk')
+            this.currentImage = 'blueMagooWalkLeg';
+        else
+            this.currentImage = 'blueMagooWalk';
+        this.timer = 0;
+    }
 
     shouldTrack: function() {
         return Math.random() > 0.99;
     },
 
-    move: function(followX) {
+    move: function(followX, followY) {
         if (this.shouldTrack())  {
-            this.track(followX);
+            this.track(followX, followY);
         }
         else {
-            if (this.direction == RIGHT) {
-                this.x += 3;
-            }
-            else {
-                this.x -= 3;
-            }
-
-            if (this.x > 754 - this.width()) {
-                this.x = 754- this.width();
-                this.direction = LEFT;
-            }
-            if (this.x < 46) {
-                this.x = 46;
-                this.direction = RIGHT;
-            }
-            
+            this.moveInCurrentDirection();
+            this.boundaryCheck();
         }
     },
 
-    track: function(followX) {
+    moveInCurrentDirection: function() {
+        if (this.direction == RIGHT) {
+            this.x += 3;
+        }
+        else {
+            this.x -= 3;
+        }
+    },
+
+    track: function(followX, followY) {
         if (followX == this.x)
             ;
         else if (followX > this.x) {
@@ -74,7 +74,17 @@ var BlueMagoo = Sprite.extend({
         else
             imageName += 'Right';
         return imageName;
-    }
+    },
 
+    boundaryCheck: function() {
+        if (this.x > 754 - this.width()) {
+            this.x = 754- this.width();
+            this.direction = LEFT;
+        }
+        if (this.x < 46) {
+            this.x = 46;
+            this.direction = RIGHT;
+        }
+    }
 
 });
