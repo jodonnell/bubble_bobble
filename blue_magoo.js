@@ -41,6 +41,16 @@ var BlueMagoo = Sprite.extend({
             else {
                 this.x -= 3;
             }
+
+            if (this.x > 754 - this.width()) {
+                this.x = 754- this.width();
+                this.direction = LEFT;
+            }
+            if (this.x < 46) {
+                this.x = 46;
+                this.direction = RIGHT;
+            }
+            
         }
     },
 
