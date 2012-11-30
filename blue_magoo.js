@@ -26,7 +26,25 @@ var BlueMagoo = Sprite.extend({
         }
     },
 
+    shouldTrack: function() {
+        return Math.random() > 0.99;
+    },
+
     move: function(followX) {
+        if (this.shouldTrack())  {
+            this.track(followX);
+        }
+        else {
+            if (this.direction == RIGHT) {
+                this.x += 3;
+            }
+            else {
+                this.x -= 3;
+            }
+        }
+    },
+
+    track: function(followX) {
         if (followX == this.x)
             ;
         else if (followX > this.x) {
