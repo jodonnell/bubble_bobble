@@ -1,11 +1,15 @@
 require 'RMagick'
 include Magick
 
+LEFT = 1
+RIGHT = 2
+
 class CreateImages
-  def initialize image_name, image_names, y
+  def initialize image_name, image_names, y, facing=RIGHT
     @image_name = image_name
     @y = y
     @image_names = image_names
+    @facing = facing
   end
 
   def grab_row
@@ -17,6 +21,7 @@ class CreateImages
 
     def grab_row_with_bubbles
       @image_names.size.times do |num|
+        next if File.exists? "#{@image_names[num]}.png"
         next if num == 2 or num == 3 or num == 4
 
         if num > 4
@@ -25,7 +30,6 @@ class CreateImages
           x_num = num
         end
 
-        next if File.exists? "#{@image_names[num]}.png"
         grab_square x_num * 30 + 1, 16, 17, @image_names, false, num
       end
 
@@ -43,10 +47,18 @@ class CreateImages
       image = image.scale(3)
       image = image.transparent('#010000', (Magick::TransparentOpacity-Magick::OpaqueOpacity).abs)
 
-      image.write("#{@image_names[frame_num]}.png")
+      if @facing==RIGHT
+        image.write("#{@image_names[frame_num]}.png")
+      else
+        image.write("#{@image_names[frame_num]}_left.png")
+      end
       if flop
         image = image.flop
-        image.write("#{@image_names[frame_num]}_left.png")
+        if @facing==RIGHT
+          image.write("#{@image_names[frame_num]}_left.png")
+        else
+          image.write("#{@image_names[frame_num]}.png")
+        end
       end
     end
   end
@@ -61,5 +73,5 @@ ci = CreateImages.new("bubblebobble_bubandbub_sheet.png", bub_other_images, 38)
 ci.grab_row_with_bubbles
 
 blue_magoo_images = ['blue_magoo', 'blue_magoo_walk', 'blue_magoo_walk_leg']
-ci = CreateImages.new("bubblebobble_enemies_sheet.png", blue_magoo_images, 0)
+ci = CreateImages.new("bubblebobble_enemies_sheet.png", blue_magoo_images, 0, LEFT)
 ci.grab_row
