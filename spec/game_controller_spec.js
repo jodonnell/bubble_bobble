@@ -117,4 +117,10 @@ describe("GameController", function() {
         expect(gameController.enemies.length).toBe(3);
     }));
 
+    it("enemies fall", sinon.test(function() {
+        expect(gameController.enemies[0].y).toBe(20);
+        gameController.update();
+        expect(gameController.enemies[0].y).toBe(23);
+    }));
+
 });

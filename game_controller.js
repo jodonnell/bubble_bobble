@@ -11,7 +11,7 @@ var GameController = Class.extend({
         this.buildLevel1();
 
         this.bubbles = [];
-        this.enemies = [new BlueMagoo(370, 20, RIGHT), new BlueMagoo(370, 70, RIGHT), new BlueMagoo(370, 120, RIGHT)];
+        this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
         $(document).on('shootBubble', $.proxy(this.createBubble, this));
         $(document).on('removeBubble', $.proxy(this.removeBubble, this));
@@ -59,6 +59,10 @@ var GameController = Class.extend({
 
         for (var i = 0; i < this.bubbles.length; i++)
             this.bubbles[i].update();
+
+        for (var i = 0; i < this.enemies.length; i++)
+            this.enemies[i].update();
+
     },
 
     noWallToRight: function() {
