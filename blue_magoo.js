@@ -4,28 +4,45 @@ var BlueMagoo = Sprite.extend({
         this.y = y;
         this.direction = direction;
 
-        if (this.direction == LEFT)
-            this.currentImage = 'blueMagooWalkLeft';
-        else
-            this.currentImage = 'blueMagooWalkRight';
+        this.currentImage = 'blueMagooWalk';
         this.timer = 0;
     },
 
-    update: function(falling) {
+    update: function(falling, followX) {
         this.timer++;
 
-        if (this.timer == 20) {
-            if (this.currentImage == 'blueMagooWalkLeft')
-                this.currentImage == 'blueMagooWalkLegLeft';
+        if (this.timer == 10) {
+            if (this.currentImage == 'blueMagooWalk')
+                this.currentImage = 'blueMagooWalkLeg';
             else
-                this.currentImage == 'blueMagooWalkLeft';
+                this.currentImage = 'blueMagooWalk';
             this.timer = 0;
         }
 
         if (falling)
             this.y += 3;
+        else if (followX) {
+            if (followX == this.x)
+                ;
+            else if (followX > this.x) {
+                this.direction = RIGHT;
+                this.x += 3;
+            }
+            else {
+                this.direction = LEFT;
+                this.x -= 3;
+            }
+        }
     },
 
-    
+    getCurrentImage: function() {
+        var imageName = this.currentImage;
+        if (this.direction == LEFT)
+            imageName += 'Left';
+        else
+            imageName += 'Right';
+        return imageName;
+    }
+
 
 });
