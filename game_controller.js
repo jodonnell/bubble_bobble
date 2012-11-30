@@ -52,7 +52,7 @@ var GameController = Class.extend({
     },
 
     update: function() {
-        var options = {isOnPlatform: this.isStandingOnFloor() || this.isStandingOnBubble(), isJumping: this.control.isJumping(), 
+        var options = {isOnPlatform: this.isBubStandingOnFloor() || this.isStandingOnBubble(), isJumping: this.control.isJumping(), 
                        isHoldingLeft: this.control.isHoldingLeft() && this.noWallToLeft(), isHoldingRight: this.control.isHoldingRight() && this.noWallToRight(), 
                        isShooting: this.control.isShooting()};
         this.bub.update(options);
@@ -60,8 +60,10 @@ var GameController = Class.extend({
         for (var i = 0; i < this.bubbles.length; i++)
             this.bubbles[i].update();
 
-        for (var i = 0; i < this.enemies.length; i++)
-            this.enemies[i].update();
+        for (var i = 0; i < this.enemies.length; i++) {
+            var falling = this.isStandingOnObjects(this.enemies[i], this.walls);
+            this.enemies[i].update(!falling);
+        }
 
     },
 
@@ -97,34 +99,34 @@ var GameController = Class.extend({
         $('#gameCanvas').get(0).width = $('#gameCanvas').get(0).width;
     },
 
-    isStandingOnFloor: function() {
-        return this.isStandingOnObjects(this.walls);
+    isBubStandingOnFloor: function() {
+        return this.isStandingOnObjects(this.bub, this.walls);
     },
 
     isStandingOnBubble: function() {
-        var onBubble = this.isStandingOnObjects(this.bubbles);
+        var onBubble = this.isStandingOnObjects(this.bub, this.bubbles);
         if (onBubble)
             this.bub.y -= 2;
         return onBubble;
     },
 
-    isStandingOnObjects: function(objects) {
+    isStandingOnObjects: function(sprite, objects) {
         for (var i = 0; i < objects.length; i++) {
-            if (this.doesBottomCollide(objects[i]) && this.xMatchUp(objects[i])) {
+            if (this.doesBottomCollide(sprite, objects[i]) && this.xMatchUp(sprite, objects[i])) {
                 return true;
             }
         }
         return false;
     },
 
-    doesBottomCollide: function(object) {
-        return object.y == this.bub.bottomSide() ||
-            object.y + 1 == this.bub.bottomSide() ||
-            object.y + 2 == this.bub.bottomSide();
+    doesBottomCollide: function(sprite, object) {
+        return object.y == sprite.bottomSide() ||
+            object.y + 1 == sprite.bottomSide() ||
+            object.y + 2 == sprite.bottomSide();
     },
 
-    xMatchUp: function(object) {
-        return object.x <= this.bub.rightSide() && object.rightSide() >= this.bub.x;
+    xMatchUp: function(sprite, object) {
+        return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
     },
 
     buildLevel1: function() {

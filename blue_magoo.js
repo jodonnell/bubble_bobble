@@ -11,7 +11,7 @@ var BlueMagoo = Sprite.extend({
         this.timer = 0;
     },
 
-    update: function() {
+    update: function(falling) {
         this.timer++;
 
         if (this.timer == 20) {
@@ -22,7 +22,8 @@ var BlueMagoo = Sprite.extend({
             this.timer = 0;
         }
 
-        this.y += 3;
+        if (falling)
+            this.y += 3;
     },
 
     

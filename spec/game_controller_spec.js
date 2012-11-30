@@ -123,4 +123,15 @@ describe("GameController", function() {
         expect(gameController.enemies[0].y).toBe(23);
     }));
 
+    it("can have enemies land on platforms", function() {
+        var blueMagoo = new BlueMagoo(0, 0, 0);
+        gameController.enemies = [blueMagoo];
+        
+        
+        gameController.walls = [new Wall(0, blueMagoo.bottomSide() + 3)];
+        gameController.update();
+        gameController.update();
+        expect(blueMagoo.y).toBe(3);
+    });
+
 });
