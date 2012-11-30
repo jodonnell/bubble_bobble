@@ -113,4 +113,8 @@ describe("GameController", function() {
         expect(gameController.bub.x).toBe(754 - gameController.bub.width());
     }));
 
+    it("should have 3 enemies", sinon.test(function() {
+        expect(gameController.enemies.length).toBe(3);
+    }));
+
 });

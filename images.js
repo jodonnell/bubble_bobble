@@ -2,10 +2,25 @@ var Images = Class.extend({
     init: function(callback) {
         this.bub();
         this.bubbles();
+        this.enemies();
 
         this.bubRight = new Image();
         this.bubRight.src = "assets/bub.png";
         this.bubRight.onload = callback;
+    },
+
+    enemies: function() {
+        this.blueMagooWalkLeft = new Image();
+        this.blueMagooWalkLeft.src = "assets/blue_magoo_walk_left.png";
+
+        this.blueMagooWalkLegLeft = new Image();
+        this.blueMagooWalkLegLeft.src = "assets/blue_magoo_walk_leg_left.png";
+
+        this.blueMagooWalkRight = new Image();
+        this.blueMagooWalkRight.src = "assets/blue_magoo_walk.png";
+
+        this.blueMagooWalkLegRight = new Image();
+        this.blueMagooWalkLegRight.src = "assets/blue_magoo_walk_leg.png";
     },
 
     bubbles: function() {
