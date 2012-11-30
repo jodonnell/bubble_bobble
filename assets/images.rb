@@ -3,6 +3,8 @@ include Magick
 
 def grab_row(y, images)
   images.size.times do |num|
+    next if File.exists? "#{images[num]}.png"
+
     grab_square num * 30 + 1, y, 16, 17, images, true, num
   end
 end
@@ -16,12 +18,15 @@ def grab_row_with_bubbles(y, images)
     else
       x_num = num
     end
+
+    next if File.exists? "#{images[num]}.png"
     grab_square x_num * 30 + 1, y, 16, 17, images, false, num
   end
 
-  grab_square 61, y, 16, 17, images, false, 2
-  grab_square 80, y, 16, 17, images, false, 3
-  grab_square 99, y, 16, 17, images, false, 4
+  
+  grab_square(61, y, 16, 17, images, false, 2) unless File.exists? "#{images[2]}.png"
+  grab_square(80, y, 16, 17, images, false, 3) unless File.exists? "#{images[3]}.png"
+  grab_square(99, y, 16, 17, images, false, 4) unless File.exists? "#{images[4]}.png"
 end
 
 
