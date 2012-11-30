@@ -22,16 +22,20 @@ var BlueMagoo = Sprite.extend({
         if (falling)
             this.y += 3;
         else if (followX) {
-            if (followX == this.x)
-                ;
-            else if (followX > this.x) {
-                this.direction = RIGHT;
-                this.x += 3;
-            }
-            else {
-                this.direction = LEFT;
-                this.x -= 3;
-            }
+            this.move(followX);
+        }
+    },
+
+    move: function(followX) {
+        if (followX == this.x)
+            ;
+        else if (followX > this.x) {
+            this.direction = RIGHT;
+            this.x += 3;
+        }
+        else {
+            this.direction = LEFT;
+            this.x -= 3;
         }
     },
 
