@@ -29,7 +29,7 @@ var BlueMagoo = Sprite.extend({
         else
             this.currentImage = 'blueMagooWalk';
         this.timer = 0;
-    }
+    },
 
     shouldTrack: function() {
         return Math.random() > 0.99;
