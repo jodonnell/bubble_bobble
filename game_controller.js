@@ -58,7 +58,7 @@ var GameController = Class.extend({
     },
 
     noWallToRight: function() {
-        if (this.bub.x + this.bub.width() + this.bub.moveSpeed >= 754) {
+        if (this.bub.rightSide() + this.bub.moveSpeed >= 754) {
             this.bub.x = 754 - this.bub.width();
             return false;
         }
@@ -110,13 +110,13 @@ var GameController = Class.extend({
     },
 
     doesBottomCollide: function(object) {
-        return object.y == this.bub.y + this.bub.height() ||
-            object.y + 1 == this.bub.y + this.bub.height() ||
-            object.y + 2 == this.bub.y + this.bub.height();
+        return object.y == this.bub.bottomSide() ||
+            object.y + 1 == this.bub.bottomSide() ||
+            object.y + 2 == this.bub.bottomSide();
     },
 
     xMatchUp: function(object) {
-        return object.x <= this.bub.x + this.bub.width() && object.x + object.width() >= this.bub.x;
+        return object.x <= this.bub.rightSide() && object.rightSide() >= this.bub.x;
     },
 
     buildLevel1: function() {

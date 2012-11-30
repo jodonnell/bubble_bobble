@@ -14,5 +14,13 @@ var Sprite = Class.extend({
 
     getCurrentImage: function() {
         return this.currentImage;
+    },
+
+    rightSide: function() {
+        return this.x + this.width();
+    },
+
+    bottomSide: function() {
+        return this.y + this.height();
     }
 })
