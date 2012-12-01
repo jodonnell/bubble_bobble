@@ -55,7 +55,7 @@ var GameController = Class.extend({
 
     update: function() {
         var options = {isJumping: this.control.isJumping(), 
-                       isHoldingLeft: this.control.isHoldingLeft() && this.noWallToLeft(), isHoldingRight: this.control.isHoldingRight() && this.noWallToRight(), 
+                       isHoldingLeft: this.control.isHoldingLeft() && this.collisionDetector.noWallToLeft(this.bub), isHoldingRight: this.control.isHoldingRight() && this.collisionDetector.noWallToRight(this.bub), 
                        isShooting: this.control.isShooting()};
         this.bub.update(options, this.collisionDetector);
 
@@ -66,34 +66,6 @@ var GameController = Class.extend({
             this.enemies[i].update(this.collisionDetector, this.bub.x, this.bub.y);
         }
 
-    },
-
-    noWallToRight: function() {
-        if (this.bub.rightSide() + this.bub.moveSpeed >= 754) {
-            this.bub.x = 754 - this.bub.width();
-            return false;
-        }
-        return true;
-    },
-
-    noWallToLeft: function() {
-        if (this.bub.x - this.bub.moveSpeed <= 46) {
-            this.bub.x = 46;
-            return false;
-        }
-        return true;
-        // for (var i = 0; i < this.walls.length; i++) {
-        //     var leftSideOfWall = this.walls[i].x + this.walls[i].width();
-        //     var bottomOfWall = this.walls[i].y + this.walls[i].height();
-        //     if (leftSideOfWall >= this.bub.x &&
-        //         leftSideOfWall <= this.bub.x + 4 &&
-        //         this.bub.y > this.walls[i].y && this.bub.y < bottomOfWall
-        //        ) {
-        //         return false;
-        //     }
-        // }
-        // return true;
-        
     },
 
     clearScreen: function() {

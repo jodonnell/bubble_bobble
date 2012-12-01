@@ -38,6 +38,22 @@ var CollisionDetector = Class.extend({
 
     isSpriteStandingOnWall: function(sprite) {
         return this.isStandingOnObjects(sprite, this.walls);
+    },
+
+    noWallToRight: function(sprite) {
+        if (sprite.rightSide() + sprite.moveSpeed >= 754) {
+            sprite.x = 754 - sprite.width();
+            return false;
+        }
+        return true;
+    },
+
+    noWallToLeft: function(sprite) {
+        if (sprite.x - sprite.moveSpeed <= 46) {
+            sprite.x = 46;
+            return false;
+        }
+        return true;
     }
 
 });
