@@ -9,7 +9,7 @@ var Player = Sprite.extend({
         this.moveSpeed = 4;
     },
 
-    update: function(worldState) {
+    update: function(worldState, collisionDetector) {
         this.respondToControls(worldState);
 
         this.playerAnimations.changeAnimation();
@@ -19,7 +19,7 @@ var Player = Sprite.extend({
 
         if (this.jumping)
             this.jumpingUpdate();
-        else if (!worldState.isOnPlatform)
+        else if (!(collisionDetector.isBubStandingOnFloor() || collisionDetector.isBubStandingOnBubble()))
             this.fall();
         else {
             this.falling = false;

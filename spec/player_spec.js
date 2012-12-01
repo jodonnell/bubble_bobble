@@ -23,15 +23,17 @@ describe("Player", function() {
     });
 
     it("can jump", function() {
+        var collisionDetector = new CollisionDetector(player, [], [], [])
+
         worldState.isJumping = true;
-        player.update(worldState);
+        player.update(worldState, collisionDetector);
         expect(player.y).toBe(96);
 
-        player.update(worldState);
+        player.update(worldState, collisionDetector);
         expect(player.y).toBe(92);
 
         for (var i = 0; i < 50; i++)
-            player.update(worldState);
+            player.update(worldState, collisionDetector);
         
         expect(player.y).toBe(11);
     });

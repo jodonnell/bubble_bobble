@@ -13,6 +13,8 @@ var GameController = Class.extend({
         this.bubbles = [];
         this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
+        this.collisionDetector = new CollisionDetector(this.bub, this.enemies, this.bubbles, this.walls);
+
         $(document).on('shootBubble', $.proxy(this.createBubble, this));
         $(document).on('removeBubble', $.proxy(this.removeBubble, this));
 
@@ -52,16 +54,16 @@ var GameController = Class.extend({
     },
 
     update: function() {
-        var options = {isOnPlatform: this.isBubStandingOnFloor() || this.isStandingOnBubble(), isJumping: this.control.isJumping(), 
+        var options = {isJumping: this.control.isJumping(), 
                        isHoldingLeft: this.control.isHoldingLeft() && this.noWallToLeft(), isHoldingRight: this.control.isHoldingRight() && this.noWallToRight(), 
                        isShooting: this.control.isShooting()};
-        this.bub.update(options);
+        this.bub.update(options, this.collisionDetector);
 
         for (var i = 0; i < this.bubbles.length; i++)
             this.bubbles[i].update();
 
         for (var i = 0; i < this.enemies.length; i++) {
-            var falling = this.isStandingOnObjects(this.enemies[i], this.walls);
+            var falling = this.collisionDetector.isStandingOnObjects(this.enemies[i], this.walls);
             this.enemies[i].update(!falling, this.bub.x, this.bub.y);
         }
 
@@ -97,36 +99,6 @@ var GameController = Class.extend({
 
     clearScreen: function() {
         $('#gameCanvas').get(0).width = $('#gameCanvas').get(0).width;
-    },
-
-    isBubStandingOnFloor: function() {
-        return this.isStandingOnObjects(this.bub, this.walls);
-    },
-
-    isStandingOnBubble: function() {
-        var onBubble = this.isStandingOnObjects(this.bub, this.bubbles);
-        if (onBubble)
-            this.bub.y -= 2;
-        return onBubble;
-    },
-
-    isStandingOnObjects: function(sprite, objects) {
-        for (var i = 0; i < objects.length; i++) {
-            if (this.doesBottomCollide(sprite, objects[i]) && this.xMatchUp(sprite, objects[i])) {
-                return true;
-            }
-        }
-        return false;
-    },
-
-    doesBottomCollide: function(sprite, object) {
-        return object.y == sprite.bottomSide() ||
-            object.y + 1 == sprite.bottomSide() ||
-            object.y + 2 == sprite.bottomSide();
-    },
-
-    xMatchUp: function(sprite, object) {
-        return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
     },
 
     buildLevel1: function() {

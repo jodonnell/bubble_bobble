@@ -38,7 +38,7 @@ describe("GameController", function() {
 
     it("should fall at the left boundary", function() {
         gameController.bub.x = 100;
-        gameController.walls = [new Wall(100 + gameController.bub.width(gameController.images) , gameController.bub.y + gameController.bub.height(gameController.images))]
+        gameController.walls.push(new Wall(100 + gameController.bub.width() , gameController.bub.y + gameController.bub.height()))
         gameController.update();
         expect(gameController.bub.y).toBe(100);
 
@@ -49,7 +49,7 @@ describe("GameController", function() {
 
     it("should fall at the right boundary", function() {
         gameController.bub.x = 100;
-        gameController.walls = [new Wall(100 - gameController.bub.width(gameController.images) + 3 , gameController.bub.y + gameController.bub.height(gameController.images))]
+        gameController.walls.push(new Wall(100 - gameController.bub.width() + 3 , gameController.bub.y + gameController.bub.height()))
         gameController.update();
         expect(gameController.bub.y).toBe(100);
 
