@@ -66,7 +66,7 @@ var BlueMagoo = Sprite.extend({
 
     track: function(collisionDetector, followX, followY) {
         if (this.y > followY) {
-            if (collisionDetector.isPlatformAboveWithin(this.JUMP_HEIGHT - this.bottomSide())) {
+            if (collisionDetector.isPlatformAboveWithin(this, 150)) {
                 this.jumping = 1;
                 return;
             }

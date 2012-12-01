@@ -64,8 +64,16 @@ var CollisionDetector = Class.extend({
         return true;
     },
 
-    isPlatformAboveWithin: function(distance) {
-        return true;
+    isPlatformAboveWithin: function(sprite, distance) {
+        for (var i = 0; i < this.walls.length; i++) {
+            if (this.xMatchUp(sprite, this.walls[i])) {
+                var yWithin = this.walls[i].y <= sprite.bottomSide() - 1 &&
+                    this.walls[i].y >= sprite.bottomSide() - 1 - distance;
+                if (yWithin)
+                    return true;
+            }
+        }
+        return false;
     }
 
 });
