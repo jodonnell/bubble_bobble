@@ -39,6 +39,7 @@ describe("Blue Magoos", function() {
         var blueMagoo = new BlueMagoo(100, 100, 0);
         this.stub(blueMagoo, 'shouldTrack').returns(true);
         this.stub(collisionDetector, 'isPlatformAboveWithin').returns(true)
+        this.stub(collisionDetector, 'isSpriteStandingOnWall').returns(true)
         
         blueMagoo.update(collisionDetector, 100, 0);
         expect(blueMagoo.isJumping()).toBeTruthy();
