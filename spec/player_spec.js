@@ -4,7 +4,6 @@ describe("Player", function() {
     
     beforeEach(function() {
         player = new Player(100, 100);
-        worldState = {isHoldingRight: false, isHoldingLeft: false, isJumping: false, isOnPlatform: false};
     });
 
     it("should have a location", function() {
@@ -22,21 +21,23 @@ describe("Player", function() {
         expect(player.x).toBeLessThan(100);
     });
 
-    it("can jump", function() {
+    it("can jump", sinon.test(function() {
         var collisionDetector = new CollisionDetector(player, [], [], [])
 
-        worldState.isJumping = true;
-        player.update(worldState, collisionDetector);
+        var control = new Control();
+        this.stub(control, 'isJumping').returns(true);
+
+        player.update(control, collisionDetector);
         expect(player.y).toBe(96);
 
-        player.update(worldState, collisionDetector);
+        player.update(control, collisionDetector);
         expect(player.y).toBe(92);
 
         for (var i = 0; i < 50; i++)
-            player.update(worldState, collisionDetector);
+            player.update(control, collisionDetector);
         
         expect(player.y).toBe(11);
-    });
+    }));
 
     xit("cannot jump twice", function() {
         pending

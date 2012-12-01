@@ -54,10 +54,7 @@ var GameController = Class.extend({
     },
 
     update: function() {
-        var options = {isJumping: this.control.isJumping(), 
-                       isHoldingLeft: this.control.isHoldingLeft() && this.collisionDetector.noWallToLeft(this.bub), isHoldingRight: this.control.isHoldingRight() && this.collisionDetector.noWallToRight(this.bub), 
-                       isShooting: this.control.isShooting()};
-        this.bub.update(options, this.collisionDetector);
+        this.bub.update(this.control, this.collisionDetector);
 
         for (var i = 0; i < this.bubbles.length; i++)
             this.bubbles[i].update();

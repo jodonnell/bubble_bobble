@@ -9,8 +9,8 @@ var Player = Sprite.extend({
         this.moveSpeed = 4;
     },
 
-    update: function(worldState, collisionDetector) {
-        this.respondToControls(worldState);
+    update: function(control, collisionDetector) {
+        this.respondToControls(control, collisionDetector);
 
         this.playerAnimations.changeAnimation();
 
@@ -27,20 +27,20 @@ var Player = Sprite.extend({
         }
     },
 
-    respondToControls: function(controls) {
-        if (controls.isHoldingRight)
+    respondToControls: function(controls, collisionDetector) {
+        if (controls.isHoldingRight() && collisionDetector.noWallToRight(this))
             this.moveRight();
 
-        if (controls.isHoldingLeft)
+        if (controls.isHoldingLeft() && collisionDetector.noWallToLeft(this))
             this.moveLeft();
 
-        if (!controls.isHoldingLeft && !controls.isHoldingRight && !this.jumping && !this.falling && !this.shooting)
+        if (!controls.isHoldingLeft() && !controls.isHoldingRight() && !this.jumping && !this.falling && !this.shooting)
             this.playerAnimations.stand();
 
-        if (controls.isJumping)
+        if (controls.isJumping())
             this.jump();
 
-        if (controls.isShooting)
+        if (controls.isShooting())
             this.shoot();
     },
 
