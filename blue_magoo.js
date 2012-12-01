@@ -8,15 +8,16 @@ var BlueMagoo = Sprite.extend({
         this.timer = 0;
     },
 
-    update: function(falling, followX, followY) {
+    update: function(collisionDetector, followX, followY) {
         this.timer++;
 
         this.changeAnimation();
 
-        if (falling)
-            this.y += 3;
-        else {
+        if (collisionDetector.isSpriteStandingOnWall(this)) {
             this.move(followX, followY);
+        }
+        else {
+            this.y += 3;
         }
     },
 

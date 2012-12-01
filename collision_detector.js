@@ -36,4 +36,8 @@ var CollisionDetector = Class.extend({
         return onBubble;
     },
 
+    isSpriteStandingOnWall: function(sprite) {
+        return this.isStandingOnObjects(sprite, this.walls);
+    }
+
 });

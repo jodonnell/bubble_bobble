@@ -125,10 +125,9 @@ describe("GameController", function() {
 
     it("can have enemies land on platforms", function() {
         var blueMagoo = new BlueMagoo(0, 0, 0);
-        gameController.enemies = [blueMagoo];
+        gameController.enemies.push(blueMagoo);
         
-        
-        gameController.walls = [new Wall(0, blueMagoo.bottomSide() + 3)];
+        gameController.walls.push(new Wall(0, blueMagoo.bottomSide() + 3));
         gameController.update();
         gameController.update();
         expect(blueMagoo.y).toBe(3);

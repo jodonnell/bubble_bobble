@@ -63,8 +63,7 @@ var GameController = Class.extend({
             this.bubbles[i].update();
 
         for (var i = 0; i < this.enemies.length; i++) {
-            var falling = this.collisionDetector.isStandingOnObjects(this.enemies[i], this.walls);
-            this.enemies[i].update(!falling, this.bub.x, this.bub.y);
+            this.enemies[i].update(this.collisionDetector, this.bub.x, this.bub.y);
         }
 
     },
