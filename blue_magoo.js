@@ -14,7 +14,7 @@ var BlueMagoo = Sprite.extend({
         this.changeAnimation();
 
         if (collisionDetector.isSpriteStandingOnWall(this)) {
-            this.move(followX, followY);
+            this.move(collisionDetector, followX, followY);
         }
         else {
             this.y += 3;
@@ -36,13 +36,13 @@ var BlueMagoo = Sprite.extend({
         return Math.random() > 0.99;
     },
 
-    move: function(followX, followY) {
+    move: function(collisionDetector, followX, followY) {
         if (this.shouldTrack())  {
             this.track(followX, followY);
         }
         else {
             this.moveInCurrentDirection();
-            this.boundaryCheck();
+            this.boundaryCheck(collisionDetector);
         }
     },
 
@@ -77,13 +77,12 @@ var BlueMagoo = Sprite.extend({
         return imageName;
     },
 
-    boundaryCheck: function() {
-        if (this.x > 754 - this.width()) {
-            this.x = 754- this.width();
+    boundaryCheck: function(collisionDetector) {
+        this.moveSpeed = 0;
+        if (!collisionDetector.noWallToRight(this)) {
             this.direction = LEFT;
         }
-        if (this.x < 46) {
-            this.x = 46;
+        if (!collisionDetector.noWallToLeft(this)) {
             this.direction = RIGHT;
         }
     },
