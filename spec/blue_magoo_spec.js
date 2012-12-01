@@ -25,4 +25,21 @@ describe("Blue Magoos", function() {
         expect(blueMagoo.direction).toBe(LEFT);
     }));
 
+
+    it("should jump if platform is above and the tracking Y is above it", sinon.test(function() {
+        blueMagoo = new BlueMagoo(100, 100, 0)
+        this.stub(blueMagoo, 'shouldTrack').returns(true);
+
+        blueMagoo.update(false, 100, 0);
+        expect(blueMagoo.isJumping()).toBeTruthy();
+    }));
+
+    xit("should not jump if tracking Y is above it but now platform", sinon.test(function() {
+        blueMagoo = new BlueMagoo(100, 100, 0)
+        this.stub(blueMagoo, 'shouldTrack').returns(true);
+
+        blueMagoo.update(false, 100, 0);
+        expect(blueMagoo.isJumping()).toBeTruthy();
+    }));
+
 });

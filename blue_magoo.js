@@ -85,6 +85,10 @@ var BlueMagoo = Sprite.extend({
             this.x = 46;
             this.direction = RIGHT;
         }
+    },
+
+    isJumping: function() {
+        return true;
     }
 
 });
