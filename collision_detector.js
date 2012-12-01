@@ -8,7 +8,7 @@ var CollisionDetector = Class.extend({
 
     isStandingOnObjects: function(sprite, objects) {
         for (var i = 0; i < objects.length; i++) {
-            if (this.doesBottomCollide(sprite, objects[i]) && this.xMatchUp(sprite, objects[i])) {
+            if (this.xMatchUp(sprite, objects[i]) && this.doesBottomCollide(sprite, objects[i])) {
                 return true;
             }
         }
@@ -18,11 +18,11 @@ var CollisionDetector = Class.extend({
     doesBottomCollide: function(sprite, object) {
         if (object.y == sprite.bottomSide())
             return true;
-        if (object.y + 1 == sprite.bottomSide()) {
+        if (object.y == sprite.bottomSide() - 1) {
             sprite.y -= 1;
             return true;
         }
-        if (object.y + 2 == sprite.bottomSide()) {
+        if (object.y == sprite.bottomSide() - 2) {
             sprite.y -= 2;
             return true;
         }

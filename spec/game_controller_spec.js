@@ -120,7 +120,7 @@ describe("GameController", function() {
     it("enemies fall", sinon.test(function() {
         expect(gameController.enemies[0].y).toBe(20);
         gameController.update();
-        expect(gameController.enemies[0].y).toBe(21);
+        expect(gameController.enemies[0].y).toBe(23);
     }));
 
     it("can have enemies land on platforms", function() {
