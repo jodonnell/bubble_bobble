@@ -33,7 +33,7 @@ describe("GameController", function() {
     it("should land on a platform while falling", function() {
         for (var i = 0; i < 100; i++)
             gameController.update();
-        expect(gameController.bub.y).toBe(160);
+        expect(gameController.bub.y).toBe(159);
     });
 
     it("should fall at the left boundary", function() {
@@ -61,12 +61,12 @@ describe("GameController", function() {
     it("should be able to jump", sinon.test(function() {
         for (var i = 0; i < 100; i++)
             gameController.update();
-        expect(gameController.bub.y).toBe(160);
+        expect(gameController.bub.y).toBe(159);
 
         this.stub(gameController.control, 'isJumping').returns(true);
         for (var i = 0; i < 100; i++)
             gameController.update();
-        expect(gameController.bub.y).toBeLessThan(160);
+        expect(gameController.bub.y).toBeLessThan(159);
 
     }));
 
@@ -120,7 +120,7 @@ describe("GameController", function() {
     it("enemies fall", sinon.test(function() {
         expect(gameController.enemies[0].y).toBe(20);
         gameController.update();
-        expect(gameController.enemies[0].y).toBe(23);
+        expect(gameController.enemies[0].y).toBe(21);
     }));
 
     it("can have enemies land on platforms", function() {

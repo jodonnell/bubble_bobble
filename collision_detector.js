@@ -16,9 +16,17 @@ var CollisionDetector = Class.extend({
     },
 
     doesBottomCollide: function(sprite, object) {
-        return object.y == sprite.bottomSide() ||
-            object.y + 1 == sprite.bottomSide() ||
-            object.y + 2 == sprite.bottomSide();
+        if (object.y == sprite.bottomSide())
+            return true;
+        if (object.y + 1 == sprite.bottomSide()) {
+            sprite.y -= 1;
+            return true;
+        }
+        if (object.y + 2 == sprite.bottomSide()) {
+            sprite.y -= 2;
+            return true;
+        }
+        return false;
     },
 
     xMatchUp: function(sprite, object) {
@@ -53,6 +61,10 @@ var CollisionDetector = Class.extend({
             sprite.x = 46;
             return false;
         }
+        return true;
+    },
+
+    isPlatformAboveWithin: function(distance) {
         return true;
     }
 

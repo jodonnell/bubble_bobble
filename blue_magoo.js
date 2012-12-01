@@ -1,8 +1,11 @@
 var BlueMagoo = Sprite.extend({
+    JUMP_HEIGHT: 100,
+
     init: function(x, y, direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        this.jumping = 0;
 
         this.currentImage = 'blueMagooWalk';
         this.timer = 0;
@@ -13,7 +16,13 @@ var BlueMagoo = Sprite.extend({
 
         this.changeAnimation();
 
-        if (collisionDetector.isSpriteStandingOnWall(this)) {
+        if (this.isJumping()) {
+            this.y -= 3;
+            this.jumping++;
+            if (this.jumping > 50)
+                this.jumping = 0;
+        }
+        else if (collisionDetector.isSpriteStandingOnWall(this)) {
             this.move(collisionDetector, followX, followY);
         }
         else {
@@ -38,7 +47,7 @@ var BlueMagoo = Sprite.extend({
 
     move: function(collisionDetector, followX, followY) {
         if (this.shouldTrack())  {
-            this.track(followX, followY);
+            this.track(collisionDetector, followX, followY);
         }
         else {
             this.moveInCurrentDirection();
@@ -55,7 +64,14 @@ var BlueMagoo = Sprite.extend({
         }
     },
 
-    track: function(followX, followY) {
+    track: function(collisionDetector, followX, followY) {
+        if (this.y > followY) {
+            if (collisionDetector.isPlatformAboveWithin(this.JUMP_HEIGHT - this.bottomSide())) {
+                this.jumping = 1;
+                return;
+            }
+        }
+
         if (followX == this.x)
             ;
         else if (followX > this.x) {
@@ -88,7 +104,7 @@ var BlueMagoo = Sprite.extend({
     },
 
     isJumping: function() {
-        return true;
+        return this.jumping;
     }
 
 });
