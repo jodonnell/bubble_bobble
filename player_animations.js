@@ -1,19 +1,21 @@
+"use strict";
+
 var PlayerAnimations = Class.extend({
     ANIMATION_LENGTH: 20,
 
-    init: function() {
+    init: function () {
         this.timer = 0;
         this.currentImage = 'bub';
         this.direction = RIGHT;
         this.queuedImage = "bub";
     },
 
-    shoot: function() {
+    shoot: function () {
         this.currentImage = 'bubShoot';
         this.timer = 0;
     },
 
-    jump: function() {
+    jump: function () {
         if (this.isShooting()) {
             this.queuedImage = 'bubJump';
             return;
@@ -22,11 +24,12 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
     },
 
-    fall: function() {
-        if (this.isFalling())
+    fall: function () {
+        if (this.isFalling()) {
             return;
+        }
 
-        if (this.currentImage == 'bubShoot') {
+        if (this.currentImage === 'bubShoot') {
             this.queuedImage = 'bubFall';
             return;
         }
@@ -34,11 +37,12 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
     },
 
-    moveRight: function() {
+    moveRight: function () {
         this.direction = RIGHT;
 
-        if (this.isMovingRight())
+        if (this.isMovingRight()) {
             return;
+        }
 
         if (this.isJumping() || this.isFalling() || this.isShooting()) {
             this.queuedImage = 'bubWalk';
@@ -49,10 +53,11 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
     },
 
-    moveLeft: function() {
+    moveLeft: function () {
         this.direction = LEFT;
-        if (this.isMovingLeft())
+        if (this.isMovingLeft()) {
             return;
+        }
 
         if (this.isJumping() || this.isFalling() || this.isShooting()) {
             this.queuedImage = 'bubWalk';
@@ -63,47 +68,49 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
     },
 
-    stopFalling: function() {
-        if (!this.isFalling())
+    stopFalling: function () {
+        if (!this.isFalling()) {
             return;
+        }
 
         this.currentImage = this.queuedImage;
         this.timer = 0;
     },
 
-    stand: function() {
-        if (this.isStanding())
+    stand: function () {
+        if (this.isStanding()) {
             return;
+        }
 
         this.currentImage = 'bub';
         this.timer = 0;
     },
 
-    isShooting: function() {
-        return this.currentImage == 'bubShoot';
+    isShooting: function () {
+        return this.currentImage === 'bubShoot';
     },
 
-    isStanding: function() {
-        return this.currentImage == 'bub' || this.currentImage == 'bubTail';
+    isStanding: function () {
+        return this.currentImage === 'bub' || this.currentImage === 'bubTail';
     },
 
-    isMovingLeft: function() {
-        return this.direction == LEFT && (this.currentImage == 'bubWalk' || this.currentImage == 'bubWalkTail');
+    isMovingLeft: function () {
+        return this.direction === LEFT && (this.currentImage === 'bubWalk' || this.currentImage === 'bubWalkTail');
     },
 
-    isMovingRight: function() {
-        return this.direction == RIGHT && (this.currentImage == 'bubWalk' || this.currentImage == 'bubWalkTail');
+    isMovingRight: function () {
+        return this.direction === RIGHT && (this.currentImage === 'bubWalk' || this.currentImage === 'bubWalkTail');
     },
 
-    isFalling: function() {
-        return this.currentImage == 'bubFall' || this.currentImage == 'bubFallTail';
+    isFalling: function () {
+        return this.currentImage === 'bubFall' || this.currentImage === 'bubFallTail';
     },
 
-    isJumping: function() {
-        return this.currentImage == 'bubJump' || this.currentImage == 'bubJumpTail';
+    isJumping: function () {
+        return this.currentImage === 'bubJump' || this.currentImage === 'bubJumpTail';
     },
 
-    changeAnimation: function() {
+    changeAnimation: function () {
         this.timer++;
         
         if (this.isShooting() && this.timer === 15) {
@@ -111,49 +118,57 @@ var PlayerAnimations = Class.extend({
             this.currentImage = this.queuedImage;
         }
             
-        if (this.isFalling())
+        if (this.isFalling()) {
             this.fallingAnimation();
-        else if (this.isStanding())
+        }
+        else if (this.isStanding()) {
             this.standingAnimation();
-        else if (this.isMovingRight() || this.isMovingLeft())
+        }
+        else if (this.isMovingRight() || this.isMovingLeft()) {
             this.walkingRightAnimation();
-        else if (this.isJumping())
+        }
+        else if (this.isJumping()) {
             this.jumpingAnimation();
-    },
-
-    fallingAnimation: function() {
-        this.transitionState('bubFall', 'bubFallTail');
-    },
-
-    standingAnimation: function() {
-        this.transitionState('bub', 'bubTail');
-    },
-
-    jumpingAnimation: function() {
-        this.transitionState('bubJump', 'bubJumpTail');
-    },
-
-    walkingRightAnimation: function() {
-        this.transitionState('bubWalk', 'bubWalkTail');
-    },
-
-    transitionState: function(animationA, animationB) {
-        if (this.timer == this.ANIMATION_LENGTH) {
-            this.timer = 0;
-
-            if (this.currentImage === animationA)
-                this.currentImage = animationB;
-            else if (this.currentImage === animationB)
-                this.currentImage = animationA;
         }
     },
 
-    getImageName: function() {
+    fallingAnimation: function () {
+        this.transitionState('bubFall', 'bubFallTail');
+    },
+
+    standingAnimation: function () {
+        this.transitionState('bub', 'bubTail');
+    },
+
+    jumpingAnimation: function () {
+        this.transitionState('bubJump', 'bubJumpTail');
+    },
+
+    walkingRightAnimation: function () {
+        this.transitionState('bubWalk', 'bubWalkTail');
+    },
+
+    transitionState: function (animationA, animationB) {
+        if (this.timer === this.ANIMATION_LENGTH) {
+            this.timer = 0;
+
+            if (this.currentImage === animationA) {
+                this.currentImage = animationB;
+            }
+            else if (this.currentImage === animationB) {
+                this.currentImage = animationA;
+            }
+        }
+    },
+
+    getImageName: function () {
         var imageName = this.currentImage;
-        if (this.direction == LEFT)
+        if (this.direction === LEFT) {
             imageName += 'Left';
-        else
+        }
+        else {
             imageName += 'Right';
+        }
         return imageName;
     }
 });

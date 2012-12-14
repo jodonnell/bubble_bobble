@@ -1,26 +1,28 @@
+"use strict";
+
 var Sprite = Class.extend({
-    draw: function() {
+    draw: function () {
         var image = gameImages[this.getCurrentImage()];
         gameContext.drawImage(image, this.x, this.y);
     },
 
-    height: function() {
+    height: function () {
         return gameImages[this.getCurrentImage()].height;
     },
 
-    width: function(images) {
+    width: function () {
         return gameImages[this.getCurrentImage()].width;
     },
 
-    getCurrentImage: function() {
+    getCurrentImage: function () {
         return this.currentImage;
     },
 
-    rightSide: function() {
+    rightSide: function () {
         return this.x + this.width();
     },
 
-    bottomSide: function() {
+    bottomSide: function () {
         return this.y + this.height();
     }
-})
+});

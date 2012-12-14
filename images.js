@@ -1,5 +1,7 @@
+"use strict";
+
 var Images = Class.extend({
-    init: function(callback) {
+    init: function (callback) {
         this.bub();
         this.bubbles();
         this.enemies();
@@ -9,7 +11,7 @@ var Images = Class.extend({
         this.bubRight.onload = callback;
     },
 
-    enemies: function() {
+    enemies: function () {
         this.blueMagooWalkLeft = new Image();
         this.blueMagooWalkLeft.src = "assets/blue_magoo_walk_left.png";
 
@@ -23,7 +25,7 @@ var Images = Class.extend({
         this.blueMagooWalkLegRight.src = "assets/blue_magoo_walk_leg.png";
     },
 
-    bubbles: function() {
+    bubbles: function () {
         this.smallestBubble = new Image();
         this.smallestBubble.src = "assets/smallest_bubble.png";
 
@@ -37,7 +39,7 @@ var Images = Class.extend({
         this.bigBubble.src = "assets/big_bubble.png";
     },
 
-    bub: function() {
+    bub: function () {
         this.bubTailRight = new Image();
         this.bubTailRight.src = "assets/bub_tail.png";
 

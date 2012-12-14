@@ -1,11 +1,14 @@
+"use strict";
+
 var GameInit = Class.extend({
-    init: function(hide) {
+    init: function (hide) {
         this.createCanvas();
-        if (hide)
+        if (hide) {
             this.hide = true;
+        }
     },
 
-    createCanvas: function() {
+    createCanvas: function () {
         this.width = 800;
         this.height = 600;
 
@@ -17,11 +20,12 @@ var GameInit = Class.extend({
         $("#gameCanvas").css('width', '1066px');
         $("#gameCanvas").css('height', '800px');
 
-        if (this.hide)
+        if (this.hide) {
             $("#gameCanvas").css('visibilty', 'hidden');
+        }
     },
 
-    destroyCanvas: function() {
+    destroyCanvas: function () {
         $("#gameCanvas").remove();
     }
 });
