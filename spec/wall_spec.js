@@ -1,11 +1,13 @@
-describe("Wall", function() {
+"use strict";
+
+describe("Wall", function () {
     var wall;
 
-    beforeEach(function() {
+    beforeEach(function () {
         wall = new Wall(100, 200);
     });
 
-    it("should have a position", function() {
+    it("should have a position", function () {
         expect(wall.x).toEqual(100);
         expect(wall.y).toEqual(200);
     });

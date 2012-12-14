@@ -1,6 +1,8 @@
-describe("Bubble", function() {
-    it("should go the right way", function() {
-        bubble = new Bubble(100, 100, RIGHT);
+"use strict";
+
+describe("Bubble", function () {
+    it("should go the right way", function () {
+        var bubble = new Bubble(100, 100, RIGHT);
         bubble.update();
         expect(bubble.x).toBeGreaterThan(100);
 
@@ -9,12 +11,13 @@ describe("Bubble", function() {
         expect(bubble.x).toBeLessThan(100);
     });
 
-    it("will go up after it is fully formed", function() {
-        bubble = new Bubble(100, 100, RIGHT);
-        while(!bubble.isFullyFormed())
+    it("will go up after it is fully formed", function () {
+        var bubble = new Bubble(100, 100, RIGHT);
+        while (!bubble.isFullyFormed()) {
             bubble.update();
+        }
 
-        bubble.update()
+        bubble.update();
         expect(bubble.y).toBeLessThan(100);
     });
 });

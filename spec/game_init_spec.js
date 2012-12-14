@@ -1,15 +1,17 @@
-describe("GameInit", function() {
+"use strict";
+
+describe("GameInit", function () {
     var gameInit;
 
-    beforeEach(function() {
+    beforeEach(function () {
         gameInit = new GameInit(true);
     });
 
-    afterEach(function() {
+    afterEach(function () {
         gameInit.destroyCanvas();
     });
 
-    it("should have a canvas element", function() {
+    it("should have a canvas element", function () {
         expect($('#gameCanvas').length).toEqual(1);
     });
 });

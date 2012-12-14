@@ -1,12 +1,14 @@
-describe("PlayerAnimations", function() {
-    var player;
-    var worldState;
+"use strict";
+
+describe("PlayerAnimations", function () {
+    var playerAnimations;
     
-    beforeEach(function() {
+
+    beforeEach(function () {
         playerAnimations = new PlayerAnimations();
     });
 
-    it("should change to tail wag frame after 20 frames have passed", function() {
+    it("should change to tail wag frame after 20 frames have passed", function () {
         expect(playerAnimations.currentImage).toBe("bub");
 
         nextTickNewAnimation();
@@ -15,7 +17,7 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.currentImage).toBe("bubTail");
     });
 
-    it("should change remove tail wag frame after 20 more frames have passed", function() {
+    it("should change remove tail wag frame after 20 more frames have passed", function () {
         nextTickNewAnimation();
         playerAnimations.changeAnimation();
 
@@ -25,7 +27,7 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.currentImage).toBe("bub");
     });
 
-    it("can transition to the jumping animation", function() {
+    it("can transition to the jumping animation", function () {
         playerAnimations.jump();
         expect(playerAnimations.currentImage).toBe("bubJump");
 
@@ -35,7 +37,7 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.currentImage).toBe("bubJumpTail");
     });
 
-    it("can transition to the falling animation", function() {
+    it("can transition to the falling animation", function () {
         playerAnimations.fall();
         expect(playerAnimations.currentImage).toBe("bubFall");
 
@@ -45,20 +47,20 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.currentImage).toBe("bubFallTail");
     });
 
-    it("can transition to the falling animation", function() {
+    it("can transition to the falling animation", function () {
         playerAnimations.shoot();
         expect(playerAnimations.currentImage).toBe("bubShoot");
     });
 
-    it("knows if a player is going left or right", function() {
+    it("knows if a player is going left or right", function () {
         playerAnimations.moveLeft();
-        expect(playerAnimations.direction).toBe(LEFT)
+        expect(playerAnimations.direction).toBe(LEFT);
 
         playerAnimations.moveRight();
-        expect(playerAnimations.direction).toBe(RIGHT)
+        expect(playerAnimations.direction).toBe(RIGHT);
     });
 
-    it("overides all animations with the shooting animation", function() {
+    it("overides all animations with the shooting animation", function () {
         playerAnimations.shoot();
         expect(playerAnimations.currentImage).toBe("bubShoot");
 
@@ -66,19 +68,21 @@ describe("PlayerAnimations", function() {
         expect(playerAnimations.currentImage).toBe("bubShoot");
     });
 
-    it("ends the shooting animation after 15 frame", function() {
+    it("ends the shooting animation after 15 frame", function () {
         playerAnimations.shoot();
-        for (var i = 0; i < 15; i++)
+        for (var i = 0; i < 15; i++) {
             playerAnimations.changeAnimation();
+        }
 
         expect(playerAnimations.currentImage).toBe("bub");
     });
 
-    it("should go to the secondary frame when shooting finishes", function() {
+    it("should go to the secondary frame when shooting finishes", function () {
         playerAnimations.shoot();
         for (var i = 0; i < 35; i++) {
-            if (i == 30)
+            if (i === 30) {
                 playerAnimations.moveRight();
+            }
             playerAnimations.changeAnimation();
         }
         expect(playerAnimations.currentImage).toBe("bubWalk");
