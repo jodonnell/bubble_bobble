@@ -13,7 +13,11 @@ var BlueMagoo = Sprite.extend({
         this.timer = 0;
     },
 
-    update: function (collisionDetector, followX, followY) {
+    update: function (args) {
+        var collisionDetector = args.collisionDetector;
+        var followX = args.player.x;
+        var followY = args.player.y;
+
         this.timer++;
 
         this.changeAnimation();

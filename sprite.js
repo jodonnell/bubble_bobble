@@ -24,5 +24,9 @@ var Sprite = Class.extend({
 
     bottomSide: function () {
         return this.y + this.height();
+    },
+
+    update: function () {
+
     }
 });

@@ -28,14 +28,14 @@ describe("Player", function () {
         var control = new Control();
         this.stub(control, 'isJumping').returns(true);
 
-        player.update(control, collisionDetector);
+        player.update({control: control, collisionDetector: collisionDetector});
         expect(player.y).toBe(96);
 
-        player.update(control, collisionDetector);
+        player.update({control: control, collisionDetector: collisionDetector});
         expect(player.y).toBe(92);
 
         for (var i = 0; i < 50; i++) {
-            player.update(control, collisionDetector);
+            player.update({control: control, collisionDetector: collisionDetector});
         }
         
         expect(player.y).toBe(11);

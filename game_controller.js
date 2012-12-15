@@ -15,6 +15,7 @@ var GameController = Class.extend({
         this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
         this.collisionDetector = new CollisionDetector({bub: this.bub, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
+        this.sprites = [[this.bub]].concat([this.bubbles], [this.walls], [this.enemies]);
 
         $(document).on('shootBubble', $.proxy(this.createBubble, this));
         $(document).on('removeBubble', $.proxy(this.removeBubble, this));
@@ -44,35 +45,31 @@ var GameController = Class.extend({
     },
 
     draw: function () {
-        var i;
+        var i, k, sprites;
+
+        this.clearBackground();
+
+        for (i = 0; i < this.sprites.length; i++) {
+            sprites = this.sprites[i];
+            for (k = 0; k < sprites.length; k++) {
+                this.sprites[i][k].draw();
+            }
+        }
+    },
+
+    clearBackground: function () {
         this.context.fillStyle = "#010000";
         this.context.fillRect(0, 0, this.gameInit.width, this.gameInit.height);
-
-        for (i = 0; i < this.walls.length; i++) {
-            this.walls[i].draw();
-        }
-
-        for (i = 0; i < this.bubbles.length; i++) {
-            this.bubbles[i].draw();
-        }
-
-        for (i = 0; i < this.enemies.length; i++) {
-            this.enemies[i].draw();
-        }
-
-        this.bub.draw();
     },
 
     update: function () {
-        var i;
-        this.bub.update(this.control, this.collisionDetector);
+        var i, k, sprites;
 
-        for (i = 0; i < this.bubbles.length; i++) {
-            this.bubbles[i].update();
-        }
-
-        for (i = 0; i < this.enemies.length; i++) {
-            this.enemies[i].update(this.collisionDetector, this.bub.x, this.bub.y);
+        for (i = 0; i < this.sprites.length; i++) {
+            sprites = this.sprites[i];
+            for (k = 0; k < sprites.length; k++) {
+                this.sprites[i][k].update({control: this.control, collisionDetector: this.collisionDetector, player: this.bub});
+            }
         }
     }
 });

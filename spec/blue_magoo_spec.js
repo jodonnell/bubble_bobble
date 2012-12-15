@@ -13,10 +13,10 @@ describe("Blue Magoos", function () {
         this.stub(blueMagoo, 'shouldTrack').returns(true);
         this.stub(collisionDetector, 'isSpriteStandingOnWall').returns(true);
 
-        blueMagoo.update(collisionDetector, 105);
+        blueMagoo.update({collisionDetector: collisionDetector, player: {x: 105}});
         expect(blueMagoo.x).toBeGreaterThan(100);
 
-        blueMagoo.update(collisionDetector, 95);
+        blueMagoo.update({collisionDetector: collisionDetector, player: {x: 95}});
         expect(blueMagoo.x).toBe(100);
     }));
 
@@ -27,12 +27,12 @@ describe("Blue Magoos", function () {
         this.stub(collisionDetector, 'isSpriteStandingOnWall').returns(true);
 
         blueMagoo.direction = LEFT;
-        blueMagoo.update(collisionDetector, -10, 2);
+        blueMagoo.update({collisionDetector: collisionDetector, player: {x: -10, y: 2}});
         expect(blueMagoo.direction).toBe(RIGHT);
 
         blueMagoo.direction = RIGHT;
         blueMagoo.x = 752 - blueMagoo.width();
-        blueMagoo.update(collisionDetector, 1000, 2);
+        blueMagoo.update({collisionDetector: collisionDetector, player: {x: 1000, y: 2}});
         expect(blueMagoo.direction).toBe(LEFT);
     }));
 
@@ -43,7 +43,7 @@ describe("Blue Magoos", function () {
         this.stub(collisionDetector, 'isPlatformAboveWithin').returns(true);
         this.stub(collisionDetector, 'isSpriteStandingOnWall').returns(true);
         
-        blueMagoo.update(collisionDetector, 100, 0);
+        blueMagoo.update({collisionDetector: collisionDetector, player: {x: 100, y: 0}});
         expect(blueMagoo.isJumping()).toBeTruthy();
     }));
 
@@ -52,7 +52,7 @@ describe("Blue Magoos", function () {
         this.stub(blueMagoo, 'shouldTrack').returns(true);
         this.stub(collisionDetector, 'isPlatformAboveWithin').returns(false);
 
-        blueMagoo.update(collisionDetector, 100, 0);
+        blueMagoo.update({collisionDetector: collisionDetector, player: {x: 100, y: 0}});
         expect(blueMagoo.isJumping()).toBeFalsy();
     }));
 

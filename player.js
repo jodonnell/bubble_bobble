@@ -11,7 +11,9 @@ var Player = Sprite.extend({
         this.moveSpeed = 4;
     },
 
-    update: function (control, collisionDetector) {
+    update: function (args) {
+        var control = args.control;
+        var collisionDetector = args.collisionDetector;
         this.respondToControls(control, collisionDetector);
 
         this.playerAnimations.changeAnimation();
