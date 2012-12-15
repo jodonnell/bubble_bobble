@@ -4,7 +4,7 @@ describe("Blue Magoos", function () {
     var collisionDetector;
 
     beforeEach(function () {
-        collisionDetector = new CollisionDetector([], [], [], []);
+        collisionDetector = new CollisionDetector({});
     });
 
     it("should move towards point if its not falling", sinon.test(function () {

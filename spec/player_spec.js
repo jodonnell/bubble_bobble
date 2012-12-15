@@ -23,7 +23,7 @@ describe("Player", function () {
     });
 
     it("can jump", sinon.test(function () {
-        var collisionDetector = new CollisionDetector(player, [], [], []);
+        var collisionDetector = new CollisionDetector({bub: player});
 
         var control = new Control();
         this.stub(control, 'isJumping').returns(true);

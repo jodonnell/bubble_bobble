@@ -6,7 +6,7 @@ describe("CollisionDetector", function () {
     beforeEach(function () {
         bub = new Player(100, 100);
         enemies = [new BlueMagoo(370, 20, LEFT)];
-        collisionDetector = new CollisionDetector(bub, enemies, [], []);
+        collisionDetector = new CollisionDetector({bub: bub, enemies: enemies});
     });
 
     it("should be able to stand on an object", function () {

@@ -1,11 +1,11 @@
 "use strict";
 
 var CollisionDetector = Class.extend({
-    init: function (bub, enemies, bubbles, walls) {
-        this.bub = bub;
-        this.enemies = enemies;
-        this.bubbles = bubbles;
-        this.walls = walls;
+    init: function (sprites) {
+        this.bub = sprites.bub || [];
+        this.enemies = sprites.enemies || [];
+        this.bubbles = sprites.bubbles || [];
+        this.walls = sprites.walls || [];
     },
 
     isStandingOnObjects: function (sprite, objects) {

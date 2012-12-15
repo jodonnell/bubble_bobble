@@ -14,7 +14,7 @@ var GameController = Class.extend({
         this.bubbles = [];
         this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
-        this.collisionDetector = new CollisionDetector(this.bub, this.enemies, this.bubbles, this.walls);
+        this.collisionDetector = new CollisionDetector({bub: this.bub, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
 
         $(document).on('shootBubble', $.proxy(this.createBubble, this));
         $(document).on('removeBubble', $.proxy(this.removeBubble, this));
