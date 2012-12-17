@@ -26,7 +26,8 @@ var Bubble = Sprite.extend({
         this.y -= 2;
 
         if (this.y + this.height() / 2 < 0) {
-            gameController.removeBubble(this);
+            var index = gameController.bubbles.indexOf(this);
+            gameController.bubbles.splice(index, 1);
         }
     },
     

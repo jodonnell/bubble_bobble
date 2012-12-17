@@ -17,17 +17,6 @@ var GameController = Class.extend({
         this.sprites = [[this.bub]].concat([this.bubbles], [this.walls], [this.enemies]);
     },
 
-    removeBubble: function (bubble) {
-        var remove = -1;
-        for (var i = 0; i < this.bubbles.length; i++) {
-            if (this.bubbles[i] === bubble) {
-                remove = i;
-            }
-        }
-        
-        this.bubbles.splice(remove, 1);
-    },
-
     draw: function () {
         var i, k, sprites;
 
