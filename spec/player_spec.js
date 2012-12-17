@@ -31,7 +31,7 @@ describe("Player", function () {
 
     it("should land on a floor after a jump", sinon.test(function () {
         var i;
-        var collisionDetector = new CollisionDetector({bub: player, walls: [new Wall(95, player.bottomSide())]});
+        var collisionDetector = new CollisionDetector({player: player, walls: [new Wall(95, player.bottomSide())]});
 
         this.stub(player.control, 'isJumping').returns(true);
         player.update({collisionDetector: collisionDetector});
@@ -46,7 +46,7 @@ describe("Player", function () {
     }));
 
     it("can jump", sinon.test(function () {
-        var collisionDetector = new CollisionDetector({bub: player});
+        var collisionDetector = new CollisionDetector({player: player});
 
         this.stub(player.control, 'isJumping').returns(true);
 

@@ -2,7 +2,7 @@
 
 var CollisionDetector = Class.extend({
     init: function (sprites) {
-        this.bub = sprites.bub || [];
+        this.player = sprites.player || [];
         this.enemies = sprites.enemies || [];
         this.bubbles = sprites.bubbles || [];
         this.walls = sprites.walls || [];
@@ -37,13 +37,13 @@ var CollisionDetector = Class.extend({
     },
 
     isBubStandingOnFloor: function () {
-        return this.isStandingOnObjects(this.bub, this.walls);
+        return this.isStandingOnObjects(this.player, this.walls);
     },
 
     isBubStandingOnBubble: function () {
-        var onBubble = this.isStandingOnObjects(this.bub, this.bubbles);
+        var onBubble = this.isStandingOnObjects(this.player, this.bubbles);
         if (onBubble) {
-            this.bub.y -= 2;
+            this.player.y -= 2;
         }
         return onBubble;
     },

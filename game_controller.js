@@ -5,7 +5,7 @@ var GameController = Class.extend({
         this.gameInit = gameInit;
         this.context = $('#gameCanvas').get(0).getContext("2d");
 
-        this.bub = new Player(200, 100);
+        this.player = new Player(200, 100);
 
         this.walls = (new LevelBuilder(this.walls)).walls;
 
@@ -13,8 +13,8 @@ var GameController = Class.extend({
 
         this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
-        this.collisionDetector = new CollisionDetector({bub: this.bub, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
-        this.sprites = [[this.bub]].concat([this.bubbles], [this.walls], [this.enemies]);
+        this.collisionDetector = new CollisionDetector({player: this.player, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
+        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies]);
     },
 
     draw: function () {
@@ -41,7 +41,7 @@ var GameController = Class.extend({
         for (i = 0; i < this.sprites.length; i++) {
             sprites = this.sprites[i];
             for (k = 0; k < sprites.length; k++) {
-                this.sprites[i][k].update({collisionDetector: this.collisionDetector, player: this.bub, gameController: this});
+                this.sprites[i][k].update({collisionDetector: this.collisionDetector, player: this.player, gameController: this});
             }
         }
     }

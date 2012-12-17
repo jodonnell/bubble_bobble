@@ -16,29 +16,29 @@ describe("GameController", function () {
         for (var i = 0; i < 100; i++) {
             gameController.update();
         }
-        expect(gameController.bub.y).toBe(159);
+        expect(gameController.player.y).toBe(159);
     });
 
     it("should fall at the left boundary", function () {
-        gameController.bub.x = 100;
-        gameController.walls.push(new Wall(100 + gameController.bub.width(), gameController.bub.y + gameController.bub.height()));
+        gameController.player.x = 100;
+        gameController.walls.push(new Wall(100 + gameController.player.width(), gameController.player.y + gameController.player.height()));
         gameController.update();
-        expect(gameController.bub.y).toBe(100);
+        expect(gameController.player.y).toBe(100);
 
-        gameController.bub.x -= 1;
+        gameController.player.x -= 1;
         gameController.update();
-        expect(gameController.bub.y).toBeGreaterThan(100);
+        expect(gameController.player.y).toBeGreaterThan(100);
     });
 
     it("should fall at the right boundary", function () {
-        gameController.bub.x = 100;
-        gameController.walls.push(new Wall(100 - gameController.bub.width() + 3, gameController.bub.y + gameController.bub.height()));
+        gameController.player.x = 100;
+        gameController.walls.push(new Wall(100 - gameController.player.width() + 3, gameController.player.y + gameController.player.height()));
         gameController.update();
-        expect(gameController.bub.y).toBe(100);
+        expect(gameController.player.y).toBe(100);
 
-        gameController.bub.x += 1;
+        gameController.player.x += 1;
         gameController.update();
-        expect(gameController.bub.y).toBeGreaterThan(100);
+        expect(gameController.player.y).toBeGreaterThan(100);
     });
 
     it("removes bubbles after they are offscreen", function () {
