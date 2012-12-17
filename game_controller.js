@@ -3,10 +3,8 @@
 var GameController = Class.extend({
     init: function (gameInit) {
         this.gameInit = gameInit;
-        this.control = new Control();
 
         this.bub = new Player(200, 100);
-        this.images = new Images();
         this.context = $('#gameCanvas').get(0).getContext("2d");
 
         this.walls = (new LevelBuilder(this.walls)).walls;
@@ -17,9 +15,7 @@ var GameController = Class.extend({
         this.collisionDetector = new CollisionDetector({bub: this.bub, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
         this.sprites = [[this.bub]].concat([this.bubbles], [this.walls], [this.enemies]);
 
-        $(document).on('shootBubble', $.proxy(this.createBubble, this));
         $(document).on('removeBubble', $.proxy(this.removeBubble, this));
-
     },
 
     removeBubble: function (e, bubble) {
@@ -33,13 +29,13 @@ var GameController = Class.extend({
         this.bubbles.splice(remove, 1);
     },
 
-    createBubble: function (e, direction) {
+    createBubble: function (direction) {
         var x;
         if (direction === RIGHT) {
-            x = this.bub.x + this.bub.width(this.images) / 2;
+            x = this.bub.x + this.bub.width() / 2;
         }
         else {
-            x = this.bub.x - this.bub.width(this.images) / 2;
+            x = this.bub.x - this.bub.width() / 2;
         }
         this.bubbles.push(new Bubble(x, this.bub.y, direction));
     },
@@ -68,7 +64,7 @@ var GameController = Class.extend({
         for (i = 0; i < this.sprites.length; i++) {
             sprites = this.sprites[i];
             for (k = 0; k < sprites.length; k++) {
-                this.sprites[i][k].update({control: this.control, collisionDetector: this.collisionDetector, player: this.bub});
+                this.sprites[i][k].update({collisionDetector: this.collisionDetector, player: this.bub, gameController: this});
             }
         }
     }

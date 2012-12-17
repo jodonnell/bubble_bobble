@@ -9,12 +9,14 @@ var Player = Sprite.extend({
         this.shooting = 0;
         this.playerAnimations = new PlayerAnimations();
         this.moveSpeed = 4;
+        this.control = new Control();
     },
 
     update: function (args) {
-        var control = args.control;
         var collisionDetector = args.collisionDetector;
-        this.respondToControls(control, collisionDetector);
+        var gameController = args.gameController;
+
+        this.respondToControls(collisionDetector, gameController);
 
         this.playerAnimations.changeAnimation();
 
@@ -34,25 +36,25 @@ var Player = Sprite.extend({
         }
     },
 
-    respondToControls: function (controls, collisionDetector) {
-        if (controls.isHoldingRight() && collisionDetector.noWallToRight(this)) {
+    respondToControls: function (collisionDetector, gameController) {
+        if (this.control.isHoldingRight() && collisionDetector.noWallToRight(this)) {
             this.moveRight();
         }
 
-        if (controls.isHoldingLeft() && collisionDetector.noWallToLeft(this)) {
+        if (this.control.isHoldingLeft() && collisionDetector.noWallToLeft(this)) {
             this.moveLeft();
         }
 
-        if (!controls.isHoldingLeft() && !controls.isHoldingRight() && !this.jumping && !this.falling && !this.shooting) {
+        if (!this.control.isHoldingLeft() && !this.control.isHoldingRight() && !this.jumping && !this.falling && !this.shooting) {
             this.playerAnimations.stand();
         }
 
-        if (controls.isJumping()) {
+        if (this.control.isJumping()) {
             this.jump();
         }
 
-        if (controls.isShooting()) {
-            this.shoot();
+        if (this.control.isShooting()) {
+            this.shoot(gameController);
         }
     },
 
@@ -98,16 +100,18 @@ var Player = Sprite.extend({
         this.jumping = 1;
     },
 
-    shoot: function () {
+    shoot: function (gameController) {
         if (this.shooting) {
             return;
         }
         this.shooting = 1;
         this.playerAnimations.shoot();
-        $(document).trigger('shootBubble', [this.playerAnimations.direction]);
+        
+        gameController.createBubble(this.playerAnimations.direction);
     },
 
     getCurrentImage: function () {
         return this.playerAnimations.getImageName();
     }
 });
+

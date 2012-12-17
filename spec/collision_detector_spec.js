@@ -19,4 +19,16 @@ describe("CollisionDetector", function () {
         expect(collisionDetector.isBubStandingOnFloor()).toBeFalsy();
     });
 
+    it("cannot run through left wall", sinon.test(function () {
+        bub.x = 45;
+        expect(collisionDetector.noWallToLeft(bub)).toBeFalsy();
+        expect(bub.x).toBe(46);
+    }));
+
+    it("cannot run through right wall", sinon.test(function () {
+        bub.x = 753;
+        expect(collisionDetector.noWallToRight(bub)).toBeFalsy();
+        expect(bub.x).toBe(754 - bub.width());
+    }));
+
 });
