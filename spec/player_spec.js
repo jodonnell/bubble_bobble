@@ -78,34 +78,33 @@ describe("Player", function () {
 
     it("changes to shooting animation", sinon.test(function () {
         var spy = this.spy(player.playerAnimations, 'shoot');
-        player.shoot({createBubble: (function () {})});
+        player.shoot({bubbles: []});
         expect(spy.calledOnce).toBeTruthy();
     }));
 
     it("should be able to shoot bubbles", sinon.test(function () {
-        var gameController = {createBubble: (function () {})};
-        var createBubbleSpy = this.spy(gameController, 'createBubble');
+        var gameController = {bubbles: []};
         this.stub(player.control, 'isShooting').returns(true);
 
         player.update({gameController: gameController, collisionDetector: (new CollisionDetector({}))});
-        expect(createBubbleSpy.called).toBeTruthy();
+        expect(gameController.bubbles.length).toBe(1);
     }));
 
     it("should be able to shoot one bubble every once in a while", sinon.test(function () {
-        var gameController = {createBubble: (function () {})};
-        var createBubbleSpy = this.spy(gameController, 'createBubble');
+        var gameController = {bubbles: []};
         this.stub(player.control, 'isShooting').returns(true);
 
         var args = {gameController: gameController, collisionDetector: (new CollisionDetector({}))};
 
         player.update(args);
         player.update(args);
-        expect(createBubbleSpy.callCount).toBe(1);
+        expect(gameController.bubbles.length).toBe(1);
 
         for (var i = 0; i < 34; i++) {
             player.update(args);
         }
-        expect(createBubbleSpy.callCount).toBe(2);
+
+        expect(gameController.bubbles.length).toBe(2);
     }));
 
 

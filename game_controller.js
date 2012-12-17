@@ -29,17 +29,6 @@ var GameController = Class.extend({
         this.bubbles.splice(remove, 1);
     },
 
-    createBubble: function (direction) {
-        var x;
-        if (direction === RIGHT) {
-            x = this.bub.x + this.bub.width() / 2;
-        }
-        else {
-            x = this.bub.x - this.bub.width() / 2;
-        }
-        this.bubbles.push(new Bubble(x, this.bub.y, direction));
-    },
-
     draw: function () {
         var i, k, sprites;
 

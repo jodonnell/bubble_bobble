@@ -107,11 +107,22 @@ var Player = Sprite.extend({
         this.shooting = 1;
         this.playerAnimations.shoot();
         
-        gameController.createBubble(this.playerAnimations.direction);
+        this.createBubble(gameController);
     },
 
     getCurrentImage: function () {
         return this.playerAnimations.getImageName();
+    },
+
+    createBubble: function (gameController) {
+        var x;
+        if (this.playerAnimations.direction === RIGHT) {
+            x = this.x + this.width() / 2;
+        }
+        else {
+            x = this.x - this.width() / 2;
+        }
+        gameController.bubbles.push(new Bubble(x, this.y, this.playerAnimations.direction));
     }
 });
 
