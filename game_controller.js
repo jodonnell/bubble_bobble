@@ -3,22 +3,21 @@
 var GameController = Class.extend({
     init: function (gameInit) {
         this.gameInit = gameInit;
+        this.context = $('#gameCanvas').get(0).getContext("2d");
 
         this.bub = new Player(200, 100);
-        this.context = $('#gameCanvas').get(0).getContext("2d");
 
         this.walls = (new LevelBuilder(this.walls)).walls;
 
         this.bubbles = [];
+
         this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
         this.collisionDetector = new CollisionDetector({bub: this.bub, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
         this.sprites = [[this.bub]].concat([this.bubbles], [this.walls], [this.enemies]);
-
-        $(document).on('removeBubble', $.proxy(this.removeBubble, this));
     },
 
-    removeBubble: function (e, bubble) {
+    removeBubble: function (bubble) {
         var remove = -1;
         for (var i = 0; i < this.bubbles.length; i++) {
             if (this.bubbles[i] === bubble) {

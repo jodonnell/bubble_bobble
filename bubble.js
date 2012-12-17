@@ -9,22 +9,24 @@ var Bubble = Sprite.extend({
         this.timer = 0;
     },
 
-    update: function () {
+    update: function (args) {
+        var gameController = args.gameController;
+
         this.timer++;
 
         if (this.isFullyFormed()) {
-            this.floatUp();
+            this.floatUp(gameController);
         }
         else {
             this.shootOut();
         }
     },
 
-    floatUp: function () {
+    floatUp: function (gameController) {
         this.y -= 2;
 
         if (this.y + this.height() / 2 < 0) {
-            $(document).trigger('removeBubble', [this]);
+            gameController.removeBubble(this);
         }
     },
     
