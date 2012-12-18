@@ -41,15 +41,6 @@ describe("GameController", function () {
         expect(gameController.player.y).toBeGreaterThan(100);
     });
 
-    it("removes bubbles after they are offscreen", function () {
-        gameController.bubbles.push(new Bubble(0, 0));
-        for (var i = 0; i < 34; i++) {
-            gameController.update();
-        }
-
-        expect(gameController.bubbles.length).toBe(0);
-    });
-
     it("should have 3 enemies", sinon.test(function () {
         expect(gameController.enemies.length).toBe(3);
     }));

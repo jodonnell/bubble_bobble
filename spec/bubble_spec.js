@@ -27,4 +27,19 @@ describe("Bubble", function () {
         bubble.update(args);
         expect(bubble.y).toBeLessThan(100);
     });
+
+    it("removes bubbles after they are offscreen", function () {
+        var bubble = new Bubble(100, 0, RIGHT);
+        bubble.currentImage = 'bigBubble';
+
+        var gameController = {bubbles: [bubble]};
+        var args = {gameController: gameController};
+
+        for (var i = 0; i < 34; i++) {
+            bubble.update(args);
+        }
+
+        expect(gameController.bubbles.length).toBe(0);
+    });
+
 });
