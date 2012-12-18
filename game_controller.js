@@ -18,16 +18,12 @@ var GameController = Class.extend({
     },
 
     draw: function () {
-        var i, k, sprites;
-
         this.clearBackground();
 
-        for (i = 0; i < this.sprites.length; i++) {
-            sprites = this.sprites[i];
-            for (k = 0; k < sprites.length; k++) {
-                this.sprites[i][k].draw();
-            }
-        }
+        var drawMethod = $.proxy(function (i, j) {
+            this.sprites[i][j].draw();
+        }, this);
+        this.eachSprite(drawMethod);
     },
 
     clearBackground: function () {
@@ -36,12 +32,19 @@ var GameController = Class.extend({
     },
 
     update: function () {
-        var i, k, sprites;
+        var updateMethod = $.proxy(function (i, j) {
+            this.sprites[i][j].update({collisionDetector: this.collisionDetector, player: this.player, gameController: this});
+        }, this);
+        this.eachSprite(updateMethod);
+    },
+
+    eachSprite: function (spriteAction) {
+        var i, j, sprites;
 
         for (i = 0; i < this.sprites.length; i++) {
             sprites = this.sprites[i];
-            for (k = 0; k < sprites.length; k++) {
-                this.sprites[i][k].update({collisionDetector: this.collisionDetector, player: this.player, gameController: this});
+            for (j = 0; j < sprites.length; j++) {
+                spriteAction(i, j);
             }
         }
     }
