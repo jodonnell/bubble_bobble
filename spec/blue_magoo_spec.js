@@ -56,4 +56,10 @@ describe("Blue Magoos", function () {
         expect(blueMagoo.isJumping()).toBeFalsy();
     }));
 
+    it("should fall", sinon.test(function () {
+        var blueMagoo = new BlueMagoo(100, 100, 0);
+        blueMagoo.update({player: {x: 0, y: 0}, collisionDetector: (new CollisionDetector({}))});
+        expect(blueMagoo.y).toBeGreaterThan(100);
+    }));
+
 });
