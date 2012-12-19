@@ -25,8 +25,7 @@ var BlueMagoo = Sprite.extend({
         this.changeAnimation();
 
         if (collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles)) {
-            this.trapped = true;
-            this.currentImage = 'blueMagooTrapped';
+            this.trap();
         }
         
         if (this.trapped) {
@@ -48,6 +47,11 @@ var BlueMagoo = Sprite.extend({
         }
     },
 
+    trap: function () {
+        this.trapped = true;
+        this.currentImage = 'blueMagooTrapped';
+    },
+
     changeAnimation: function () {
         if (this.timer !== 10) {
             return;
@@ -56,8 +60,11 @@ var BlueMagoo = Sprite.extend({
         if (this.currentImage === 'blueMagooWalk') {
             this.currentImage = 'blueMagooWalkLeg';
         }
-        else {
+        else if (this.currentImage === 'blueMagooWalkLeg') {
             this.currentImage = 'blueMagooWalk';
+        }
+        else if (this.currentImage === 'blueMagooTrapped') {
+            this.switchDirection();
         }
         this.timer = 0;
     },
@@ -132,6 +139,14 @@ var BlueMagoo = Sprite.extend({
 
     isTrapped: function () {
         return this.trapped;
-    }
+    },
 
+    switchDirection: function () {
+        if (this.direction === RIGHT) {
+            this.direction = LEFT;
+        }
+        else {
+            this.direction = RIGHT;
+        }
+    }
 });
