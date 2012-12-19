@@ -72,6 +72,6 @@ bub_other_images = ['bub_facing_forward_leg', 'bub_facing_forward', 'smallest_bu
 ci = CreateImages.new("bubblebobble_bubandbub_sheet.png", bub_other_images, 38)
 ci.grab_row_with_bubbles
 
-blue_magoo_images = ['blue_magoo', 'blue_magoo_walk', 'blue_magoo_walk_leg']
+blue_magoo_images = ['blue_magoo', 'blue_magoo_walk', 'blue_magoo_walk_leg', 'blue_magoo_walk_mad', 'blue_magoo_walk_leg_mad', 'blue_magoo_dead', 'blue_magoo_dead_spin', 'blue_magoo_trapped']
 ci = CreateImages.new("bubblebobble_enemies_sheet.png", blue_magoo_images, 0, LEFT)
 ci.grab_row

@@ -36,7 +36,6 @@ var Player = Sprite.extend({
             this.playerAnimations.stopFalling();
         }
 
-        // does player collide with any enemies?
         if (collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
             this.dead = true;
         }
@@ -113,14 +112,14 @@ var Player = Sprite.extend({
         this.shooting = 1;
         this.playerAnimations.shoot();
         
-        this.createBubble(onscreenSprites);
+        this._createBubble(onscreenSprites);
     },
 
     getCurrentImage: function () {
         return this.playerAnimations.getImageName();
     },
 
-    createBubble: function (onscreenSprites) {
+    _createBubble: function (onscreenSprites) {
         var x;
         if (this.playerAnimations.direction === RIGHT) {
             x = this.x + this.width() / 2;

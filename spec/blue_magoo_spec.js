@@ -78,4 +78,16 @@ describe("Blue Magoos", function () {
         expect(blueMagoo.y).toBeGreaterThan(100);
     }));
 
+    it("should get trapped when hit by a bubble", function () {
+        var blueMagoo = new BlueMagoo(100, 100, 0);
+        onscreenSprites.player.x = 0;
+        onscreenSprites.player.y = 0;
+        onscreenSprites.bubbles = [new Bubble(100, 100, 0)];
+
+        blueMagoo.update({onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()});
+        expect(blueMagoo.isTrapped()).toBeTruthy();
+        expect(blueMagoo.getCurrentImage()).toBe('blueMagooTrappedRight');
+        
+    });
+
 });

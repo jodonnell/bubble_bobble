@@ -23,6 +23,13 @@ var Images = Class.extend({
 
         this.blueMagooWalkLegRight = new Image();
         this.blueMagooWalkLegRight.src = "assets/blue_magoo_walk_leg.png";
+
+        this.blueMagooTrappedRight = new Image();
+        this.blueMagooTrappedRight.src = "assets/blue_magoo_trapped.png";
+
+        this.blueMagooTrappedLeft = new Image();
+        this.blueMagooTrappedLeft.src = "assets/blue_magoo_trapped_left.png";
+
     },
 
     bubbles: function () {
