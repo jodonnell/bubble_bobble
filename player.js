@@ -37,9 +37,9 @@ var Player = Sprite.extend({
         }
 
         // does player collide with any enemies?
-        // if (collisionDetector.doesCollideWith(this, gameController.enemies)) {
-        //     this.dead = true;
-        // }
+        if (collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
+            this.dead = true;
+        }
     },
 
     respondToControls: function (collisionDetector, onscreenSprites) {
@@ -133,6 +133,12 @@ var Player = Sprite.extend({
     
     isDead: function () {
         return this.dead;
+    },
+
+    draw: function () {
+        if (!this.dead) {
+            this._super();
+        }
     }
 });
 

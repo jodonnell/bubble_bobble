@@ -42,6 +42,20 @@ var CollisionDetector = Class.extend({
         return false;
     },
 
+    doesCollideWithSprites: function (sprite, sprites) {
+        for (var i = 0; i < sprites.length; i++) {
+            if (this.doesCollideWith(sprite, sprites[i])) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+    
+    doesCollideWith: function (spriteA, spriteB) {
+        return spriteA.x < spriteB.rightSide() && spriteA.rightSide() > spriteB.x && spriteA.y < spriteB.bottomSide() && spriteA.bottomSide() > spriteB.y;
+    },
+
     _doesBottomCollide: function (sprite, object) {
         if (object.y === sprite.bottomSide()) {
             return true;
