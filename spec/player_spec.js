@@ -25,39 +25,41 @@ describe("Player", function () {
     }));
 
     it("should fall when nothing is under it", function () {
-        player.update({collisionDetector: new CollisionDetector({})});
+        player.update({onscreenSprites: new OnscreenSprites({player: player}), collisionDetector: new CollisionDetector({})});
         expect(player.y).toBeGreaterThan(100);
     });
 
     it("should land on a floor after a jump", sinon.test(function () {
         var i;
         var collisionDetector = new CollisionDetector({player: player, walls: [new Wall(95, player.bottomSide())]});
+        var onscreenSprites = new OnscreenSprites({player: player, walls: collisionDetector.walls});
 
         this.stub(player.control, 'isJumping').returns(true);
-        player.update({collisionDetector: collisionDetector});
+        player.update({onscreenSprites: onscreenSprites, collisionDetector: collisionDetector});
 
         player.control.isJumping.restore();
         this.stub(player.control, 'isJumping').returns(false);
 
         for (i = 0; i < 100; i++) {
-            player.update({collisionDetector: collisionDetector});
+            player.update({onscreenSprites: onscreenSprites, collisionDetector: collisionDetector});
         }
         expect(player.y).toBe(100);
     }));
 
     it("can jump", sinon.test(function () {
         var collisionDetector = new CollisionDetector({player: player});
+        var onscreenSprites = new OnscreenSprites({player: player});
 
         this.stub(player.control, 'isJumping').returns(true);
 
-        player.update({collisionDetector: collisionDetector});
+        player.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(player.y).toBe(96);
 
-        player.update({collisionDetector: collisionDetector});
+        player.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(player.y).toBe(92);
 
         for (var i = 0; i < 50; i++) {
-            player.update({ collisionDetector: collisionDetector});
+            player.update({ collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         }
         
         expect(player.y).toBe(11);
@@ -83,7 +85,7 @@ describe("Player", function () {
     }));
 
     it("should be able to shoot bubbles", sinon.test(function () {
-        var onscreenSprites = {bubbles: []};
+        var onscreenSprites = new OnscreenSprites({});
         this.stub(player.control, 'isShooting').returns(true);
 
         player.update({onscreenSprites: onscreenSprites, collisionDetector: (new CollisionDetector({}))});
@@ -91,7 +93,7 @@ describe("Player", function () {
     }));
 
     it("should be able to shoot one bubble every once in a while", sinon.test(function () {
-        var onscreenSprites = {bubbles: []};
+        var onscreenSprites = new OnscreenSprites({});
         this.stub(player.control, 'isShooting').returns(true);
 
         var args = {onscreenSprites: onscreenSprites, collisionDetector: (new CollisionDetector({}))};
@@ -108,7 +110,7 @@ describe("Player", function () {
     }));
 
     it("dies if it contacts an enemy", function () {
-        var onscreenSprites = {enemies: [new BlueMagoo(100, 100, 0)]};
+        var onscreenSprites = new OnscreenSprites({enemies: [new BlueMagoo(100, 100, 0)]});
         var args = {onscreenSprites: onscreenSprites, collisionDetector: (new CollisionDetector({player: player, enemies: onscreenSprites.enemies}))};
         player.update(args);
         expect(player.isDead()).toBeTruthy();

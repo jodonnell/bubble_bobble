@@ -10,34 +10,11 @@ var CollisionDetector = Class.extend({
 
     isStandingOnObjects: function (sprite, objects) {
         for (var i = 0; i < objects.length; i++) {
-            if (this.xMatchUp(sprite, objects[i]) && this.doesBottomCollide(sprite, objects[i])) {
+            if (this._xMatchUp(sprite, objects[i]) && this._doesBottomCollide(sprite, objects[i])) {
                 return true;
             }
         }
         return false;
-    },
-
-    doesBottomCollide: function (sprite, object) {
-        if (object.y === sprite.bottomSide()) {
-            return true;
-        }
-        if (object.y === sprite.bottomSide() - 1) {
-            sprite.y -= 1;
-            return true;
-        }
-        if (object.y === sprite.bottomSide() - 2) {
-            sprite.y -= 2;
-            return true;
-        }
-        return false;
-    },
-
-    xMatchUp: function (sprite, object) {
-        return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
-    },
-
-    isBubStandingOnFloor: function () {
-        return this.isStandingOnObjects(this.player, this.walls);
     },
 
     isBubStandingOnBubble: function () {
@@ -70,7 +47,7 @@ var CollisionDetector = Class.extend({
 
     isPlatformAboveWithin: function (sprite, distance) {
         for (var i = 0; i < this.walls.length; i++) {
-            if (this.xMatchUp(sprite, this.walls[i])) {
+            if (this._xMatchUp(sprite, this.walls[i])) {
                 var yWithin = this.walls[i].y <= sprite.bottomSide() - 1 &&
                     this.walls[i].y >= sprite.bottomSide() - 1 - distance;
                 if (yWithin) {
@@ -79,6 +56,24 @@ var CollisionDetector = Class.extend({
             }
         }
         return false;
-    }
+    },
 
+    _doesBottomCollide: function (sprite, object) {
+        if (object.y === sprite.bottomSide()) {
+            return true;
+        }
+        if (object.y === sprite.bottomSide() - 1) {
+            sprite.y -= 1;
+            return true;
+        }
+        if (object.y === sprite.bottomSide() - 2) {
+            sprite.y -= 2;
+            return true;
+        }
+        return false;
+    },
+
+    _xMatchUp: function (sprite, object) {
+        return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
+    }
 });

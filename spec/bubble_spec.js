@@ -4,8 +4,8 @@ describe("Bubble", function () {
     var args;
 
     beforeEach(function () {
-        var gameController = {bubbles: []};
-        args = {gameController: gameController};
+        var onscreenSprites = new OnscreenSprites();
+        args = {onscreenSprites: onscreenSprites};
     });
 
     it("should go the right way", function () {
@@ -32,14 +32,14 @@ describe("Bubble", function () {
         var bubble = new Bubble(100, 0, RIGHT);
         bubble.currentImage = 'bigBubble';
 
-        var gameController = {bubbles: [bubble]};
-        var args = {gameController: gameController};
+        var onscreenSprites = {bubbles: [bubble]};
+        var args = {onscreenSprites: onscreenSprites};
 
         for (var i = 0; i < 34; i++) {
             bubble.update(args);
         }
 
-        expect(gameController.bubbles.length).toBe(0);
+        expect(onscreenSprites.bubbles.length).toBe(0);
     });
 
 });

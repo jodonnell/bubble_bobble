@@ -10,24 +10,24 @@ var Bubble = Sprite.extend({
     },
 
     update: function (args) {
-        var gameController = args.gameController;
+        var onscreenSprites = args.onscreenSprites;
 
         this.timer++;
 
         if (this.isFullyFormed()) {
-            this.floatUp(gameController);
+            this.floatUp(onscreenSprites);
         }
         else {
             this.shootOut();
         }
     },
 
-    floatUp: function (gameController) {
+    floatUp: function (onscreenSprites) {
         this.y -= 2;
 
         if (this.y + this.height() / 2 < 0) {
-            var index = gameController.bubbles.indexOf(this);
-            gameController.bubbles.splice(index, 1);
+            var index = onscreenSprites.bubbles.indexOf(this);
+            onscreenSprites.bubbles.splice(index, 1);
         }
     },
     

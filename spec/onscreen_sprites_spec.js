@@ -4,7 +4,7 @@ describe("OnscreenSprites", function () {
     var onscreenSprites;
 
     beforeEach(function () {
-        onscreenSprites = new OnscreenSprites();
+        onscreenSprites = new OnscreenSprites({enemies: [1, 2, 3]});
     });
 
     it("should have 3 enemies", sinon.test(function () {
