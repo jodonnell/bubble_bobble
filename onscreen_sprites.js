@@ -6,7 +6,7 @@ var OnscreenSprites = Class.extend({
             sprites = {};
         }
 
-        this.player = sprites.player || [];
+        this.player = sprites.player || new Player(100, 100);
         this.enemies = sprites.enemies || [];
         this.bubbles = sprites.bubbles || [];
         this.walls = sprites.walls || [];

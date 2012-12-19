@@ -15,8 +15,9 @@ var BlueMagoo = Sprite.extend({
 
     update: function (args) {
         var collisionDetector = args.collisionDetector;
-        var followX = args.player.x;
-        var followY = args.player.y;
+        var followX = args.onscreenSprites.player.x;
+        var followY = args.onscreenSprites.player.y;
+        var onscreenSprites = args.onscreenSprites;
 
         this.timer++;
 
@@ -29,8 +30,8 @@ var BlueMagoo = Sprite.extend({
                 this.jumping = 0;
             }
         }
-        else if (collisionDetector.isSpriteStandingOnWall(this)) {
-            this.move(collisionDetector, followX, followY);
+        else if (collisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
+            this.move(collisionDetector, followX, followY, onscreenSprites.walls);
         }
         else {
             this.y += 3;
@@ -55,9 +56,9 @@ var BlueMagoo = Sprite.extend({
         return Math.random() > 0.99;
     },
 
-    move: function (collisionDetector, followX, followY) {
+    move: function (collisionDetector, followX, followY, walls) {
         if (this.shouldTrack())  {
-            this.track(collisionDetector, followX, followY);
+            this.track(collisionDetector, followX, followY, walls);
         }
         else {
             this.moveInCurrentDirection();
@@ -74,9 +75,9 @@ var BlueMagoo = Sprite.extend({
         }
     },
 
-    track: function (collisionDetector, followX, followY) {
+    track: function (collisionDetector, followX, followY, walls) {
         if (this.y > followY) {
-            if (collisionDetector.isPlatformAboveWithin(this, 150)) {
+            if (collisionDetector.areSpritesAboveWithin(this, walls, 150)) {
                 this.jumping = 1;
                 return;
             }

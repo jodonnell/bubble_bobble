@@ -5,12 +5,12 @@ var GameController = Class.extend({
         this.gameInit = gameInit;
         this.context = $('#gameCanvas').get(0).getContext("2d");
 
-        this.onscreenSprites = new OnscreenSprites({player: new Player(200, 100), 
+        this.onscreenSprites = new OnscreenSprites({player: new Player(200, 100),
                                                    enemies: [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)],
                                                    bubbles: [],
                                                    walls: (new LevelBuilder(this.walls)).walls});
 
-        this.collisionDetector = new CollisionDetector({player: this.onscreenSprites.player, enemies: this.onscreenSprites.enemies, bubbles: this.onscreenSprites.bubbles, walls: this.onscreenSprites.walls});
+        this.collisionDetector = new CollisionDetector();
     },
 
     draw: function () {
@@ -29,7 +29,7 @@ var GameController = Class.extend({
 
     update: function () {
         var updateMethod = $.proxy(function (i, j) {
-            this.onscreenSprites.sprites[i][j].update({collisionDetector: this.collisionDetector, player: this.onscreenSprites.player, onscreenSprites: this.onscreenSprites});
+            this.onscreenSprites.sprites[i][j].update({collisionDetector: this.collisionDetector, onscreenSprites: this.onscreenSprites});
         }, this);
         this.eachSprite(updateMethod);
     },
