@@ -5,6 +5,8 @@ var GameController = Class.extend({
         this.gameInit = gameInit;
         this.context = $('#gameCanvas').get(0).getContext("2d");
 
+        this.onscreenSprites = new OnscreenSprites();
+
         this.player = new Player(200, 100);
 
         this.walls = (new LevelBuilder(this.walls)).walls;
@@ -13,7 +15,7 @@ var GameController = Class.extend({
 
         this.enemies = [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)];
 
-        this.collisionDetector = new CollisionDetector({player: this.player, enemies: this.enemies, bubbles: this.bubbles, walls: this.walls});
+        this.collisionDetector = new CollisionDetector({player: this.onscreenSprites.player, enemies: this.onscreenSprites.enemies, bubbles: this.onscreenSprites.bubbles, walls: this.onscreenSprites.walls});
         this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies]);
     },
 
@@ -21,7 +23,7 @@ var GameController = Class.extend({
         this.clearBackground();
 
         var drawMethod = $.proxy(function (i, j) {
-            this.sprites[i][j].draw();
+            this.onscreenSprites.sprites[i][j].draw();
         }, this);
         this.eachSprite(drawMethod);
     },
@@ -33,7 +35,7 @@ var GameController = Class.extend({
 
     update: function () {
         var updateMethod = $.proxy(function (i, j) {
-            this.sprites[i][j].update({collisionDetector: this.collisionDetector, player: this.player, gameController: this});
+            this.onscreenSprites.sprites[i][j].update({collisionDetector: this.collisionDetector, player: this.player, onscreenSprites: this.onscreenSprites});
         }, this);
         this.eachSprite(updateMethod);
     },
@@ -41,8 +43,8 @@ var GameController = Class.extend({
     eachSprite: function (spriteAction) {
         var i, j, sprites;
 
-        for (i = 0; i < this.sprites.length; i++) {
-            sprites = this.sprites[i];
+        for (i = 0; i < this.onscreenSprites.sprites.length; i++) {
+            sprites = this.onscreenSprites.sprites[i];
             for (j = 0; j < sprites.length; j++) {
                 spriteAction(i, j);
             }

@@ -10,13 +10,14 @@ var Player = Sprite.extend({
         this.playerAnimations = new PlayerAnimations();
         this.moveSpeed = 4;
         this.control = new Control();
+        this.dead = false;
     },
 
     update: function (args) {
         var collisionDetector = args.collisionDetector;
-        var gameController = args.gameController;
+        var onscreenSprites = args.onscreenSprites;
 
-        this.respondToControls(collisionDetector, gameController);
+        this.respondToControls(collisionDetector, onscreenSprites);
 
         this.playerAnimations.changeAnimation();
 
@@ -34,9 +35,14 @@ var Player = Sprite.extend({
             this.falling = false;
             this.playerAnimations.stopFalling();
         }
+
+        // does player collide with any enemies?
+        // if (collisionDetector.doesCollideWith(this, gameController.enemies)) {
+        //     this.dead = true;
+        // }
     },
 
-    respondToControls: function (collisionDetector, gameController) {
+    respondToControls: function (collisionDetector, onscreenSprites) {
         if (this.control.isHoldingRight() && collisionDetector.noWallToRight(this)) {
             this.moveRight();
         }
@@ -54,7 +60,7 @@ var Player = Sprite.extend({
         }
 
         if (this.control.isShooting()) {
-            this.shoot(gameController);
+            this.shoot(onscreenSprites);
         }
     },
 
@@ -100,21 +106,21 @@ var Player = Sprite.extend({
         this.jumping = 1;
     },
 
-    shoot: function (gameController) {
+    shoot: function (onscreenSprites) {
         if (this.shooting) {
             return;
         }
         this.shooting = 1;
         this.playerAnimations.shoot();
         
-        this.createBubble(gameController);
+        this.createBubble(onscreenSprites);
     },
 
     getCurrentImage: function () {
         return this.playerAnimations.getImageName();
     },
 
-    createBubble: function (gameController) {
+    createBubble: function (onscreenSprites) {
         var x;
         if (this.playerAnimations.direction === RIGHT) {
             x = this.x + this.width() / 2;
@@ -122,7 +128,11 @@ var Player = Sprite.extend({
         else {
             x = this.x - this.width() / 2;
         }
-        gameController.bubbles.push(new Bubble(x, this.y, this.playerAnimations.direction));
+        onscreenSprites.bubbles.push(new Bubble(x, this.y, this.playerAnimations.direction));
+    },
+    
+    isDead: function () {
+        return this.dead;
     }
 });
 

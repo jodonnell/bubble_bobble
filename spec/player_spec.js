@@ -83,29 +83,34 @@ describe("Player", function () {
     }));
 
     it("should be able to shoot bubbles", sinon.test(function () {
-        var gameController = {bubbles: []};
+        var onscreenSprites = {bubbles: []};
         this.stub(player.control, 'isShooting').returns(true);
 
-        player.update({gameController: gameController, collisionDetector: (new CollisionDetector({}))});
-        expect(gameController.bubbles.length).toBe(1);
+        player.update({onscreenSprites: onscreenSprites, collisionDetector: (new CollisionDetector({}))});
+        expect(onscreenSprites.bubbles.length).toBe(1);
     }));
 
     it("should be able to shoot one bubble every once in a while", sinon.test(function () {
-        var gameController = {bubbles: []};
+        var onscreenSprites = {bubbles: []};
         this.stub(player.control, 'isShooting').returns(true);
 
-        var args = {gameController: gameController, collisionDetector: (new CollisionDetector({}))};
+        var args = {onscreenSprites: onscreenSprites, collisionDetector: (new CollisionDetector({}))};
 
         player.update(args);
         player.update(args);
-        expect(gameController.bubbles.length).toBe(1);
+        expect(onscreenSprites.bubbles.length).toBe(1);
 
         for (var i = 0; i < 34; i++) {
             player.update(args);
         }
 
-        expect(gameController.bubbles.length).toBe(2);
+        expect(onscreenSprites.bubbles.length).toBe(2);
     }));
 
-
+    it("dies if it contacts an enemy", function () {
+        var onscreenSprites = {enemies: [new BlueMagoo(100, 100, 0)]};
+        var args = {onscreenSprites: onscreenSprites, collisionDetector: (new CollisionDetector({player: player, enemies: onscreenSprites.enemies}))};
+        player.update(args);
+        expect(player.isDead()).toBeTruthy();
+    });
 });
