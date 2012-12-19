@@ -1,9 +1,6 @@
 "use strict";
 
 var CollisionDetector = Class.extend({
-    init: function () {
-    },
-
     isStandingOnObjects: function (sprite, objects) {
         for (var i = 0; i < objects.length; i++) {
             if (this._xMatchUp(sprite, objects[i]) && this._doesBottomCollide(sprite, objects[i])) {
