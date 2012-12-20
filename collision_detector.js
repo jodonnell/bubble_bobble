@@ -42,7 +42,7 @@ var CollisionDetector = Class.extend({
     doesCollideWithSprites: function (sprite, sprites) {
         for (var i = 0; i < sprites.length; i++) {
             if (this.doesCollideWith(sprite, sprites[i])) {
-                return true;
+                return sprites[i];
             }
         }
 

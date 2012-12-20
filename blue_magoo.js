@@ -11,7 +11,6 @@ var BlueMagoo = Sprite.extend({
 
         this.currentImage = 'blueMagooWalk';
         this.timer = 0;
-        this.trapped = false;
     },
 
     update: function (args) {
@@ -23,14 +22,6 @@ var BlueMagoo = Sprite.extend({
         this.timer++;
 
         this.changeAnimation();
-
-        if (collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles)) {
-            this.trap();
-        }
-        
-        if (this.trapped) {
-            return;
-        }
 
         if (this.isJumping()) {
             this.y -= 3;
@@ -45,11 +36,6 @@ var BlueMagoo = Sprite.extend({
         else {
             this.y += 3;
         }
-    },
-
-    trap: function () {
-        this.trapped = true;
-        this.currentImage = 'blueMagooTrapped';
     },
 
     changeAnimation: function () {
