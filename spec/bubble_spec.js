@@ -4,9 +4,9 @@ describe("Bubble", function () {
     var args, bubble;
 
     beforeEach(function () {
-        var onscreenSprites = new OnscreenSprites();
-        args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
         bubble = new Bubble(100, 100, RIGHT);
+        var onscreenSprites = new OnscreenSprites({bubbles: [bubble]});
+        args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
 
     it("should go the right way", function () {
@@ -28,9 +28,9 @@ describe("Bubble", function () {
     });
 
     it("removes bubbles after they are offscreen", function () {
-        bubble.currentImage = 'bigBubble';
-
-        for (var i = 0; i < 34; i++) {
+        bubble.fullyFormed = true;
+        bubble.y = 0;
+        for (var i = 0; i < 20; i++) {
             bubble.update(args);
         }
 
@@ -69,6 +69,11 @@ describe("Bubble", function () {
         }
 
         expect(bubble.getCurrentImage()).toBe('blueMagooTrappedLeft');
+    });
+
+    it("should be able to pop", function () {
+        bubble.pop(args.onscreenSprites);
+        expect(args.onscreenSprites.bubbles.length).toBe(0);
     });
 
 });

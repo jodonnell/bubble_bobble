@@ -97,6 +97,11 @@ var Bubble = Sprite.extend({
 
     hasEnemy: function () {
         return this.trapped;
+    },
+
+    pop: function (onscreenSprites) {
+        var index = onscreenSprites.bubbles.indexOf(this);
+        onscreenSprites.bubbles.splice(index, 1);
     }
 
 });

@@ -1,10 +1,12 @@
 "use strict";
 
 describe("Player", function () {
-    var player;
+    var player, args;
     
     beforeEach(function () {
         player = new Player(100, 100);
+        var onscreenSprites = new OnscreenSprites({player: player});
+        args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
 
     it("should have a location", function () {
@@ -25,41 +27,37 @@ describe("Player", function () {
     }));
 
     it("should fall when nothing is under it", function () {
-        player.update({onscreenSprites: new OnscreenSprites({player: player}), collisionDetector: new CollisionDetector()});
+        player.update(args);
         expect(player.y).toBeGreaterThan(100);
     });
 
     it("should land on a floor after a jump", sinon.test(function () {
         var i;
-        var collisionDetector = new CollisionDetector();
-        var onscreenSprites = new OnscreenSprites({player: player, walls: [new Wall(95, player.bottomSide())]});
+        args.onscreenSprites.walls = [new Wall(95, player.bottomSide())];
 
         this.stub(player.control, 'isJumping').returns(true);
-        player.update({onscreenSprites: onscreenSprites, collisionDetector: collisionDetector});
+        player.update(args);
 
         player.control.isJumping.restore();
         this.stub(player.control, 'isJumping').returns(false);
 
         for (i = 0; i < 100; i++) {
-            player.update({onscreenSprites: onscreenSprites, collisionDetector: collisionDetector});
+            player.update(args);
         }
         expect(player.y).toBe(100);
     }));
 
     it("can jump", sinon.test(function () {
-        var collisionDetector = new CollisionDetector();
-        var onscreenSprites = new OnscreenSprites({player: player});
-
         this.stub(player.control, 'isJumping').returns(true);
 
-        player.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
+        player.update(args);
         expect(player.y).toBe(96);
 
-        player.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
+        player.update(args);
         expect(player.y).toBe(92);
 
         for (var i = 0; i < 50; i++) {
-            player.update({ collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
+            player.update(args);
         }
         
         expect(player.y).toBe(11);
@@ -85,34 +83,39 @@ describe("Player", function () {
     }));
 
     it("should be able to shoot bubbles", sinon.test(function () {
-        var onscreenSprites = new OnscreenSprites({});
         this.stub(player.control, 'isShooting').returns(true);
 
-        player.update({onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()});
-        expect(onscreenSprites.bubbles.length).toBe(1);
+        player.update(args);
+        expect(args.onscreenSprites.bubbles.length).toBe(1);
     }));
 
     it("should be able to shoot one bubble every once in a while", sinon.test(function () {
-        var onscreenSprites = new OnscreenSprites({});
         this.stub(player.control, 'isShooting').returns(true);
 
-        var args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
-
         player.update(args);
         player.update(args);
-        expect(onscreenSprites.bubbles.length).toBe(1);
+        expect(args.onscreenSprites.bubbles.length).toBe(1);
 
         for (var i = 0; i < 34; i++) {
             player.update(args);
         }
 
-        expect(onscreenSprites.bubbles.length).toBe(2);
+        expect(args.onscreenSprites.bubbles.length).toBe(2);
     }));
 
     it("dies if it contacts an enemy", function () {
-        var onscreenSprites = new OnscreenSprites({enemies: [new BlueMagoo(100, 100, 0)]});
-        var args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
+        args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
         player.update(args);
         expect(player.isDead()).toBeTruthy();
     });
+
+    it("can pop a bubble", sinon.test(function () {
+        args.onscreenSprites.bubbles = [new Bubble(100, player.y - 10, RIGHT)];
+
+        var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
+        this.stub(player.control, 'isJumping').returns(true);
+
+        player.update(args);
+        expect(spy.calledOnce).toBeTruthy();
+    }));
 });

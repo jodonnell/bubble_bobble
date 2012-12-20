@@ -27,6 +27,10 @@ var Player = Sprite.extend({
 
         if (this.jumping) {
             this.jumpingUpdate();
+            var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+            if (bubble) {
+                bubble.pop(onscreenSprites);
+            }
         }
         else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls) || collisionDetector.isStandingOnObjects(this, onscreenSprites.bubbles))) {
             this.fall();
