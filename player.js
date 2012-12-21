@@ -29,7 +29,14 @@ var Player = Sprite.extend({
             this.jumpingUpdate();
             var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
             if (bubble) {
-                bubble.pop(onscreenSprites);
+                var direction;
+                if (this.x < bubble.x + bubble.width() / 2) {
+                    direction = RIGHT;
+                }
+                else {
+                    direction = LEFT;
+                }
+                bubble.pop(onscreenSprites, direction);
             }
         }
         else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls) || collisionDetector.isStandingOnObjects(this, onscreenSprites.bubbles))) {

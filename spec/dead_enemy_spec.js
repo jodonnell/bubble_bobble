@@ -4,7 +4,7 @@ describe("Dead Enemy", function () {
     var args, deadEnemy;
 
     beforeEach(function () {
-        deadEnemy = new DeadEnemy(100, 100);
+        deadEnemy = new DeadEnemy(100, 100, RIGHT);
         args = {collisionDetector: new CollisionDetector(), onscreenSprites: new OnscreenSprites({DeadEnemies: [deadEnemy]})};
     });
 
@@ -20,13 +20,24 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.currentImage).toBe('deadEnemyRight');
     });
 
-    it("should travel its silly flight", function () {
+    it("should travel in a parabola", function () {
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(102);
         expect(deadEnemy.y).toBe(96);
 
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(104);
+        expect(deadEnemy.y).toBe(92);
+    });
+
+    it("should be able to fly left too", function () {
+        deadEnemy.direction = LEFT;
+        deadEnemy.update(args);
+        expect(deadEnemy.x).toBe(98);
+        expect(deadEnemy.y).toBe(96);
+
+        deadEnemy.update(args);
+        expect(deadEnemy.x).toBe(96);
         expect(deadEnemy.y).toBe(92);
     });
 

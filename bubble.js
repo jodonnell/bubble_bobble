@@ -99,9 +99,9 @@ var Bubble = Sprite.extend({
         return this.trapped;
     },
 
-    pop: function (onscreenSprites) {
+    pop: function (onscreenSprites, direction) {
         if (this.hasEnemy()) {
-            onscreenSprites.deadEnemies.push(new DeadEnemy(this.x, this.y));
+            onscreenSprites.deadEnemies.push(new DeadEnemy(this.x, this.y, direction));
         }
 
         var index = onscreenSprites.bubbles.indexOf(this);

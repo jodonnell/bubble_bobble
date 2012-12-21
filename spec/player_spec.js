@@ -116,6 +116,18 @@ describe("Player", function () {
         this.stub(player.control, 'isJumping').returns(true);
 
         player.update(args);
-        expect(spy.calledOnce).toBeTruthy();
+        expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
     }));
+
+    it("can pop a bubble and send it to the left", sinon.test(function () {
+        args.onscreenSprites.bubbles = [new Bubble(100, player.y - 10, RIGHT)];
+        args.onscreenSprites.bubbles[0].x -= args.onscreenSprites.bubbles[0].width() / 2;
+
+        var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
+        this.stub(player.control, 'isJumping').returns(true);
+
+        player.update(args);
+        expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeTruthy();
+    }));
+
 });
