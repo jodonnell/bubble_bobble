@@ -5,10 +5,25 @@ var Images = Class.extend({
         this.bub();
         this.bubbles();
         this.enemies();
+        this.deadEnemies();
 
         this.bubRight = new Image();
         this.bubRight.src = "assets/bub.png";
         this.bubRight.onload = callback;
+    },
+
+    deadEnemies: function () {
+        this.deadEnemyRight = new Image();
+        this.deadEnemyRight.src = "assets/blue_magoo_dead.png";
+
+        this.deadEnemyBottom = new Image();
+        this.deadEnemyBottom.src = "assets/blue_magoo_dead_vertical.png";
+
+        this.deadEnemyLeft = new Image();
+        this.deadEnemyLeft.src = "assets/blue_magoo_dead_left.png";
+
+        this.deadEnemyTop = new Image();
+        this.deadEnemyTop.src = "assets/blue_magoo_dead_vertical_left.png";
     },
 
     enemies: function () {
