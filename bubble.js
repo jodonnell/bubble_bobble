@@ -100,6 +100,10 @@ var Bubble = Sprite.extend({
     },
 
     pop: function (onscreenSprites) {
+        if (this.hasEnemy()) {
+            onscreenSprites.deadEnemies.push(new DeadEnemy(this.x, this.y));
+        }
+
         var index = onscreenSprites.bubbles.indexOf(this);
         onscreenSprites.bubbles.splice(index, 1);
     }

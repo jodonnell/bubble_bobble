@@ -76,4 +76,13 @@ describe("Bubble", function () {
         expect(args.onscreenSprites.bubbles.length).toBe(0);
     });
 
+    it("should turn a trapped popped bubble into dead enemy", function () {
+        args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
+        bubble.trap(args.onscreenSprites, args.onscreenSprites.enemies[0]);
+        bubble.pop(args.onscreenSprites);
+        expect(args.onscreenSprites.deadEnemies.length).toBe(1);
+        expect(args.onscreenSprites.deadEnemies[0].x).toBe(100);
+        expect(args.onscreenSprites.deadEnemies[0].y).toBe(100);
+    });
+
 });

@@ -10,7 +10,8 @@ var OnscreenSprites = Class.extend({
         this.enemies = sprites.enemies || [];
         this.bubbles = sprites.bubbles || [];
         this.walls = sprites.walls || [];
+        this.deadEnemies = sprites.deadEnemies || [];
 
-        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies]);
+        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies], [this.deadEnemies]);
     }
 });
