@@ -16,9 +16,19 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.currentImage).toBe('deadEnemyLeft');
         nextFrame();
         expect(deadEnemy.currentImage).toBe('deadEnemyTop');
-
+        nextFrame();
+        expect(deadEnemy.currentImage).toBe('deadEnemyRight');
     });
 
+    it("should travel its silly flight", function () {
+        deadEnemy.update(args);
+        expect(deadEnemy.x).toBe(102);
+        expect(deadEnemy.y).toBe(96);
+
+        deadEnemy.update(args);
+        expect(deadEnemy.x).toBe(104);
+        expect(deadEnemy.y).toBe(92);
+    });
 
     function nextFrame() {
         for (var i = 0; i < 3; i++) {
