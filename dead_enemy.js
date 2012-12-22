@@ -13,11 +13,19 @@ var DeadEnemy = Sprite.extend({
         this.parabolaTimer = 0;
     },
 
-    update: function(args) {
+    update: function () {
         this.timer++;
 
         this.parabolaTimer += 2;
         this.y = this.originalY - Math.round(-0.005 * Math.pow(this.parabolaTimer - 200, 2) + 200);
+
+        if (this.rightSide() >= RIGHT_BOUND) {
+            this.direction = LEFT;
+        }
+        else if (this.x <= LEFT_BOUND) {
+            this.direction = RIGHT;
+        }
+
         if (this.direction === RIGHT) {
             this.x += 2;
         }

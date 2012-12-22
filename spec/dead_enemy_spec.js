@@ -41,6 +41,17 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.y).toBe(92);
     });
 
+    it("should bounce off a wall", function () {
+        deadEnemy.x = RIGHT_BOUND;
+        deadEnemy.update(args);
+        expect(deadEnemy.x).toBe(RIGHT_BOUND - 2);
+        expect(deadEnemy.y).toBe(96);
+
+        deadEnemy.update(args);
+        expect(deadEnemy.x).toBe(RIGHT_BOUND - 4);
+        expect(deadEnemy.y).toBe(92);
+    });
+
     function nextFrame() {
         for (var i = 0; i < 3; i++) {
             deadEnemy.update(args);
