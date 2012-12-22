@@ -54,6 +54,7 @@ var CollisionDetector = Class.extend({
     },
 
     _doesBottomCollide: function (sprite, object) {
+        // this needs to make sure it's under the threshold of speed
         if (object.y === sprite.bottomSide()) {
             return true;
         }

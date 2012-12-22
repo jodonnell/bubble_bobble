@@ -13,10 +13,11 @@ var DeadEnemy = Sprite.extend({
         this.parabolaTimer = 0;
     },
 
-    update: function () {
+    update: function (args) {
         this.switchDirectionIfHitWall();
         this.move();
         this.changeAnimation();
+        this.changeToFruit(args.onscreenSprites, args.collisionDetector);
     },
 
     move: function () {
@@ -29,7 +30,6 @@ var DeadEnemy = Sprite.extend({
         else {
             this.x -= 2;
         }
-
     },
 
     switchDirectionIfHitWall: function () {
@@ -60,6 +60,15 @@ var DeadEnemy = Sprite.extend({
         }
         else if (this.currentImage === 'deadEnemyTop') {
             this.currentImage = 'deadEnemyRight';
+        }
+    },
+
+    changeToFruit: function (onscreenSprites, collisionDetector) {
+        if (this.y >= this.originalY) {
+            if (collisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
+                onscreenSprites.collectibles.push(new Pepper(this.x, this.y));
+                onscreenSprites.deadEnemies.remove(this);
+            }
         }
     }
 

@@ -5,7 +5,7 @@ describe("Dead Enemy", function () {
 
     beforeEach(function () {
         deadEnemy = new DeadEnemy(100, 100, RIGHT);
-        args = {collisionDetector: new CollisionDetector(), onscreenSprites: new OnscreenSprites({DeadEnemies: [deadEnemy]})};
+        args = {collisionDetector: new CollisionDetector(), onscreenSprites: new OnscreenSprites({deadEnemies: [deadEnemy]})};
     });
 
     it("should animate correctly", function () {
@@ -50,6 +50,18 @@ describe("Dead Enemy", function () {
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(RIGHT_BOUND - 4);
         expect(deadEnemy.y).toBe(92);
+    });
+
+    it("should become a fruit when it hits the ground", function () {
+        for (var i = 0; i < 300; i++) {
+            deadEnemy.update(args);
+            if (deadEnemy.y >= 100) {
+                args.onscreenSprites.walls.push(new Wall(deadEnemy.x, deadEnemy.y + 2));
+            }
+        }
+
+        expect(args.onscreenSprites.collectibles.length).toBe(1);
+        expect(args.onscreenSprites.deadEnemies.length).toBe(0);
     });
 
     function nextFrame() {
