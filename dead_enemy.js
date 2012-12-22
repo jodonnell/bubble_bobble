@@ -14,17 +14,14 @@ var DeadEnemy = Sprite.extend({
     },
 
     update: function () {
-        this.timer++;
+        this.switchDirectionIfHitWall();
+        this.move();
+        this.changeAnimation();
+    },
 
+    move: function () {
         this.parabolaTimer += 2;
         this.y = this.originalY - Math.round(-0.005 * Math.pow(this.parabolaTimer - 200, 2) + 200);
-
-        if (this.rightSide() >= RIGHT_BOUND) {
-            this.direction = LEFT;
-        }
-        else if (this.x <= LEFT_BOUND) {
-            this.direction = RIGHT;
-        }
 
         if (this.direction === RIGHT) {
             this.x += 2;
@@ -33,23 +30,37 @@ var DeadEnemy = Sprite.extend({
             this.x -= 2;
         }
 
-        if (this.timer === 3) {
-            this.timer = 0;
-            if (this.currentImage === 'deadEnemyRight') {
-                this.currentImage = 'deadEnemyBottom';
-            }
-            else if (this.currentImage === 'deadEnemyBottom') {
-                this.currentImage = 'deadEnemyLeft';
-            }
-            else if (this.currentImage === 'deadEnemyLeft') {
-                this.currentImage = 'deadEnemyTop';
-            }
-            else if (this.currentImage === 'deadEnemyTop') {
-                this.currentImage = 'deadEnemyRight';
-            }
+    },
 
+    switchDirectionIfHitWall: function () {
+        if (this.rightSide() >= RIGHT_BOUND) {
+            this.direction = LEFT;
+        }
+        else if (this.x <= LEFT_BOUND) {
+            this.direction = RIGHT;
+        }
+    },
+
+    changeAnimation: function () {
+        this.timer++;
+
+        if (this.timer !== 3) {
+            return;
         }
 
-
+        this.timer = 0;
+        if (this.currentImage === 'deadEnemyRight') {
+            this.currentImage = 'deadEnemyBottom';
+        }
+        else if (this.currentImage === 'deadEnemyBottom') {
+            this.currentImage = 'deadEnemyLeft';
+        }
+        else if (this.currentImage === 'deadEnemyLeft') {
+            this.currentImage = 'deadEnemyTop';
+        }
+        else if (this.currentImage === 'deadEnemyTop') {
+            this.currentImage = 'deadEnemyRight';
+        }
     }
+
 });
