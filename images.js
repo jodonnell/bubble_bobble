@@ -6,10 +6,16 @@ var Images = Class.extend({
         this.bubbles();
         this.enemies();
         this.deadEnemies();
+        this.collectibles();
 
         this.bubRight = new Image();
         this.bubRight.src = "assets/bub.png";
         this.bubRight.onload = callback;
+    },
+
+    collectibles: function () {
+        this.pepper = new Image();
+        this.pepper.src = "assets/pepper.png";
     },
 
     deadEnemies: function () {
