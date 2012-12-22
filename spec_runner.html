@@ -27,6 +27,7 @@
   <!-- include source files here... -->
   <script type="text/javascript" src="jquery.js"></script>
   <script type="text/javascript" src="class.js"></script>
+  <script type="text/javascript" src="constants.js"></script>
   <script type="text/javascript" src="sprite.js"></script>
   <script type="text/javascript" src="game_init.js"></script>
   <script type="text/javascript" src="control.js"></script>
@@ -48,10 +49,6 @@
     gameInit = new GameInit(true);
 
 
-    RIGHT = 1;
-    LEFT = 2;
-    
-    
     window.gameContext = $('#gameCanvas').get(0).getContext("2d");
     (function() {
       var jasmineEnv = jasmine.getEnv();
