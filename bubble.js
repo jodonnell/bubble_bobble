@@ -42,8 +42,7 @@ var Bubble = Sprite.extend({
         this.y -= 2;
         
         if (this.y + this.height() / 2 < 0) {
-            var index = onscreenSprites.bubbles.indexOf(this);
-            onscreenSprites.bubbles.splice(index, 1);
+            onscreenSprites.bubbles.remove(this);
         }
     },
     
@@ -91,8 +90,7 @@ var Bubble = Sprite.extend({
         this.currentImage = 'blueMagooTrappedRight';
         this.fullyFormed = true;
 
-        var index = onscreenSprites.enemies.indexOf(collidedWith);
-        onscreenSprites.enemies.splice(index, 1);
+        onscreenSprites.enemies.remove(collidedWith);
     },
 
     hasEnemy: function () {
@@ -104,8 +102,7 @@ var Bubble = Sprite.extend({
             onscreenSprites.deadEnemies.push(new DeadEnemy(this.x, this.y, direction));
         }
 
-        var index = onscreenSprites.bubbles.indexOf(this);
-        onscreenSprites.bubbles.splice(index, 1);
+        onscreenSprites.bubbles.remove(this);
     }
 
 });

@@ -11,7 +11,19 @@ var OnscreenSprites = Class.extend({
         this.bubbles = sprites.bubbles || [];
         this.walls = sprites.walls || [];
         this.deadEnemies = sprites.deadEnemies || [];
+        this.collectibles = sprites.collectibles || [];
 
-        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies], [this.deadEnemies]);
+        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies], [this.deadEnemies], [this.collectibles]);
+
+        var remove = function (element) {
+            var index = this.indexOf(element);
+            this.splice(index, 1);
+        }
+
+        this.deadEnemies.remove = remove;
+        this.enemies.remove = remove;
+        this.walls.remove = remove;
+        this.collectibles.remove = remove;
+        this.bubbles.remove = remove;
     }
 });
