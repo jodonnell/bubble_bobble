@@ -111,6 +111,7 @@ describe("Player", function () {
 
     it("can pop a bubble", sinon.test(function () {
         args.onscreenSprites.bubbles.push(new Bubble(100, player.y - 10, RIGHT));
+        args.onscreenSprites.bubbles[0].fullyFormed = true;
 
         var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
         this.stub(player.control, 'isJumping').returns(true);
@@ -122,6 +123,7 @@ describe("Player", function () {
     it("can pop a bubble and send it to the left", sinon.test(function () {
         args.onscreenSprites.bubbles.push(new Bubble(100, player.y - 10, RIGHT));
         args.onscreenSprites.bubbles[0].x -= args.onscreenSprites.bubbles[0].width() / 2;
+        args.onscreenSprites.bubbles[0].fullyFormed = true;
 
         var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
         this.stub(player.control, 'isJumping').returns(true);

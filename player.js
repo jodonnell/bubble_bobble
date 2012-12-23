@@ -30,6 +30,8 @@ var Player = Sprite.extend({
                 this.dead = 0;
                 this.x = 100;
                 this.y = 100;
+                this.shooting = 0;
+                this.jumping = 0;
                 this.invincible = 1;
             }
             return;
@@ -162,7 +164,7 @@ var Player = Sprite.extend({
 
     checkForPoppingBubble: function (onscreenSprites, collisionDetector) {
         var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
-        if (bubble) {
+        if (bubble && bubble.isFullyFormed()) {
             var direction;
             if (this.x < bubble.x + bubble.width() / 2) {
                 direction = RIGHT;
