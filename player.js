@@ -179,6 +179,12 @@ var Player = Sprite.extend({
             this.dead = 1;
             this.playerAnimations.die();
         }
+    },
+
+    draw: function () {
+        if (!this.isInvincible() || this.invincible % 2 === 0) {
+            this._super();
+        }
     }
 });
 
