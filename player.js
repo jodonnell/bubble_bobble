@@ -10,16 +10,37 @@ var Player = Sprite.extend({
         this.playerAnimations = new PlayerAnimations();
         this.moveSpeed = 4;
         this.control = new Control();
-        this.dead = false;
+        this.dead = 0;
+        this.invincible = 0;
     },
 
     update: function (args) {
         var collisionDetector = args.collisionDetector;
         var onscreenSprites = args.onscreenSprites;
 
-        this.respondToControls(collisionDetector, onscreenSprites);
+        if (!this.dead) {
+            this.respondToControls(collisionDetector, onscreenSprites);
+        }
 
         this.playerAnimations.changeAnimation();
+
+        if (this.dead) {
+            this.dead++;
+            if (this.dead > 50) {
+                this.dead = 0;
+                this.x = 100;
+                this.y = 100;
+                this.invincible = 1;
+            }
+            return;
+        }
+
+        if (this.isInvincible()) {
+            this.invincible++;
+            if (this.invincible > 150) {
+                this.invincible = 0;
+            }
+        }
 
         if (this.shooting) {
             this.shootingUpdate();
@@ -27,17 +48,7 @@ var Player = Sprite.extend({
 
         if (this.jumping) {
             this.jumpingUpdate();
-            var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
-            if (bubble) {
-                var direction;
-                if (this.x < bubble.x + bubble.width() / 2) {
-                    direction = RIGHT;
-                }
-                else {
-                    direction = LEFT;
-                }
-                bubble.pop(onscreenSprites, direction);
-            }
+            this.checkForPoppingBubble(onscreenSprites, collisionDetector);
         }
         else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls) || collisionDetector.isStandingOnObjects(this, onscreenSprites.bubbles))) {
             this.fall();
@@ -47,8 +58,8 @@ var Player = Sprite.extend({
             this.playerAnimations.stopFalling();
         }
 
-        if (collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
-            this.dead = true;
+        if (!this.invincible) {
+            this.checkForDeath(onscreenSprites, collisionDetector);
         }
     },
 
@@ -145,9 +156,28 @@ var Player = Sprite.extend({
         return this.dead;
     },
 
-    draw: function () {
-        if (!this.dead) {
-            this._super();
+    isInvincible: function () {
+        return this.invincible;
+    },
+
+    checkForPoppingBubble: function (onscreenSprites, collisionDetector) {
+        var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+        if (bubble) {
+            var direction;
+            if (this.x < bubble.x + bubble.width() / 2) {
+                direction = RIGHT;
+            }
+            else {
+                direction = LEFT;
+            }
+            bubble.pop(onscreenSprites, direction);
+        }
+    },
+
+    checkForDeath: function (onscreenSprites, collisionDetector) {
+        if (!this.dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
+            this.dead = 1;
+            this.playerAnimations.die();
         }
     }
 });

@@ -47,9 +47,19 @@ describe("PlayerAnimations", function () {
         expect(playerAnimations.currentImage).toBe("bubFallTail");
     });
 
-    it("can transition to the falling animation", function () {
+    it("can transition to the shooting animation", function () {
         playerAnimations.shoot();
         expect(playerAnimations.currentImage).toBe("bubShoot");
+    });
+
+    it("can transition to the dieing animation", function () {
+        playerAnimations.die();
+        expect(playerAnimations.currentImage).toBe("bubDie");
+    });
+
+    it("can transition to the shooting animation", function () {
+        playerAnimations.die();
+        expect(playerAnimations.getImageName()).toBe("bubDie");
     });
 
     it("knows if a player is going left or right", function () {

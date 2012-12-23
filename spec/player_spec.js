@@ -130,4 +130,51 @@ describe("Player", function () {
         expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeTruthy();
     }));
 
+    it("starts the death animation", sinon.test(function () {
+        var spy = this.spy(player.playerAnimations, 'die');
+        args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
+        player.update(args);
+        expect(player.isDead()).toBeTruthy();
+        expect(spy.calledOnce).toBeTruthy();
+    }));
+
+    it("comes back from the dead after some time", function () {
+        player.x = 200;
+        var magoo = new BlueMagoo(200, 100, RIGHT);
+        args.onscreenSprites.enemies.push(magoo);
+        player.update(args);
+        args.onscreenSprites.enemies.remove(magoo);
+        
+        for (var i=0; i < 80; i++) {
+            player.update(args);
+        }
+        expect(player.isDead()).toBeFalsy();
+        expect(player.x).toBe(100);
+        expect(player.isInvincible()).toBeTruthy();
+    });
+
+    it("when invincible cannot be hit by enemies", function () {
+        player.invincible = true;
+        args.onscreenSprites.enemies.push(new BlueMagoo(100, 100, RIGHT));
+
+        player.update(args);
+        expect(player.isDead()).toBeFalsy();
+    });
+
+    it("invinciblity wears off", function () {
+        player.invincible = true;
+        for (var i=0; i < 200; i++) {
+            player.update(args);
+        }
+        expect(player.isInvincible()).toBeFalsy();
+    });
+
+    it("should blink if invincible", function () {
+        player.invincible = true;
+        for (var i=0; i < 200; i++) {
+            player.update(args);
+        }
+        expect(player.isInvincible()).toBeFalsy();
+    });
+
 });

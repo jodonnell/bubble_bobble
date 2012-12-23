@@ -37,6 +37,11 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
     },
 
+    die: function () {
+        this.currentImage = 'bubDie';
+        this.timer = 0;
+    },
+
     moveRight: function () {
         this.direction = RIGHT;
 
@@ -90,6 +95,10 @@ var PlayerAnimations = Class.extend({
         return this.currentImage === 'bubShoot';
     },
 
+    isDead: function () {
+        return this.currentImage.indexOf('Die') !== -1;
+    },
+
     isStanding: function () {
         return this.currentImage === 'bub' || this.currentImage === 'bubTail';
     },
@@ -130,6 +139,9 @@ var PlayerAnimations = Class.extend({
         else if (this.isJumping()) {
             this.jumpingAnimation();
         }
+        else if (this.isDead()) {
+            this.deathAnimation();
+        }
     },
 
     fallingAnimation: function () {
@@ -148,6 +160,25 @@ var PlayerAnimations = Class.extend({
         this.transitionState('bubWalk', 'bubWalkTail');
     },
 
+    deathAnimation: function () {
+        if (this.timer === 8) {
+            this.timer = 0;
+
+            if (this.currentImage === 'bubDie') {
+                this.currentImage = 'bubDie90';
+            }
+            else if (this.currentImage === 'bubDie90') {
+                this.currentImage = 'bubDie180';
+            }
+            else if (this.currentImage === 'bubDie180') {
+                this.currentImage = 'bubDie270';
+            }
+            else if (this.currentImage === 'bubDie270') {
+                this.currentImage = 'bubDie';
+            }
+        }
+    },
+
     transitionState: function (animationA, animationB) {
         if (this.timer === this.ANIMATION_LENGTH) {
             this.timer = 0;
@@ -163,6 +194,11 @@ var PlayerAnimations = Class.extend({
 
     getImageName: function () {
         var imageName = this.currentImage;
+
+        if (this.currentImage.indexOf('Die') !== -1) {
+            return imageName;
+        }
+
         if (this.direction === LEFT) {
             imageName += 'Left';
         }

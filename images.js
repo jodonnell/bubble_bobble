@@ -122,6 +122,19 @@ var Images = Class.extend({
 
         this.bubLeft = new Image();
         this.bubLeft.src = "assets/bub_left.png";
+
+        this.bubDie = new Image();
+        this.bubDie.src = "assets/bub_die.png";
+
+        this.bubDie90 = new Image();
+        this.bubDie90.src = "assets/bub_die_90.png";
+
+        this.bubDie180 = new Image();
+        this.bubDie180.src = "assets/bub_die_180.png";
+
+        this.bubDie270 = new Image();
+        this.bubDie270.src = "assets/bub_die_270.png";
+
     }
 
 });
