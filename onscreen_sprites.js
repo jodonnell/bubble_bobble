@@ -12,8 +12,9 @@ var OnscreenSprites = Class.extend({
         this.walls = sprites.walls || [];
         this.deadEnemies = sprites.deadEnemies || [];
         this.collectibles = sprites.collectibles || [];
+        this.texts = sprites.texts || [];
 
-        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies], [this.deadEnemies], [this.collectibles]);
+        this.sprites = [[this.player]].concat([this.bubbles], [this.walls], [this.enemies], [this.deadEnemies], [this.collectibles], [this.texts]);
 
         var remove = function (element) {
             var index = this.indexOf(element);
@@ -25,5 +26,6 @@ var OnscreenSprites = Class.extend({
         this.walls.remove = remove;
         this.collectibles.remove = remove;
         this.bubbles.remove = remove;
+        this.texts.remove = remove;
     }
 });

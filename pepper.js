@@ -5,5 +5,6 @@ var Pepper = Sprite.extend({
         this.x = x;
         this.y = y;
         this.currentImage = 'pepper';
+        this.points = 3000;
     }
 });

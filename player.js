@@ -12,6 +12,7 @@ var Player = Sprite.extend({
         this.control = new Control();
         this.dead = 0;
         this.invincible = 0;
+        this.score = 0;
     },
 
     update: function (args) {
@@ -63,6 +64,8 @@ var Player = Sprite.extend({
         if (!this.invincible) {
             this.checkForDeath(onscreenSprites, collisionDetector);
         }
+
+        this.checkForCollectibles(onscreenSprites, collisionDetector);
     },
 
     respondToControls: function (collisionDetector, onscreenSprites) {
@@ -180,6 +183,15 @@ var Player = Sprite.extend({
         if (!this.dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
             this.dead = 1;
             this.playerAnimations.die();
+        }
+    },
+
+    checkForCollectibles: function (onscreenSprites, collisionDetector) {
+        var collectible = collisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
+        if (collectible) {        
+            onscreenSprites.collectibles.remove(collectible);
+            this.score += collectible.points;
+            onscreenSprites.texts.push(new Text(collectible.x, collectible.y + 30, collectible.points));
         }
     },
 
