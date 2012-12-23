@@ -54,9 +54,13 @@ describe("Dead Enemy", function () {
 
     it("should become a fruit when it hits the ground", function () {
         for (var i = 0; i < 300; i++) {
+            if (args.onscreenSprites.deadEnemies.length === 0) {
+                break;
+            }
+
             deadEnemy.update(args);
             if (deadEnemy.y >= 100) {
-                args.onscreenSprites.walls.push(new Wall(deadEnemy.x, deadEnemy.y + 2));
+                args.onscreenSprites.walls.push(new Wall(deadEnemy.x, deadEnemy.bottomSide() + 2));
             }
         }
 
