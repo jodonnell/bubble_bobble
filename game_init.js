@@ -15,7 +15,7 @@ var GameInit = Class.extend({
         var canvas = '<canvas id="gameCanvas" width="' + this.width + '" height="' + this.height + '"></canvas>';
         $('body').append(canvas);
         $("#gameCanvas").css('position', 'absolute');
-        $("#gameCanvas").css('top', '40px');
+        $("#gameCanvas").css('top', '0px');
         $("#gameCanvas").css('left', '0px');
         $("#gameCanvas").css('width', '1066px');
         $("#gameCanvas").css('height', '800px');
