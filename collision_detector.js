@@ -11,7 +11,7 @@ var CollisionDetector = Class.extend({
     },
 
     noWallToRight: function (sprite) {
-        if (sprite.rightSide() + sprite.moveSpeed >= RIGHT_BOUND) {
+        if (sprite.rightSide() + sprite.moveSpeed > RIGHT_BOUND) {
             sprite.x = RIGHT_BOUND - sprite.width();
             return false;
         }
@@ -19,7 +19,7 @@ var CollisionDetector = Class.extend({
     },
 
     noWallToLeft: function (sprite) {
-        if (sprite.x - sprite.moveSpeed <= LEFT_BOUND) {
+        if (sprite.x - sprite.moveSpeed < LEFT_BOUND) {
             sprite.x = LEFT_BOUND;
             return false;
         }

@@ -9,6 +9,7 @@ var Bubble = Sprite.extend({
         this.timer = 0;
         this.trapped = false;
         this.fullyFormed = false;
+        this.moveSpeed = 5;
     },
 
     update: function (args) {
@@ -34,7 +35,7 @@ var Bubble = Sprite.extend({
                 return;
             }
 
-            this.shootOut();
+            this.shootOut(collisionDetector);
         }
     },
 
@@ -46,12 +47,12 @@ var Bubble = Sprite.extend({
         }
     },
     
-    shootOut: function () {
-        if (this.direction === RIGHT) {
-            this.x += 5;
+    shootOut: function (collisionDetector) {
+        if (this.direction === RIGHT && collisionDetector.noWallToRight(this)) {
+            this.x += this.moveSpeed;
         }
-        else {
-            this.x -= 5;
+        else if (this.direction === LEFT && collisionDetector.noWallToLeft(this)){
+            this.x -= this.moveSpeed;
         }
 
         if (this.timer % 7 === 0) {

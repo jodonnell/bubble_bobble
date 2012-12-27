@@ -85,4 +85,10 @@ describe("Bubble", function () {
         expect(args.onscreenSprites.deadEnemies[0].y).toBe(100);
     });
 
+    it("should be blocked by walls", function () {
+        bubble.x = RIGHT_BOUND - bubble.width();
+        bubble.update(args);
+        expect(bubble.x).toBe(RIGHT_BOUND - bubble.width());
+    });
+
 });
