@@ -4,6 +4,7 @@
 *** Bubbles should not be able to stack
 *** Be able to push bubbles around
 *** Make enemies be able to bust out of bubbles
+*** Bubbles pop on their own
 *** Bounce off bubbles
 *** Falling breaks bubbles
 *** Combo bubble pop
