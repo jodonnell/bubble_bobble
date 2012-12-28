@@ -121,7 +121,7 @@ describe("Player", function () {
     }));
 
     it("can pop a bubble and send it to the left", sinon.test(function () {
-        args.onscreenSprites.bubbles.push(new Bubble(100, player.y - 10, RIGHT));
+        args.onscreenSprites.bubbles.push(new Bubble(player.x, player.y - 10, RIGHT));
         args.onscreenSprites.bubbles[0].x -= args.onscreenSprites.bubbles[0].width() / 2;
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
@@ -140,6 +140,36 @@ describe("Player", function () {
 
         player.update(args);
         expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
+    }));
+
+    it("does not pop a bubble if colliding with it from the right side", sinon.test(function () {
+        var bubble = new Bubble(player.rightSide() + 1, player.y, RIGHT);
+        args.onscreenSprites.bubbles.push(bubble);
+        bubble.fullyFormed = true;
+
+        this.stub(player.control, 'isHoldingRight').returns(true);
+        var spy = this.spy(bubble, 'pop');
+
+        player.update(args);
+        expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeFalsy();
+        expect(bubble.x).toBe(player.rightSide() + 1);
+    }));
+
+    it("does not pop a bubble if colliding with it from the left side", sinon.test(function () {
+        var bubble = new Bubble(player.x, player.y, LEFT);
+        args.onscreenSprites.bubbles.push(bubble);
+        bubble.x -= bubble.width() - 1;
+        bubble.fullyFormed = true;
+
+        var oldX = bubble.x;
+
+        this.stub(player.control, 'isHoldingLeft').returns(true);
+        var spy = this.spy(bubble, 'pop');
+
+        player.update(args);
+        expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeFalsy();
+        expect(bubble.x).toBe(oldX - 4);
+
     }));
 
     it("starts the death animation", sinon.test(function () {

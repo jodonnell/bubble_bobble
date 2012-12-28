@@ -159,7 +159,18 @@ var Player = Sprite.extend({
 
     _checkForPoppingBubble: function (onscreenSprites, collisionDetector) {
         var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+
         if (bubble && bubble.isFullyFormed()) {
+            if (this.rightSide() < bubble.x + 10) {
+                bubble.x += 4;
+                return;
+            }
+
+            if (this.x > bubble.rightSide() - 10) {
+                bubble.x -= 4;
+                return;
+            }
+
             var direction;
             if (this.x < bubble.x + bubble.width() / 2) {
                 direction = RIGHT;
