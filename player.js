@@ -43,16 +43,15 @@ var Player = Sprite.extend({
 
         if (this.jumping) {
             this.jumpingUpdate();
-            this.checkForPoppingBubble(onscreenSprites, collisionDetector);
         }
         else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls))) {
             this.fall();
-            this.checkForPoppingBubble(onscreenSprites, collisionDetector);
         }
         else {
             this.falling = false;
             this.playerAnimations.stopFalling();
         }
+        this.checkForPoppingBubble(onscreenSprites, collisionDetector);
 
         if (!this.invincible) {
             this.checkForDeath(onscreenSprites, collisionDetector);
