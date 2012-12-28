@@ -26,15 +26,7 @@ var Player = Sprite.extend({
         this.playerAnimations.changeAnimation();
 
         if (this.dead) {
-            this.dead++;
-            if (this.dead > 50) {
-                this.dead = 0;
-                this.x = 100;
-                this.y = 100;
-                this.shooting = 0;
-                this.jumping = 0;
-                this.invincible = 1;
-            }
+            this.deadUpdate();
             return;
         }
 
@@ -199,6 +191,20 @@ var Player = Sprite.extend({
         if (!this.isInvincible() || this.invincible % 2 === 0) {
             this._super();
         }
+    },
+
+    deadUpdate: function () {
+        this.dead++;
+        if (this.dead <= 50) {
+            return;
+        }
+
+        this.dead = 0;
+        this.x = 100;
+        this.y = 100;
+        this.shooting = 0;
+        this.jumping = 0;
+        this.invincible = 1;
     }
 });
 
