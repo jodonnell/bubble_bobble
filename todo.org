@@ -1,11 +1,18 @@
-* Falling Block
-** Add logins
-*** Hold personal control scheme
-**** Should force two players from disputed keys
-*** Name
-*** Win/loss ratio versus each opponent
-*** Aggregate w/l
-** Game type
-*** Change game speed
-*** Change rules for sending junk
-** Networking game
+* Bubble Bobble
+** Bubbles
+*** Pop animation
+*** Bubbles should not be able to stack
+*** Be able to push bubbles around
+*** Make enemies be able to bust out of bubbles
+*** Bounce off bubbles
+*** Falling breaks bubbles
+*** Combo bubble pop
+*** Popping bubbles or bouncing gives score
+** Enemies
+*** Mad enemies
+*** Enemies horizontal jump
+** Implement score
+** Implement lives
+** Hurry!
+** Fix left/right collision detection
+** Fix bug where falling at high speeds tunnels
