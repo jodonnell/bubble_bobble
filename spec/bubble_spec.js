@@ -27,14 +27,17 @@ describe("Bubble", function () {
         expect(bubble.y).toBeLessThan(100);
     });
 
-    it("removes bubbles after they are offscreen", function () {
+    it("should move to the top middle of the screen", function () {
         bubble.fullyFormed = true;
-        bubble.y = 0;
-        for (var i = 0; i < 20; i++) {
+        bubble.x = 360;
+        for (var i = 0; i < 100; i++) {
             bubble.update(args);
         }
 
-        expect(args.onscreenSprites.bubbles.length).toBe(0);
+        bubble.update(args);
+        expect(bubble.x).toBe(400);
+        expect(bubble.y).toBeGreaterThan(60);
+        expect(bubble.y).toBeLessThan(70);
     });
 
     it("should get trapped when hit by a bubble", function () {

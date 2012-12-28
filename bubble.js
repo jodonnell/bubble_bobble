@@ -40,11 +40,17 @@ var Bubble = Sprite.extend({
     },
 
     floatUp: function (onscreenSprites) {
-        this.y -= 2;
-        
-        if (this.y + this.height() / 2 < 0) {
-            onscreenSprites.bubbles.remove(this);
+        if (this.y < 70) {
+            if (this.x > 400) {
+                this.x -= 1;
+            }
+            else if (this.x < 400) {
+                this.x += 1;
+            }
+            return;
         }
+
+        this.y -= 2;
     },
     
     shootOut: function (collisionDetector) {
