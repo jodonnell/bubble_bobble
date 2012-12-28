@@ -6,7 +6,6 @@
 *** Make enemies be able to bust out of bubbles
 *** Bubbles pop on their own
 *** Bounce off bubbles
-*** Falling breaks bubbles
 *** Combo bubble pop
 *** Popping bubbles or bouncing gives score
 ** Enemies
