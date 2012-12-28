@@ -63,22 +63,22 @@ describe("Player", function () {
         expect(player.y).toBe(11);
     }));
 
-    // it("cannot jump twice", function () {
-    //     player.jump();
+    it("cannot jump twice", sinon.test(function () {
+        this.stub(player.control, 'isShooting').returns(true);
 
-    //     for (var i = 0; i < 44; i++) {
-    //         player.jump();
-    //         player.update(player.falling);
-    //     }
+        for (var i = 0; i < 44; i++) {
+            player.update(args);
+        }
 
-    //     var oldY = player.y;
-    //     player.update(player.falling);
-    //     expect(player.y).toBeGreaterThan(oldY);
-    // });
+        var oldY = player.y;
+        player.update(args);
+        expect(player.y).toBeGreaterThan(oldY);
+    }));
 
     it("changes to shooting animation", sinon.test(function () {
+        this.stub(player.control, 'isShooting').returns(true);
         var spy = this.spy(player.playerAnimations, 'shoot');
-        player.shoot({bubbles: []});
+        player.update(args);
         expect(spy.calledOnce).toBeTruthy();
     }));
 

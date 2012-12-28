@@ -45,7 +45,7 @@ var Player = Sprite.extend({
             this._jumpingUpdate();
         }
         else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls))) {
-            this.fall();
+            this._fall();
         }
         else {
             this.falling = false;
@@ -74,11 +74,11 @@ var Player = Sprite.extend({
         }
 
         if (this.control.isJumping()) {
-            this.jump();
+            this._jump();
         }
 
         if (this.control.isShooting()) {
-            this.shoot(onscreenSprites);
+            this._shoot(onscreenSprites);
         }
     },
 
@@ -110,13 +110,13 @@ var Player = Sprite.extend({
         this.x -= this.moveSpeed;
     },
 
-    fall: function () {
+    _fall: function () {
         this.playerAnimations.fall();
         this.falling = true;
         this.y += 3;
     },
 
-    jump: function () {
+    _jump: function () {
         if (this.jumping || this.falling) {
             return;
         }
@@ -124,7 +124,7 @@ var Player = Sprite.extend({
         this.jumping = 1;
     },
 
-    shoot: function (onscreenSprites) {
+    _shoot: function (onscreenSprites) {
         if (this.shooting) {
             return;
         }
