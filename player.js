@@ -45,8 +45,9 @@ var Player = Sprite.extend({
             this.jumpingUpdate();
             this.checkForPoppingBubble(onscreenSprites, collisionDetector);
         }
-        else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls) || collisionDetector.isStandingOnObjects(this, onscreenSprites.bubbles))) {
+        else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls))) {
             this.fall();
+            this.checkForPoppingBubble(onscreenSprites, collisionDetector);
         }
         else {
             this.falling = false;

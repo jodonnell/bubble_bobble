@@ -132,6 +132,16 @@ describe("Player", function () {
         expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeTruthy();
     }));
 
+    it("can pop a bubble by falling on it", sinon.test(function () {
+        args.onscreenSprites.bubbles.push(new Bubble(100, player.bottomSide() + 1, RIGHT));
+        args.onscreenSprites.bubbles[0].fullyFormed = true;
+
+        var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
+
+        player.update(args);
+        expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
+    }));
+
     it("starts the death animation", sinon.test(function () {
         var spy = this.spy(player.playerAnimations, 'die');
         args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
