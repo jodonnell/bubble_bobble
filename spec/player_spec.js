@@ -16,13 +16,13 @@ describe("Player", function () {
 
     it("can move right", sinon.test(function () {
         this.stub(player.control, 'isHoldingRight').returns(true);
-        player.respondToControls(new CollisionDetector());
+        player.update(args);
         expect(player.x).toBeGreaterThan(100);
     }));
 
     it("can move left", sinon.test(function () {
         this.stub(player.control, 'isHoldingLeft').returns(true);
-        player.respondToControls(new CollisionDetector());
+        player.update(args);
         expect(player.x).toBeLessThan(100);
     }));
 
