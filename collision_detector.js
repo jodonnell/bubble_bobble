@@ -50,6 +50,9 @@ var CollisionDetector = Class.extend({
     },
     
     doesCollideWith: function (spriteA, spriteB) {
+        if (spriteA === spriteB) {
+            return false;
+        }
         return spriteA.x < spriteB.rightSide() && spriteA.rightSide() > spriteB.x && spriteA.y < spriteB.bottomSide() && spriteA.bottomSide() > spriteB.y;
     },
 
