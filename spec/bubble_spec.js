@@ -94,4 +94,17 @@ describe("Bubble", function () {
         expect(bubble.x).toBe(RIGHT_BOUND - bubble.width());
     });
 
+    it("bubbles should repel each other", function () {
+        bubble.fullyFormed = true;
+        bubble.x = 400;
+        bubble.y = 70;
+
+        var secondBubble = new Bubble(bubble.x - 1, bubble.y);
+        secondBubble.fullyFormed = true;
+        args.onscreenSprites.bubbles.push(secondBubble);
+
+        bubble.update(args);
+        expect(bubble.x).toBeGreaterThan(400);
+        expect(bubble.y).toNotBe(70);
+    });
 });
