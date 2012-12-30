@@ -16,7 +16,7 @@ var PlayerAnimations = Class.extend({
     },
 
     jump: function () {
-        if (this.isShooting()) {
+        if (this._isShooting()) {
             this.queuedImage = 'bubJump';
             return;
         }
@@ -25,7 +25,7 @@ var PlayerAnimations = Class.extend({
     },
 
     fall: function () {
-        if (this.isFalling()) {
+        if (this._isFalling()) {
             return;
         }
 
@@ -45,11 +45,11 @@ var PlayerAnimations = Class.extend({
     moveRight: function () {
         this.direction = RIGHT;
 
-        if (this.isMovingRight()) {
+        if (this._isMovingRight()) {
             return;
         }
 
-        if (this.isJumping() || this.isFalling() || this.isShooting()) {
+        if (this._isJumping() || this._isFalling() || this._isShooting()) {
             this.queuedImage = 'bubWalk';
             return;
         }
@@ -60,11 +60,11 @@ var PlayerAnimations = Class.extend({
 
     moveLeft: function () {
         this.direction = LEFT;
-        if (this.isMovingLeft()) {
+        if (this._isMovingLeft()) {
             return;
         }
 
-        if (this.isJumping() || this.isFalling() || this.isShooting()) {
+        if (this._isJumping() || this._isFalling() || this._isShooting()) {
             this.queuedImage = 'bubWalk';
             return;
         }
@@ -74,7 +74,7 @@ var PlayerAnimations = Class.extend({
     },
 
     stopFalling: function () {
-        if (!this.isFalling()) {
+        if (!this._isFalling()) {
             return;
         }
 
@@ -83,7 +83,7 @@ var PlayerAnimations = Class.extend({
     },
 
     stand: function () {
-        if (this.isStanding()) {
+        if (this._isStanding()) {
             return;
         }
 
@@ -91,76 +91,76 @@ var PlayerAnimations = Class.extend({
         this.timer = 0;
     },
 
-    isShooting: function () {
+    _isShooting: function () {
         return this.currentImage === 'bubShoot';
     },
 
-    isDead: function () {
+    _isDead: function () {
         return this.currentImage.indexOf('Die') !== -1;
     },
 
-    isStanding: function () {
+    _isStanding: function () {
         return this.currentImage === 'bub' || this.currentImage === 'bubTail';
     },
 
-    isMovingLeft: function () {
+    _isMovingLeft: function () {
         return this.direction === LEFT && (this.currentImage === 'bubWalk' || this.currentImage === 'bubWalkTail');
     },
 
-    isMovingRight: function () {
+    _isMovingRight: function () {
         return this.direction === RIGHT && (this.currentImage === 'bubWalk' || this.currentImage === 'bubWalkTail');
     },
 
-    isFalling: function () {
+    _isFalling: function () {
         return this.currentImage === 'bubFall' || this.currentImage === 'bubFallTail';
     },
 
-    isJumping: function () {
+    _isJumping: function () {
         return this.currentImage === 'bubJump' || this.currentImage === 'bubJumpTail';
     },
 
     changeAnimation: function () {
         this.timer++;
         
-        if (this.isShooting() && this.timer === 15) {
+        if (this._isShooting() && this.timer === 15) {
             this.timer = 0;
             this.currentImage = this.queuedImage;
         }
             
-        if (this.isFalling()) {
-            this.fallingAnimation();
+        if (this._isFalling()) {
+            this._fallingAnimation();
         }
-        else if (this.isStanding()) {
-            this.standingAnimation();
+        else if (this._isStanding()) {
+            this._standingAnimation();
         }
-        else if (this.isMovingRight() || this.isMovingLeft()) {
-            this.walkingRightAnimation();
+        else if (this._isMovingRight() || this._isMovingLeft()) {
+            this._walkingRightAnimation();
         }
-        else if (this.isJumping()) {
-            this.jumpingAnimation();
+        else if (this._isJumping()) {
+            this._jumpingAnimation();
         }
-        else if (this.isDead()) {
-            this.deathAnimation();
+        else if (this._isDead()) {
+            this._deathAnimation();
         }
     },
 
-    fallingAnimation: function () {
-        this.transitionState('bubFall', 'bubFallTail');
+    _fallingAnimation: function () {
+        this._transitionState('bubFall', 'bubFallTail');
     },
 
-    standingAnimation: function () {
-        this.transitionState('bub', 'bubTail');
+    _standingAnimation: function () {
+        this._transitionState('bub', 'bubTail');
     },
 
-    jumpingAnimation: function () {
-        this.transitionState('bubJump', 'bubJumpTail');
+    _jumpingAnimation: function () {
+        this._transitionState('bubJump', 'bubJumpTail');
     },
 
-    walkingRightAnimation: function () {
-        this.transitionState('bubWalk', 'bubWalkTail');
+    _walkingRightAnimation: function () {
+        this._transitionState('bubWalk', 'bubWalkTail');
     },
 
-    deathAnimation: function () {
+    _deathAnimation: function () {
         if (this.timer === 8) {
             this.timer = 0;
 
@@ -179,7 +179,7 @@ var PlayerAnimations = Class.extend({
         }
     },
 
-    transitionState: function (animationA, animationB) {
+    _transitionState: function (animationA, animationB) {
         if (this.timer === this.ANIMATION_LENGTH) {
             this.timer = 0;
 
