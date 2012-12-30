@@ -7,7 +7,7 @@ var Player = Sprite.extend({
         this.jumping = 0;
         this.falling = false;
         this.shooting = 0;
-        this.playerAnimations = new PlayerAnimations();
+        this._playerAnimations = new PlayerAnimations();
         this.moveSpeed = 4;
         this.control = new Control();
         this.dead = 0;
@@ -20,7 +20,7 @@ var Player = Sprite.extend({
         var onscreenSprites = args.onscreenSprites;
 
         this._respondToControls(collisionDetector, onscreenSprites);
-        this.playerAnimations.changeAnimation();
+        this._playerAnimations.changeAnimation();
         this._updateState(onscreenSprites, collisionDetector);
         this._checkForCollisions(onscreenSprites, collisionDetector);
     },
@@ -39,7 +39,7 @@ var Player = Sprite.extend({
         }
 
         if (!this.control.isHoldingLeft() && !this.control.isHoldingRight() && !this.jumping && !this.falling && !this.shooting) {
-            this.playerAnimations.stand();
+            this._playerAnimations.stand();
         }
 
         if (this.control.isJumping()) {
@@ -70,17 +70,17 @@ var Player = Sprite.extend({
     },
 
     moveRight: function () {
-        this.playerAnimations.moveRight();
+        this._playerAnimations.moveRight();
         this.x += this.moveSpeed;
     },
 
     moveLeft: function () {
-        this.playerAnimations.moveLeft();
+        this._playerAnimations.moveLeft();
         this.x -= this.moveSpeed;
     },
 
     _fall: function () {
-        this.playerAnimations.fall();
+        this._playerAnimations.fall();
         this.falling = true;
         this.y += 3;
     },
@@ -89,7 +89,7 @@ var Player = Sprite.extend({
         if (this.jumping || this.falling) {
             return;
         }
-        this.playerAnimations.jump();
+        this._playerAnimations.jump();
         this.jumping = 1;
     },
 
@@ -98,24 +98,24 @@ var Player = Sprite.extend({
             return;
         }
         this.shooting = 1;
-        this.playerAnimations.shoot();
+        this._playerAnimations.shoot();
         
         this._createBubble(onscreenSprites);
     },
 
     getCurrentImage: function () {
-        return this.playerAnimations.getImageName();
+        return this._playerAnimations.getImageName();
     },
 
     _createBubble: function (onscreenSprites) {
         var x;
-        if (this.playerAnimations.direction === RIGHT) {
+        if (this._playerAnimations.direction === RIGHT) {
             x = this.x + this.width() / 2;
         }
         else {
             x = this.x - this.width() / 2;
         }
-        onscreenSprites.bubbles.push(new Bubble(x, this.y, this.playerAnimations.direction));
+        onscreenSprites.bubbles.push(new Bubble(x, this.y, this._playerAnimations.direction));
     },
     
     isDead: function () {
@@ -154,7 +154,7 @@ var Player = Sprite.extend({
     _checkForDeath: function (onscreenSprites, collisionDetector) {
         if (!this.dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
             this.dead = 1;
-            this.playerAnimations.die();
+            this._playerAnimations.die();
         }
     },
 
@@ -230,7 +230,7 @@ var Player = Sprite.extend({
         }
         else {
             this.falling = false;
-            this.playerAnimations.stopFalling();
+            this._playerAnimations.stopFalling();
         }
     }
 

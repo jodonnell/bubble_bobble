@@ -77,7 +77,7 @@ describe("Player", function () {
 
     it("changes to shooting animation", sinon.test(function () {
         this.stub(player.control, 'isShooting').returns(true);
-        var spy = this.spy(player.playerAnimations, 'shoot');
+        var spy = this.spy(player._playerAnimations, 'shoot');
         player.update(args);
         expect(spy.calledOnce).toBeTruthy();
     }));
@@ -173,7 +173,7 @@ describe("Player", function () {
     }));
 
     it("starts the death animation", sinon.test(function () {
-        var spy = this.spy(player.playerAnimations, 'die');
+        var spy = this.spy(player._playerAnimations, 'die');
         args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
         player.update(args);
         expect(player.isDead()).toBeTruthy();
