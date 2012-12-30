@@ -37,7 +37,7 @@ describe("Bubble", function () {
         bubble.update(args);
         expect(bubble.x).toBe(400);
         expect(bubble.y).toBeGreaterThan(60);
-        expect(bubble.y).toBeLessThan(70);
+        expect(bubble.y).toBe(70);
     });
 
     it("should get trapped when hit by a bubble", function () {
@@ -102,7 +102,6 @@ describe("Bubble", function () {
         var secondBubble = new Bubble(bubble.x - 1, bubble.y);
         secondBubble.fullyFormed = true;
         args.onscreenSprites.bubbles.push(secondBubble);
-
         bubble.update(args);
         expect(bubble.x).toBeGreaterThan(400);
         expect(bubble.y).toNotBe(70);

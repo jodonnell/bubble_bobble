@@ -31,16 +31,14 @@ var Bubble = Sprite.extend({
             if (bubble) {
                 if (this.x > bubble.x) {
                     this.x += 2;
-                    this.y += this._randomMove() * 2;
-
                 }
                 else if (this.x < bubble.x) {
                     this.x -= 2;
-                    this.y += this._randomMove() * 2;
                 }
                 else {
                     this.x += this._randomMove() * 2;
                 }
+                this.y += this._randomMove() * 2;
             }
         }
         else {
@@ -65,7 +63,7 @@ var Bubble = Sprite.extend({
     },
 
     floatUp: function (onscreenSprites) {
-        if (this.y < 70) {
+        if (this.y <= 70) {
             if (this.x > 400) {
                 this.x -= 1;
             }
