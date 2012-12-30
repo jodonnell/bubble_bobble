@@ -4,13 +4,13 @@ var Player = Sprite.extend({
     init: function (x, y) {
         this.x = x;
         this.y = y;
-        this.jumping = 0;
+        this._jumping = 0;
         this.falling = false;
         this.shooting = 0;
         this._playerAnimations = new PlayerAnimations();
         this.moveSpeed = 4;
-        this.control = new Control();
-        this.dead = 0;
+        this._control = new Control();
+        this._dead = 0;
         this.invincible = 0;
         this.score = 0;
     },
@@ -26,27 +26,27 @@ var Player = Sprite.extend({
     },
 
     _respondToControls: function (collisionDetector, onscreenSprites) {
-        if (this.dead) {
+        if (this._dead) {
             return;
         }
 
-        if (this.control.isHoldingRight() && collisionDetector.noWallToRight(this)) {
-            this.moveRight();
+        if (this._control.isHoldingRight() && collisionDetector.noWallToRight(this)) {
+            this._moveRight();
         }
 
-        if (this.control.isHoldingLeft() && collisionDetector.noWallToLeft(this)) {
-            this.moveLeft();
+        if (this._control.isHoldingLeft() && collisionDetector.noWallToLeft(this)) {
+            this._moveLeft();
         }
 
-        if (!this.control.isHoldingLeft() && !this.control.isHoldingRight() && !this.jumping && !this.falling && !this.shooting) {
+        if (!this._control.isHoldingLeft() && !this._control.isHoldingRight() && !this._jumping && !this.falling && !this.shooting) {
             this._playerAnimations.stand();
         }
 
-        if (this.control.isJumping()) {
+        if (this._control.isJumping()) {
             this._jump();
         }
 
-        if (this.control.isShooting()) {
+        if (this._control.isShooting()) {
             this._shoot(onscreenSprites);
         }
     },
@@ -62,19 +62,19 @@ var Player = Sprite.extend({
     _jumpingUpdate: function () {
         this.y -= 4;
 
-        this.jumping++;
-        if (this.jumping > 35) {
-            this.jumping = 0;
+        this._jumping++;
+        if (this._jumping > 35) {
+            this._jumping = 0;
             this.falling = true;
         }
     },
 
-    moveRight: function () {
+    _moveRight: function () {
         this._playerAnimations.moveRight();
         this.x += this.moveSpeed;
     },
 
-    moveLeft: function () {
+    _moveLeft: function () {
         this._playerAnimations.moveLeft();
         this.x -= this.moveSpeed;
     },
@@ -86,11 +86,11 @@ var Player = Sprite.extend({
     },
 
     _jump: function () {
-        if (this.jumping || this.falling) {
+        if (this._jumping || this.falling) {
             return;
         }
         this._playerAnimations.jump();
-        this.jumping = 1;
+        this._jumping = 1;
     },
 
     _shoot: function (onscreenSprites) {
@@ -119,7 +119,7 @@ var Player = Sprite.extend({
     },
     
     isDead: function () {
-        return this.dead;
+        return this._dead;
     },
 
     isInvincible: function () {
@@ -152,8 +152,8 @@ var Player = Sprite.extend({
     },
 
     _checkForDeath: function (onscreenSprites, collisionDetector) {
-        if (!this.dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
-            this.dead = 1;
+        if (!this._dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
+            this._dead = 1;
             this._playerAnimations.die();
         }
     },
@@ -174,16 +174,16 @@ var Player = Sprite.extend({
     },
 
     _deadUpdate: function () {
-        this.dead++;
-        if (this.dead <= 50) {
+        this._dead++;
+        if (this._dead <= 50) {
             return;
         }
 
-        this.dead = 0;
+        this._dead = 0;
         this.x = 100;
         this.y = 100;
         this.shooting = 0;
-        this.jumping = 0;
+        this._jumping = 0;
         this.invincible = 1;
     },
 
@@ -195,7 +195,7 @@ var Player = Sprite.extend({
     },
 
     _checkForCollisions: function (onscreenSprites, collisionDetector) {
-        if (this.dead) {
+        if (this._dead) {
             return;
         }
 
@@ -209,7 +209,7 @@ var Player = Sprite.extend({
     },
 
     _updateState: function (onscreenSprites, collisionDetector) {
-        if (this.dead) {
+        if (this._dead) {
             this._deadUpdate();
             return;
         }
@@ -222,7 +222,7 @@ var Player = Sprite.extend({
             this._shootingUpdate();
         }
 
-        if (this.jumping) {
+        if (this._jumping) {
             this._jumpingUpdate();
         }
         else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls))) {

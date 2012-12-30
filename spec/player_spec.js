@@ -15,13 +15,13 @@ describe("Player", function () {
     });
 
     it("can move right", sinon.test(function () {
-        this.stub(player.control, 'isHoldingRight').returns(true);
+        this.stub(player._control, 'isHoldingRight').returns(true);
         player.update(args);
         expect(player.x).toBeGreaterThan(100);
     }));
 
     it("can move left", sinon.test(function () {
-        this.stub(player.control, 'isHoldingLeft').returns(true);
+        this.stub(player._control, 'isHoldingLeft').returns(true);
         player.update(args);
         expect(player.x).toBeLessThan(100);
     }));
@@ -35,11 +35,11 @@ describe("Player", function () {
         var i;
         args.onscreenSprites.walls = [new Wall(95, player.bottomSide())];
 
-        this.stub(player.control, 'isJumping').returns(true);
+        this.stub(player._control, 'isJumping').returns(true);
         player.update(args);
 
-        player.control.isJumping.restore();
-        this.stub(player.control, 'isJumping').returns(false);
+        player._control.isJumping.restore();
+        this.stub(player._control, 'isJumping').returns(false);
 
         for (i = 0; i < 100; i++) {
             player.update(args);
@@ -48,7 +48,7 @@ describe("Player", function () {
     }));
 
     it("can jump", sinon.test(function () {
-        this.stub(player.control, 'isJumping').returns(true);
+        this.stub(player._control, 'isJumping').returns(true);
 
         player.update(args);
         expect(player.y).toBe(96);
@@ -64,7 +64,7 @@ describe("Player", function () {
     }));
 
     it("cannot jump twice", sinon.test(function () {
-        this.stub(player.control, 'isShooting').returns(true);
+        this.stub(player._control, 'isShooting').returns(true);
 
         for (var i = 0; i < 44; i++) {
             player.update(args);
@@ -76,21 +76,21 @@ describe("Player", function () {
     }));
 
     it("changes to shooting animation", sinon.test(function () {
-        this.stub(player.control, 'isShooting').returns(true);
+        this.stub(player._control, 'isShooting').returns(true);
         var spy = this.spy(player._playerAnimations, 'shoot');
         player.update(args);
         expect(spy.calledOnce).toBeTruthy();
     }));
 
     it("should be able to shoot bubbles", sinon.test(function () {
-        this.stub(player.control, 'isShooting').returns(true);
+        this.stub(player._control, 'isShooting').returns(true);
 
         player.update(args);
         expect(args.onscreenSprites.bubbles.length).toBe(1);
     }));
 
     it("should be able to shoot one bubble every once in a while", sinon.test(function () {
-        this.stub(player.control, 'isShooting').returns(true);
+        this.stub(player._control, 'isShooting').returns(true);
 
         player.update(args);
         player.update(args);
@@ -114,7 +114,7 @@ describe("Player", function () {
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
         var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
-        this.stub(player.control, 'isJumping').returns(true);
+        this.stub(player._control, 'isJumping').returns(true);
 
         player.update(args);
         expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
@@ -126,7 +126,7 @@ describe("Player", function () {
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
         var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
-        this.stub(player.control, 'isJumping').returns(true);
+        this.stub(player._control, 'isJumping').returns(true);
 
         player.update(args);
         expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeTruthy();
@@ -147,7 +147,7 @@ describe("Player", function () {
         args.onscreenSprites.bubbles.push(bubble);
         bubble.fullyFormed = true;
 
-        this.stub(player.control, 'isHoldingRight').returns(true);
+        this.stub(player._control, 'isHoldingRight').returns(true);
         var spy = this.spy(bubble, 'pop');
 
         player.update(args);
@@ -163,7 +163,7 @@ describe("Player", function () {
 
         var oldX = bubble.x;
 
-        this.stub(player.control, 'isHoldingLeft').returns(true);
+        this.stub(player._control, 'isHoldingLeft').returns(true);
         var spy = this.spy(bubble, 'pop');
 
         player.update(args);
