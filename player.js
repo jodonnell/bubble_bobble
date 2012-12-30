@@ -4,15 +4,16 @@ var Player = Sprite.extend({
     init: function (x, y) {
         this.x = x;
         this.y = y;
-        this._jumping = 0;
-        this.falling = false;
-        this.shooting = 0;
-        this._playerAnimations = new PlayerAnimations();
         this.moveSpeed = 4;
+
+        this._jumping = 0;
+        this._falling = false;
+        this._shooting = 0;
+        this._playerAnimations = new PlayerAnimations();
         this._control = new Control();
         this._dead = 0;
-        this.invincible = 0;
-        this.score = 0;
+        this._invincible = 0;
+        this._score = 0;
     },
 
     update: function (args) {
@@ -38,7 +39,7 @@ var Player = Sprite.extend({
             this._moveLeft();
         }
 
-        if (!this._control.isHoldingLeft() && !this._control.isHoldingRight() && !this._jumping && !this.falling && !this.shooting) {
+        if (!this._control.isHoldingLeft() && !this._control.isHoldingRight() && !this._jumping && !this._falling && !this.shooting) {
             this._playerAnimations.stand();
         }
 
@@ -52,10 +53,10 @@ var Player = Sprite.extend({
     },
 
     _shootingUpdate: function () {
-        this.shooting += 1;
+        this._shooting += 1;
         
-        if (this.shooting > 35) {
-            this.shooting = 0;
+        if (this._shooting > 35) {
+            this._shooting = 0;
         }
     },
 
@@ -65,7 +66,7 @@ var Player = Sprite.extend({
         this._jumping++;
         if (this._jumping > 35) {
             this._jumping = 0;
-            this.falling = true;
+            this._falling = true;
         }
     },
 
@@ -81,12 +82,12 @@ var Player = Sprite.extend({
 
     _fall: function () {
         this._playerAnimations.fall();
-        this.falling = true;
+        this._falling = true;
         this.y += 3;
     },
 
     _jump: function () {
-        if (this._jumping || this.falling) {
+        if (this._jumping || this._falling) {
             return;
         }
         this._playerAnimations.jump();
@@ -94,10 +95,10 @@ var Player = Sprite.extend({
     },
 
     _shoot: function (onscreenSprites) {
-        if (this.shooting) {
+        if (this._shooting) {
             return;
         }
-        this.shooting = 1;
+        this._shooting = 1;
         this._playerAnimations.shoot();
         
         this._createBubble(onscreenSprites);
@@ -123,7 +124,7 @@ var Player = Sprite.extend({
     },
 
     isInvincible: function () {
-        return this.invincible;
+        return this._invincible;
     },
 
     _checkForPoppingBubble: function (onscreenSprites, collisionDetector) {
@@ -162,13 +163,13 @@ var Player = Sprite.extend({
         var collectible = collisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
         if (collectible) {        
             onscreenSprites.collectibles.remove(collectible);
-            this.score += collectible.points;
+            this._score += collectible.points;
             onscreenSprites.texts.push(new Text(collectible.x, collectible.y + 30, collectible.points));
         }
     },
 
     draw: function () {
-        if (!this.isInvincible() || this.invincible % 2 === 0) {
+        if (!this.isInvincible() || this._invincible % 2 === 0) {
             this._super();
         }
     },
@@ -182,15 +183,15 @@ var Player = Sprite.extend({
         this._dead = 0;
         this.x = 100;
         this.y = 100;
-        this.shooting = 0;
+        this._shooting = 0;
         this._jumping = 0;
-        this.invincible = 1;
+        this._invincible = 1;
     },
 
     _invincibleUpdate: function () {
-        this.invincible++;
-        if (this.invincible > 150) {
-            this.invincible = 0;
+        this._invincible++;
+        if (this._invincible > 150) {
+            this._invincible = 0;
         }
     },
 
@@ -201,7 +202,7 @@ var Player = Sprite.extend({
 
         this._checkForPoppingBubble(onscreenSprites, collisionDetector);
 
-        if (!this.invincible) {
+        if (!this._invincible) {
             this._checkForDeath(onscreenSprites, collisionDetector);
         }
 
@@ -218,7 +219,7 @@ var Player = Sprite.extend({
             this._invincibleUpdate();
         }
 
-        if (this.shooting) {
+        if (this._shooting) {
             this._shootingUpdate();
         }
 
@@ -229,9 +230,13 @@ var Player = Sprite.extend({
             this._fall();
         }
         else {
-            this.falling = false;
+            this._falling = false;
             this._playerAnimations.stopFalling();
         }
+    },
+
+    getScore: function () {
+        return this._score;
     }
 
 
