@@ -14,15 +14,19 @@ var Control = Class.extend({
         this.x = 0;
         this.z = 0;
         this.getKey();
+        this.socket = io.connect('http://localhost:3000');
     },
 
     getKey: function () {
         $(document).keydown($.proxy(function (event) {
-            switch (event.keyCode) {
+            switch (event.which) {
             case this.LEFT_KEY:
                 this.left = 1;
                 break;
             case this.RIGHT_KEY:
+                if (this.right === 0) {
+                    this.socket.emit('moveRight', {moving: 'keyDown'});
+                }
                 this.right = 1;
                 break;
             case this.Z_KEY:
@@ -40,11 +44,14 @@ var Control = Class.extend({
             }
         }, this));
         $(document).keyup($.proxy(function (event) {
-            switch (event.keyCode) {
+            switch (event.which) {
             case this.LEFT_KEY:
                 this.left = 0;
                 break;
             case this.RIGHT_KEY:
+                if (this.right === 1) {
+                    this.socket.emit('moveRight', {moving: 'keyUp'});
+                }
                 this.right = 0;
                 break;
             case this.Z_KEY:
