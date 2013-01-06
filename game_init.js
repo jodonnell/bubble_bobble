@@ -17,8 +17,8 @@ var GameInit = Class.extend({
         $("#gameCanvas").css('position', 'absolute');
         $("#gameCanvas").css('top', '0px');
         $("#gameCanvas").css('left', '0px');
-        $("#gameCanvas").css('width', '1066px');
-        $("#gameCanvas").css('height', '800px');
+        // $("#gameCanvas").css('width', '1066px');
+        // $("#gameCanvas").css('height', '800px');
 
         if (this.hide) {
             $("#gameCanvas").css('visibilty', 'hidden');

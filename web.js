@@ -32,17 +32,45 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('disconnect', function () {
         console.log('\t socket.io:: socket disconnected ' + socket.userid );
-        var indexOfPlayer;
 
-        var index = players.indexOf(element);
+        var index = players.indexOf(socket);
         players.splice(index, 1);
     });
 
     socket.on('moveRight', function (data) {
         for (var i = 0; i < players.length; i++) {
             if (socket !== players[i]) {
-                socket.emit('moveRight', { moving: data.moving });
+                console.log('emitting ' + data.moving);
+                players[i].emit('moveRight', { moving: data.moving });
             }
         }
     });
+
+    socket.on('moveLeft', function (data) {
+        for (var i = 0; i < players.length; i++) {
+            if (socket !== players[i]) {
+                console.log('emitting ' + data.moving);
+                players[i].emit('moveLeft', { moving: data.moving });
+            }
+        }
+    });
+
+    socket.on('pressZ', function (data) {
+        for (var i = 0; i < players.length; i++) {
+            if (socket !== players[i]) {
+                console.log('emitting ' + data.moving);
+                players[i].emit('pressZ', { moving: data.moving });
+            }
+        }
+    });
+
+    socket.on('pressX', function (data) {
+        for (var i = 0; i < players.length; i++) {
+            if (socket !== players[i]) {
+                console.log('emitting ' + data.moving);
+                players[i].emit('pressX', { moving: data.moving });
+            }
+        }
+    });
+
 });
