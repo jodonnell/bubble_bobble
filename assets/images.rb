@@ -39,7 +39,7 @@ class CreateImages
         x_num = num
       end
 
-      grab_square x_num * 30 + 1, 16, 17, @image_names, false, num
+      grab_square x_num * 30 + 1, 16, 17, false, num
     end
 
     
@@ -84,6 +84,15 @@ ci.grab_row
 bub_other_images = ['bub_facing_forward_leg', 'bub_facing_forward', 'smallest_bubble', 'small_bubble', 'medium_bubble', 'big_bubble', 'bub_die', 'bub_die_90', 'bub_die_270', 'bub_die_180']
 ci = CreateImages.new("bubblebobble_bubandbub_sheet.png", bub_other_images, 38)
 ci.grab_row_with_bubbles
+
+bob_images = ['bob', 'bob_tail', 'bob_walk_tail', 'bob_walk', 'bob_jump', 'bob_jump_tail', 'bob_fall_tail', 'bob_fall']
+ci = CreateImages.new("bubblebobble_bubandbub_sheet.png", bob_images, 128)
+ci.grab_row
+
+bob_other_images = ['bob_facing_forward_leg', 'bob_facing_forward', 'smallest_bobble', 'small_bobble', 'medium_bobble', 'big_bobble', 'bob_die', 'bob_die_90', 'bob_die_270', 'bob_die_180']
+ci = CreateImages.new("bubblebobble_bubandbub_sheet.png", bob_other_images, 98)
+ci.grab_row_with_bubbles
+
 
 blue_magoo_images = ['blue_magoo', 'blue_magoo_walk', 'blue_magoo_walk_leg', 'blue_magoo_walk_mad', 'blue_magoo_walk_leg_mad', 'blue_magoo_dead', 'blue_magoo_dead_vertical', 'blue_magoo_trapped']
 ci = CreateImages.new("bubblebobble_enemies_sheet.png", blue_magoo_images, 0, LEFT)

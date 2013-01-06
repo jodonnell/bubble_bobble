@@ -3,6 +3,7 @@
 var Images = Class.extend({
     init: function (callback) {
         this.bub();
+        this.bob();
         this.bubbles();
         this.enemies();
         this.deadEnemies();
@@ -134,7 +135,77 @@ var Images = Class.extend({
 
         this.bubDie270 = new Image();
         this.bubDie270.src = "assets/bub_die_270.png";
+    },
+
+    bob: function () {
+        this.bobTailRight = new Image();
+        this.bobTailRight.src = "assets/bob_tail.png";
+
+        this.bobTailLeft = new Image();
+        this.bobTailLeft.src = "assets/bob_tail_left.png";
+
+        this.bobWalkRight = new Image();
+        this.bobWalkRight.src = "assets/bob_walk.png";
+
+        this.bobWalkLeft = new Image();
+        this.bobWalkLeft.src = "assets/bob_walk_left.png";
+
+        this.bobWalkTailRight = new Image();
+        this.bobWalkTailRight.src = "assets/bob_walk_tail.png";
+
+        this.bobWalkTailLeft = new Image();
+        this.bobWalkTailLeft.src = "assets/bob_walk_tail_left.png";
+
+
+        this.bobJumpRight = new Image();
+        this.bobJumpRight.src = "assets/bob_jump.png";
+
+        this.bobJumpTailRight = new Image();
+        this.bobJumpTailRight.src = "assets/bob_jump_tail.png";
+
+        this.bobJumpLeft = new Image();
+        this.bobJumpLeft.src = "assets/bob_jump_left.png";
+
+        this.bobJumpTailLeft = new Image();
+        this.bobJumpTailLeft.src = "assets/bob_jump_tail_left.png";
+
+        this.bobFallRight = new Image();
+        this.bobFallRight.src = "assets/bob_fall.png";
+
+        this.bobFallTailRight = new Image();
+        this.bobFallTailRight.src = "assets/bob_fall_tail.png";
+
+        this.bobFallLeft = new Image();
+        this.bobFallLeft.src = "assets/bob_fall_left.png";
+
+        this.bobFallTailLeft = new Image();
+        this.bobFallTailLeft.src = "assets/bob_fall_tail_left.png";
+
+        this.bobShootLeft = new Image();
+        this.bobShootLeft.src = "assets/bob_shoot_left.png";
+
+        this.bobShootRight = new Image();
+        this.bobShootRight.src = "assets/bob_shoot.png";
+
+        this.wall = new Image();
+        this.wall.src = "assets/wall.png";
+
+        this.bobLeft = new Image();
+        this.bobLeft.src = "assets/bob_left.png";
+
+        this.bobDie = new Image();
+        this.bobDie.src = "assets/bob_die.png";
+
+        this.bobDie90 = new Image();
+        this.bobDie90.src = "assets/bob_die_90.png";
+
+        this.bobDie180 = new Image();
+        this.bobDie180.src = "assets/bob_die_180.png";
+
+        this.bobDie270 = new Image();
+        this.bobDie270.src = "assets/bob_die_270.png";
 
     }
+
 
 });
