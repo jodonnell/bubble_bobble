@@ -3,24 +3,25 @@
 var PlayerAnimations = Class.extend({
     ANIMATION_LENGTH: 20,
 
-    init: function () {
+    init: function (prefix) {
         this.timer = 0;
-        this.currentImage = 'bub';
+        this.currentImage = '';
         this.direction = RIGHT;
-        this.queuedImage = "bub";
+        this.queuedImage = '';
+        this.prefix = prefix;
     },
 
     shoot: function () {
-        this.currentImage = 'bubShoot';
+        this.currentImage = 'Shoot';
         this.timer = 0;
     },
 
     jump: function () {
         if (this._isShooting()) {
-            this.queuedImage = 'bubJump';
+            this.queuedImage = 'Jump';
             return;
         }
-        this.currentImage = 'bubJump';
+        this.currentImage = 'Jump';
         this.timer = 0;
     },
 
@@ -29,16 +30,16 @@ var PlayerAnimations = Class.extend({
             return;
         }
 
-        if (this.currentImage === 'bubShoot') {
-            this.queuedImage = 'bubFall';
+        if (this.currentImage === 'Shoot') {
+            this.queuedImage = 'Fall';
             return;
         }
-        this.currentImage = 'bubFall';
+        this.currentImage = 'Fall';
         this.timer = 0;
     },
 
     die: function () {
-        this.currentImage = 'bubDie';
+        this.currentImage = 'Die';
         this.timer = 0;
     },
 
@@ -50,11 +51,11 @@ var PlayerAnimations = Class.extend({
         }
 
         if (this._isJumping() || this._isFalling() || this._isShooting()) {
-            this.queuedImage = 'bubWalk';
+            this.queuedImage = 'Walk';
             return;
         }
 
-        this.currentImage = 'bubWalk';
+        this.currentImage = 'Walk';
         this.timer = 0;
     },
 
@@ -65,11 +66,11 @@ var PlayerAnimations = Class.extend({
         }
 
         if (this._isJumping() || this._isFalling() || this._isShooting()) {
-            this.queuedImage = 'bubWalk';
+            this.queuedImage = 'Walk';
             return;
         }
 
-        this.currentImage = 'bubWalk';
+        this.currentImage = 'Walk';
         this.timer = 0;
     },
 
@@ -87,12 +88,12 @@ var PlayerAnimations = Class.extend({
             return;
         }
 
-        this.currentImage = 'bub';
+        this.currentImage = '';
         this.timer = 0;
     },
 
     _isShooting: function () {
-        return this.currentImage === 'bubShoot';
+        return this.currentImage === 'Shoot';
     },
 
     _isDead: function () {
@@ -100,23 +101,23 @@ var PlayerAnimations = Class.extend({
     },
 
     _isStanding: function () {
-        return this.currentImage === 'bub' || this.currentImage === 'bubTail';
+        return this.currentImage === '' || this.currentImage === 'Tail';
     },
 
     _isMovingLeft: function () {
-        return this.direction === LEFT && (this.currentImage === 'bubWalk' || this.currentImage === 'bubWalkTail');
+        return this.direction === LEFT && (this.currentImage === 'Walk' || this.currentImage === 'WalkTail');
     },
 
     _isMovingRight: function () {
-        return this.direction === RIGHT && (this.currentImage === 'bubWalk' || this.currentImage === 'bubWalkTail');
+        return this.direction === RIGHT && (this.currentImage === 'Walk' || this.currentImage === 'WalkTail');
     },
 
     _isFalling: function () {
-        return this.currentImage === 'bubFall' || this.currentImage === 'bubFallTail';
+        return this.currentImage === 'Fall' || this.currentImage === 'FallTail';
     },
 
     _isJumping: function () {
-        return this.currentImage === 'bubJump' || this.currentImage === 'bubJumpTail';
+        return this.currentImage === 'Jump' || this.currentImage === 'JumpTail';
     },
 
     changeAnimation: function () {
@@ -145,36 +146,36 @@ var PlayerAnimations = Class.extend({
     },
 
     _fallingAnimation: function () {
-        this._transitionState('bubFall', 'bubFallTail');
+        this._transitionState('Fall', 'FallTail');
     },
 
     _standingAnimation: function () {
-        this._transitionState('bub', 'bubTail');
+        this._transitionState('', 'Tail');
     },
 
     _jumpingAnimation: function () {
-        this._transitionState('bubJump', 'bubJumpTail');
+        this._transitionState('Jump', 'JumpTail');
     },
 
     _walkingRightAnimation: function () {
-        this._transitionState('bubWalk', 'bubWalkTail');
+        this._transitionState('Walk', 'WalkTail');
     },
 
     _deathAnimation: function () {
         if (this.timer === 8) {
             this.timer = 0;
 
-            if (this.currentImage === 'bubDie') {
-                this.currentImage = 'bubDie90';
+            if (this.currentImage === 'Die') {
+                this.currentImage = 'Die90';
             }
-            else if (this.currentImage === 'bubDie90') {
-                this.currentImage = 'bubDie180';
+            else if (this.currentImage === 'Die90') {
+                this.currentImage = 'Die180';
             }
-            else if (this.currentImage === 'bubDie180') {
-                this.currentImage = 'bubDie270';
+            else if (this.currentImage === 'Die180') {
+                this.currentImage = 'Die270';
             }
-            else if (this.currentImage === 'bubDie270') {
-                this.currentImage = 'bubDie';
+            else if (this.currentImage === 'Die270') {
+                this.currentImage = 'Die';
             }
         }
     },
@@ -193,7 +194,7 @@ var PlayerAnimations = Class.extend({
     },
 
     getImageName: function () {
-        var imageName = this.currentImage;
+        var imageName = this.prefix + this.currentImage;
 
         if (this.currentImage.indexOf('Die') !== -1) {
             return imageName;
