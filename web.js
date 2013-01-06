@@ -10,8 +10,20 @@ app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
 });
 
+app.get('/tests', function (req, res) {
+    res.sendfile(__dirname + '/spec_runner.html');
+});
+
 app.get(/^\/(.*\.js)$/, function (req, res) {
     res.sendfile(__dirname + '/' + req.params[0]);
+});
+
+app.get(/^\/jasmine-1.1.0\/(.*\.js)$/, function (req, res) {
+    res.sendfile(__dirname + '/jasmine-1.1.0/' + req.params[0]);
+});
+
+app.get(/^\/jasmine-1.1.0\/(.*\.css)$/, function (req, res) {
+    res.sendfile(__dirname + '/jasmine-1.1.0/' + req.params[0]);
 });
 
 app.get(/^\/assets\/(.*\.png)/, function (req, res) {
