@@ -67,6 +67,7 @@ var Images = Class.extend({
     },
 
     bob: function () {
+        this._loadImage("bobRight", "bob.png");
         this._loadImage("bobTailRight", "bob_tail.png");
         this._loadImage("bobTailLeft", "bob_tail_left.png");
         this._loadImage("bobWalkRight", "bob_walk.png");
