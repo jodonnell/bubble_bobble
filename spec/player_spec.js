@@ -4,8 +4,8 @@ describe("Player", function () {
     var player, args;
     
     beforeEach(function () {
-        player = new Player(100, 100);
-        var onscreenSprites = new OnscreenSprites({player: player});
+        player = new Player(100, 100, 'bub');
+        var onscreenSprites = new OnscreenSprites({players: [player]});
         args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
 

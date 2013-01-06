@@ -4,7 +4,7 @@ describe("CollisionDetector", function () {
     var enemies, player, collisionDetector;
 
     beforeEach(function () {
-        player = new Player(100, 100);
+        player = new Player(100, 100, 'bub');
         enemies = [new BlueMagoo(370, 20, LEFT)];
         collisionDetector = new CollisionDetector();
     });
