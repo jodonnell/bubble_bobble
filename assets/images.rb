@@ -101,3 +101,5 @@ ci.grab_row
 blue_magoo_images = ['pendant', 'crystals', 'pickle', 'pepper']
 ci = CreateImages.new("bubblebobble_various_sheet.png", blue_magoo_images, 29, RIGHT)
 ci.grab_row_no_flop
+
+# convert old.png  -fill '#new_color' -opaque '#old_color' new.png
