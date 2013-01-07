@@ -6,8 +6,13 @@ var UUID = require('node-uuid');
 
 server.listen(3000);
 
+app.set('views', __dirname)
+app.set('view engine', 'jade')
+
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/index.html');
+    res.render('index',
+               { playerNumber : players.length }
+              )
 });
 
 app.get('/tests', function (req, res) {

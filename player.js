@@ -1,7 +1,7 @@
 "use strict";
 
 var Player = Sprite.extend({
-    init: function (x, y, type) {
+    init: function (x, y, type, control) {
         this.x = x;
         this.y = y;
         this.moveSpeed = 4;
@@ -10,7 +10,7 @@ var Player = Sprite.extend({
         this._falling = false;
         this._shooting = 0;
         this._playerAnimations = new PlayerAnimations(type);
-        this._control = new Control();
+        this._control = control;
         this._dead = 0;
         this._invincible = 0;
         this._score = 0;
