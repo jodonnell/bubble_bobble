@@ -6,7 +6,7 @@ var GameController = Class.extend({
 
         var players = [];
 
-        if (playerNumber > 0) {
+        if (playerNumber > 1) {
             players.push(new Player(200, 100, 'bub', new NetworkedControl()));
             players.push(new Player(600, 100, 'bob', new InputControl()));
         }
