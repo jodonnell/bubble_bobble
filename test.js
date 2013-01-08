@@ -29,11 +29,12 @@ GLOBAL.DeadEnemy = require('./dead_enemy.js').DeadEnemy;
 GLOBAL.Pepper = require('./pepper.js').Pepper;
 GLOBAL.Text = require('./text.js').Text;
 
-GLOBAL.gameImages = new NodeImages();
+GLOBAL.gameImages = new NodeImages(function() {
+    var gameController = new GameController(null, 1);
 
-var gameController = new GameController(null, 1);
+    for (var i = 0; i < 30; i++) {
+        gameController.update();
+    }
 
-for (var i = 0; i < 300; i++) {
-    console.log(gameController.onscreenSprites.players[0].x + " " + gameController.onscreenSprites.players[0].y)
-    gameController.update();
-}
+});
+
