@@ -42,3 +42,7 @@ var NetworkedControl = Control.extend({
 
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.NetworkedControl = NetworkedControl;
+}

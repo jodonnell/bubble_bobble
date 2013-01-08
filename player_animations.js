@@ -209,3 +209,7 @@ var PlayerAnimations = Class.extend({
         return imageName;
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.PlayerAnimations = PlayerAnimations;
+}

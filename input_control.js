@@ -147,3 +147,7 @@ var InputControl = Control.extend({
         this.x = 0;
     },
 });
+
+if (typeof exports !== 'undefined') {
+    exports.InputControl = InputControl;
+}

@@ -76,3 +76,7 @@ var CollisionDetector = Class.extend({
         return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.CollisionDetector = CollisionDetector;
+}

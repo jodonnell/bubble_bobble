@@ -40,12 +40,27 @@ app.get(/^\/assets\/(.*\.png)/, function (req, res) {
 var players = [];
 
 io.sockets.on('connection', function (socket) {
+    // if (players.length >= 2) {
+    //     socket.disconnect();
+    // }
+
     socket.userid = UUID();
     socket.emit('onconnected', { id: socket.userid } );
 
     console.log('\t socket.io:: player ' + socket.userid + ' connected');
     
     players.push(socket);
+
+
+    // if (players.length === 2) {
+    //     var GameController = require('./game_controller.js').GameController;
+
+    //     var app = require('express')();
+    //     var server = require('http').createServer(app);
+    //     var io = require('socket.io').listen(server);
+    //     var UUID = require('node-uuid');
+        
+    // }
 
     socket.on('disconnect', function () {
         console.log('\t socket.io:: socket disconnected ' + socket.userid );

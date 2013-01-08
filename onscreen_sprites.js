@@ -30,3 +30,7 @@ var OnscreenSprites = Class.extend({
         this.texts.remove = remove;
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.OnscreenSprites = OnscreenSprites;
+}

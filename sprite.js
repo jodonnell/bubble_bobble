@@ -30,3 +30,7 @@ var Sprite = Class.extend({
 
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Sprite = Sprite;
+}

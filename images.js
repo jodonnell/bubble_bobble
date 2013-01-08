@@ -10,8 +10,7 @@ var Images = Class.extend({
         this.collectibles();
         this.walls();
 
-        this.bubRight = new Image();
-        this.bubRight.src = "assets/bub.png";
+        this._loadImage("bubRight", "bub.png");
         this.bubRight.onload = callback;
     },
 
@@ -97,10 +96,11 @@ var Images = Class.extend({
     },
 
     _loadImage: function (prop, imageFile) {
-        this[prop] = new Image();
-        this[prop].src = "assets/" + imageFile;
-
     }
 
 
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Images = Images;
+}

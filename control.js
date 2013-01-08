@@ -29,3 +29,8 @@ var Control = Class.extend({
         return !this.isHoldingLeft() && !this.isHoldingRight();
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Control = Control;
+}
+

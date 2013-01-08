@@ -10,6 +10,7 @@ html
     script(src="sprite.js", type="text/javascript", charset="utf-8")
     script(src="game_init.js", type="text/javascript", charset="utf-8")
     script(src="images.js", type="text/javascript", charset="utf-8")
+    script(src="browser_images.js", type="text/javascript", charset="utf-8")
     script(src="player.js", type="text/javascript", charset="utf-8")
     script(src="player_animations.js", type="text/javascript", charset="utf-8")
     script(src="game_controller.js", type="text/javascript", charset="utf-8")
@@ -41,7 +42,7 @@ html
       
       document.body.appendChild( stats.domElement );
       
-      var gameImages = new Images();
+      var gameImages = new BrowserImages();
       var gameInit = new GameInit();
       var gameController = new GameController(gameInit, #{playerNumber});
       var gameContext = $('#gameCanvas').get(0).getContext("2d");

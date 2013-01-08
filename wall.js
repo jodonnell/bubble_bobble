@@ -7,3 +7,7 @@ var Wall = Sprite.extend({
         this.currentImage = 'wall';
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Wall = Wall;
+}

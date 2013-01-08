@@ -43,3 +43,7 @@ var LevelBuilder = Class.extend({
     }
 
 });
+
+if (typeof exports !== 'undefined') {
+    exports.LevelBuilder = LevelBuilder;
+}

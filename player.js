@@ -1,5 +1,8 @@
 "use strict";
 
+//console.log(require('./sprite.js').Sprite);
+//var Sprite = require('./sprite.js');
+
 var Player = Sprite.extend({
     init: function (x, y, type, control) {
         this.x = x;
@@ -242,3 +245,6 @@ var Player = Sprite.extend({
 
 });
 
+if (typeof exports !== 'undefined') {
+    exports.Player = Player;
+}

@@ -54,3 +54,7 @@ var GameController = Class.extend({
         }
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.GameController = GameController;
+}

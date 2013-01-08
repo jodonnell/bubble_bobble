@@ -136,3 +136,7 @@ var BlueMagoo = Sprite.extend({
         }
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.BlueMagoo = BlueMagoo;
+}
