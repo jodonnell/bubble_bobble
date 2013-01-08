@@ -9,6 +9,9 @@ var NodeImages = Images.extend({
             if (err) throw err
             this[prop].width = features.width;
             this[prop].height = features.height;
+
+            if (this[prop].onload)
+                this[prop].onload();
         }, this));
 
     }
