@@ -2,6 +2,10 @@
 
 var Images = Class.extend({
     init: function (callback) {
+        this._props = [];
+        this._callback = callback;
+        this._numImages = 61;
+
         this.bub();
         this.bob();
         this.bubbles();
@@ -11,7 +15,7 @@ var Images = Class.extend({
         this.walls();
 
         this._loadImage("bubRight", "bub.png");
-        this.bubRight.onload = callback;
+        //this.bubRight.onload = callback;
     },
 
     collectibles: function () {

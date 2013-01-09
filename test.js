@@ -1,6 +1,6 @@
 
 GLOBAL.RIGHT = 1;
-GLOBAL.LEFT = 1;
+GLOBAL.LEFT = 2;
 GLOBAL.RIGHT_BOUND = 754;
 GLOBAL.LEFT_BOUND = 46;
 GLOBAL.document = {addEventListener: function() { }};
@@ -30,6 +30,7 @@ GLOBAL.Pepper = require('./pepper.js').Pepper;
 GLOBAL.Text = require('./text.js').Text;
 
 GLOBAL.gameImages = new NodeImages(function() {
+
     var gameController = new GameController(null, 1);
 
     for (var i = 0; i < 30; i++) {
