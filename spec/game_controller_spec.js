@@ -5,7 +5,7 @@ describe("GameController", function () {
 
     beforeEach(function () {
         gameInit = new GameInit(true);
-        var bub = new Player(200, 100, 'bub', new InputControl());
+        var bub = new Player(200, 100, 'bub', new Control());
         gameController = new GameController(gameInit, [bub]);
     });
 
