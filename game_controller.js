@@ -1,19 +1,9 @@
 "use strict";
 
 var GameController = Class.extend({
-    init: function (gameInit, playerNumber) {
+    init: function (gameInit, players) {
         this.gameInit = gameInit;
 
-        var players = [];
-
-        if (playerNumber > 1) {
-            players.push(new Player(200, 100, 'bub', new NetworkedControl()));
-            players.push(new Player(600, 100, 'bob', new InputControl()));
-        }
-        else {
-            players.push(new Player(200, 100, 'bub', new InputControl()));
-        }
-            
         this.onscreenSprites = new OnscreenSprites({players: players,
                                                    enemies: [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)],
                                                    bubbles: [],

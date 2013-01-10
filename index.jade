@@ -44,7 +44,9 @@ html
       
       var gameImages = new BrowserImages();
       var gameInit = new GameInit();
-      var gameController = new GameController(gameInit, #{playerNumber});
+
+      var bub = new Player(200, 100, 'bub', new InputControl());
+      var gameController = new GameController(gameInit, [bub]);
       var gameContext = $('#gameCanvas').get(0).getContext("2d");
       
       window.requestAnimFrame = (function(){
