@@ -1,7 +1,7 @@
 "use strict";
 
 var OnlineGameManager = Class.extend({
-    init: function (socket) {
+    init: function () {
         this._players = [];
     },
 
@@ -14,7 +14,7 @@ var OnlineGameManager = Class.extend({
         if (this._players.length === 2) {
             var bub = new Player(200, 100, 'bub', new NetworkedControl(this._players[0]))
             var bob = new Player(600, 100, 'bob', new NetworkedControl(this._players[1]))
-            var gameController = new GameController(null, [bub, bob]);
+            this.gameController = new GameController(null, [bub, bob]);
         }
         return this._players.length;
     }

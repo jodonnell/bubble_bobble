@@ -10,6 +10,7 @@ var InputControl = Control.extend({
 
     init: function () {
         this._super();
+        this.socket = io.connect('http://192.168.0.105:3000');
         this.getKey();
     },
 

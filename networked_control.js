@@ -1,8 +1,9 @@
 "use strict";
 
 var NetworkedControl = Control.extend({
-    init: function () {
+    init: function (socket) {
         this._super();
+        this.socket = socket;
 
         this.socket.on('moveRight', $.proxy(function (data) {
             if (data.moving === 'keyDown') {
