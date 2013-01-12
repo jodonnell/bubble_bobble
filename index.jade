@@ -70,7 +70,17 @@ html
               var bob = new Player(600, 100, 'bob', new InputControl(socket));
           }
 
+
           var gameController = new GameController(gameInit, [bub, bob]);
+
+          socket.on('updatedPositions', $.proxy(function (data) {
+              gameController.onscreenSprites.players[0].x = data.bub.x;
+              gameController.onscreenSprites.players[0].y = data.bub.y;
+
+              gameController.onscreenSprites.players[1].x = data.bob.x;
+              gameController.onscreenSprites.players[1].y = data.bob.y;
+
+          }));
 
           (function animloop(){
               //        var startTime = new Date().getTime();

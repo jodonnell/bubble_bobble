@@ -27,6 +27,16 @@ var OnlineGameManager = Class.extend({
                 this.gameController.update();
             }, this), 15);
 
+            setInterval($.proxy(function(){
+                var bub = this.gameController.onscreenSprites.players[0];
+                var bob = this.gameController.onscreenSprites.players[1];
+                var positions = {bub: {x: bub.x, y: bub.y}, bob: {x: bob.x, y: bob.y}};
+
+                this._players[0].emit('updatedPositions', positions );
+                this._players[1].emit('updatedPositions', positions );
+
+            }, this), 45);
+
         }
         return this._players.length;
     }

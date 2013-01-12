@@ -44,9 +44,7 @@ app.set('views', __dirname)
 app.set('view engine', 'jade')
 
 app.get('/', function (req, res) {
-    res.render('index',
-               { playerNumber : players.length }
-              )
+    res.render('index', {})
 });
 
 app.get('/tests', function (req, res) {
