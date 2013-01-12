@@ -73,3 +73,7 @@ var DeadEnemy = Sprite.extend({
     }
 
 });
+
+if (typeof exports !== 'undefined') {
+    exports.DeadEnemy = DeadEnemy;
+}
