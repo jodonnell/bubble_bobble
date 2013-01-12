@@ -3,6 +3,8 @@
 var OnlineGameManager = Class.extend({
     init: function () {
         this._players = [];
+        this._pdt = 0.0001;
+        this._pdte = new Date().getTime();
     },
 
     findGame: function (socket) {
@@ -15,6 +17,13 @@ var OnlineGameManager = Class.extend({
             var bub = new Player(200, 100, 'bub', new NetworkedControl(this._players[0]))
             var bob = new Player(600, 100, 'bob', new NetworkedControl(this._players[1]))
             this.gameController = new GameController(null, [bub, bob]);
+
+            setInterval($.proxy(function(){
+                this._pdt = (new Date().getTime() - this._pdte)/1000.0;
+                this._pdte = new Date().getTime();
+                this.gameController.update();
+            }, this), 15);
+
         }
         return this._players.length;
     }
