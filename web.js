@@ -70,38 +70,16 @@ app.get(/^\/assets\/(.*\.png)/, function (req, res) {
 });
 
 
-
-var players = [];
 var onlineGameManager = new OnlineGameManager()
 
 io.sockets.on('connection', function (socket) {
-    // if (players.length >= 2) {
-    //     socket.disconnect();
-    // }
-
-    
     var gameController = new GameController(null, 1);
 
     socket.userid = UUID();
-    socket.emit('onconnected', { id: socket.userid } );
 
     console.log('\t socket.io:: player ' + socket.userid + ' connected');
-    socket.playerNum = players.length;
-    players.push(socket);
 
-    onlineGameManager.findGame(socket);
-
-
-
-    // if (players.length === 2) {
-    //     var GameController = require('./game_controller.js').GameController;
-
-    //     var app = require('express')();
-    //     var server = require('http').createServer(app);
-    //     var io = require('socket.io').listen(server);
-    //     var UUID = require('node-uuid');
-        
-    // }
+    var playerNum = onlineGameManager.findGame(socket);
 
     socket.on('disconnect', function () {
         console.log('\t socket.io:: socket disconnected ' + socket.userid );

@@ -8,9 +8,9 @@ var InputControl = Control.extend({
     X_KEY: 88,
     DVORAK_X_KEY: 81,
 
-    init: function () {
+    init: function (socket) {
         this._super();
-        this.socket = io.connect('http://192.168.0.105:3000');
+        this.socket = socket;
         this.getKey();
     },
 

@@ -41,14 +41,7 @@ html
       stats.domElement.style.float = 'right';
       
       document.body.appendChild( stats.domElement );
-      
-      var gameImages = new BrowserImages();
-      var gameInit = new GameInit();
 
-      var bub = new Player(200, 100, 'bub', new InputControl());
-      var gameController = new GameController(gameInit, [bub]);
-      var gameContext = $('#gameCanvas').get(0).getContext("2d");
-      
       window.requestAnimFrame = (function(){
             return  window.requestAnimationFrame       || 
                     window.webkitRequestAnimationFrame || 
@@ -59,17 +52,36 @@ html
                       window.setTimeout(callback, 1000 / 60);
                     };
       })();
+
       
-      (function animloop(){
-      //        var startTime = new Date().getTime();
-          stats.begin();
+      var gameImages = new BrowserImages();
+      var gameInit = new GameInit();
+      var gameContext = $('#gameCanvas').get(0).getContext("2d");
+
+      var socket = io.connect('http://192.168.0.105:3000');
+
+      socket.on('gameStarted', function(data){
+          if (data.playerNum == 1) {
+              var bub = new Player(200, 100, 'bub', new InputControl(socket));
+              var bob = new Player(600, 100, 'bob', new NetworkedControl(socket));
+          }
+          else {
+              var bub = new Player(200, 100, 'bub', new NetworkedControl(socket));
+              var bob = new Player(600, 100, 'bob', new InputControl(socket));
+          }
+
+          var gameController = new GameController(gameInit, [bub, bob]);
+
+          (function animloop(){
+              //        var startTime = new Date().getTime();
+              stats.begin();
       
-          gameController.update();
-          gameController.draw();
-          requestAnimFrame(animloop);
-          stats.end();
-      
-      
-      //var pow = (new Date().getTime()) - startTime
-      //if (pow > 1)console.log(pow);
-      })();
+              gameController.update();
+              gameController.draw();
+              requestAnimFrame(animloop);
+              stats.end();
+              //var pow = (new Date().getTime()) - startTime
+              //if (pow > 1)console.log(pow);
+          })();
+
+      });

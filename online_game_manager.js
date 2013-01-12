@@ -14,8 +14,11 @@ var OnlineGameManager = Class.extend({
         this._players.push(socket);
 
         if (this._players.length === 2) {
-            var bub = new Player(200, 100, 'bub', new NetworkedControl(this._players[0]))
-            var bob = new Player(600, 100, 'bob', new NetworkedControl(this._players[1]))
+            this._players[0].emit('gameStarted', { playerNum: 1 } );
+            this._players[1].emit('gameStarted', { playerNum: 2 } );
+
+            var bub = new Player(200, 100, 'bub', new NetworkedControl(this._players[0]));
+            var bob = new Player(600, 100, 'bob', new NetworkedControl(this._players[1]));
             this.gameController = new GameController(null, [bub, bob]);
 
             setInterval($.proxy(function(){

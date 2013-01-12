@@ -5,7 +5,7 @@ describe("OnlineGameManager", function () {
 
     beforeEach(function () {
         onlineGameManager = new OnlineGameManager(100, 100, RIGHT);
-        socket = {on: function() {}};
+        socket = {on: function() {}, emit: function() {}};
     });
 
     it("will make the first player wait for another player", function () {
