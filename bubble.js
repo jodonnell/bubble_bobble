@@ -136,3 +136,7 @@ var Bubble = Sprite.extend({
     }
 
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Bubble = Bubble;
+}
