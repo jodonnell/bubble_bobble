@@ -8,3 +8,7 @@ var Pepper = Sprite.extend({
         this.points = 3000;
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Pepper = Pepper;
+}
