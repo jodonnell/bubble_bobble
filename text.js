@@ -23,3 +23,7 @@ var Text = Sprite.extend({
         }
     }
 });
+
+if (typeof exports !== 'undefined') {
+    exports.Text = Text;
+}
