@@ -22,7 +22,9 @@ var TitleScreen = Class.extend({
 
         if (!this._holdingDown && this._control.isHoldingDown()) {
             this._holdingDown = true;
-            this._selectedEntry++;
+            if (this._selectedEntry === 0) {
+                this._selectedEntry++;
+            }
         }
 
         if (this._holdingDown && !this._control.isHoldingDown()) {
@@ -31,7 +33,9 @@ var TitleScreen = Class.extend({
 
         if (!this._holdingUp && this._control.isHoldingUp()) {
             this._holdingUp = true;
-            this._selectedEntry--;
+            if (this._selectedEntry > 0) {
+                this._selectedEntry--;
+            }
         }
 
         if (this._holdingUp && !this._control.isHoldingUp()) {

@@ -47,4 +47,23 @@ describe("Title Screen", function () {
         expect(titleScreen._selectedEntry).toBe(1);
     }));
 
+    it("should not allow the selected entry to be out of bounds", sinon.test(function () {
+        this.stub(titleScreen._control, 'isHoldingUp').returns(true);
+        titleScreen.update();
+        expect(titleScreen._selectedEntry).toBe(0);
+
+        this.stub(titleScreen._control, 'isHoldingDown').returns(true);
+        titleScreen.update();
+        titleScreen._control.isHoldingDown.restore();
+        this.stub(titleScreen._control, 'isHoldingDown').returns(false);
+        titleScreen.update();
+
+        titleScreen._control.isHoldingDown.restore();
+        this.stub(titleScreen._control, 'isHoldingDown').returns(true);
+        titleScreen.update();
+
+        expect(titleScreen._selectedEntry).toBe(1);
+
+    }));
+
 });
