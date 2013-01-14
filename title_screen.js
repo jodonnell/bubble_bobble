@@ -42,32 +42,30 @@ var TitleScreen = Class.extend({
 
     draw: function () {
         this._clearBackground();
-        gameContext.font = "bold 40px Comic Sans MS";
-        gameContext.fillStyle = "#FEFFFF";
 
-        var centeredX = Math.floor(gameInit.width / 2 - gameContext.measureText("Solo Game").width / 2);
-        var centeredY = gameInit.height / 2 - 40;
-
-        var color = '#FEFFFF';
-        if (this._selectedEntry === 0 && this._timer > 6) {
-            color = 'yellow';
-        }
-
-        this._drawMenuText("Solo Game", centeredX, centeredY, color);
-
-        color = '#FEFFFF';
-        if (this._selectedEntry === 1 && this._timer > 6) {
-            color = 'yellow';
-        }
-
-        centeredY = gameInit.height / 2 + 40;
-        this._drawMenuText("Online Game", centeredX, centeredY, color);
+        this._drawMenuText("Solo Game", 0);
+        this._drawMenuText("Online Game", 1);
     },
 
-    _drawMenuText: function(text, x, y, color) {
+    _drawMenuText: function(text, entry) {
         gameContext.font = "bold 40px Comic Sans MS";
+
+        var centeredY = gameInit.height / 2;
+        if (entry === 0) {
+            centeredY -= 40;
+        }
+        else {
+            centeredY += 40;
+        }
+        var centeredX = Math.floor(gameInit.width / 2 - gameContext.measureText(text).width / 2);
+
+        var color = '#FEFFFF';
+        if (this._selectedEntry === entry && this._timer > 6) {
+            color = 'yellow';
+        }
         this.setFillStyle(color);
-        gameContext.fillText(text, x, y);
+
+        gameContext.fillText(text, centeredX, centeredY);
     },
 
     setFillStyle: function(fillStyle) {

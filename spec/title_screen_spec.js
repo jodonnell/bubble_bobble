@@ -28,7 +28,7 @@ describe("Title Screen", function () {
     it("should display Online Game", sinon.test(function () {
         var fillTextSpy = this.spy(gameContext, 'fillText');
         titleScreen.draw();
-        expect(fillTextSpy).toBeCalledWith("Online Game", 300, 340);
+        expect(fillTextSpy).toBeCalledWith("Online Game", 281, 340);
     }));
 
     it("should blink", sinon.test(function () {
@@ -43,11 +43,8 @@ describe("Title Screen", function () {
     it("should blink on the second option when down is hit", sinon.test(function () {
         var fillStyleSpy = this.spy(titleScreen, '_drawMenuText');
         this.stub(titleScreen._control, 'isHoldingDown').returns(true);
-        for (var i = 0; i < 15; i++) {
-            titleScreen.update();
-            titleScreen.draw();
-        }
-        expect(fillStyleSpy).toBeCalledWith("Online Game", 300, 340, 'yellow');
+        titleScreen.update();
+        expect(titleScreen._selectedEntry).toBe(1);
     }));
 
 });
