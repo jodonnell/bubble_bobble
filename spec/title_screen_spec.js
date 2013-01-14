@@ -10,7 +10,7 @@ describe("Title Screen", function () {
             }
         });
 
-        titleScreen = new TitleScreen();
+        titleScreen = new TitleScreen(new InputControl());
     });
 
     it("should have a black background", sinon.test(function () {
@@ -38,6 +38,16 @@ describe("Title Screen", function () {
             titleScreen.draw();
         }
         expect(fillStyleSpy).toBeCalledWith('yellow');
+    }));
+
+    it("should blink on the second option when down is hit", sinon.test(function () {
+        var fillStyleSpy = this.spy(titleScreen, '_drawMenuText');
+        this.stub(titleScreen._control, 'isHoldingDown').returns(true);
+        for (var i = 0; i < 15; i++) {
+            titleScreen.update();
+            titleScreen.draw();
+        }
+        expect(fillStyleSpy).toBeCalledWith("Online Game", 300, 340, 'yellow');
     }));
 
 });

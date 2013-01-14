@@ -58,7 +58,7 @@ html
       var gameInit = new GameInit();
       var gameContext = $('#gameCanvas').get(0).getContext("2d");
       var gameImages = new BrowserImages(function() {
-          var titleScreen = new TitleScreen();
+          var titleScreen = new TitleScreen(new InputControl(null));
 
           (function animloop(){
               stats.begin();

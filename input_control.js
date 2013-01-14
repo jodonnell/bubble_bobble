@@ -3,6 +3,9 @@
 var InputControl = Control.extend({
     LEFT_KEY: 37,
     RIGHT_KEY: 39,
+    UP_KEY: 38,
+    DOWN_KEY: 40,
+
     Z_KEY: 90,
     DVORAK_Z_KEY: 186,
     X_KEY: 88,
@@ -10,7 +13,7 @@ var InputControl = Control.extend({
 
     init: function (socket) {
         this._super();
-        this.socket = socket;
+        this._socket = socket;
         this.getKey();
     },
 
@@ -53,6 +56,12 @@ var InputControl = Control.extend({
             case this.RIGHT_KEY:
                 this.pressRight();
                 break;
+            case this.UP_KEY:
+                this.pressUp();
+                break;
+            case this.DOWN_KEY:
+                this.pressDown();
+                break;
             case this.Z_KEY:
                 this.pressJump();
                 break;
@@ -75,6 +84,12 @@ var InputControl = Control.extend({
             case this.RIGHT_KEY:
                 this.releaseRight();
                 break;
+            case this.DOWN_KEY:
+                this.releaseDown();
+                break;
+            case this.UP_KEY:
+                this.releaseUp();
+                break;
             case this.Z_KEY:
                 this.releaseJump();
                 break;
@@ -93,21 +108,29 @@ var InputControl = Control.extend({
 
     pressLeft: function () {
         if (this.left === 0) {
-            this.socket.emit('moveLeft', {moving: 'keyDown'});
+            this.socket().emit('moveLeft', {moving: 'keyDown'});
         }
         this.left = 1;
     },
 
     pressRight: function () {
         if (this.right === 0) {
-            this.socket.emit('moveRight', {moving: 'keyDown'});
+            this.socket().emit('moveRight', {moving: 'keyDown'});
         }
         this.right = 1;
     },
 
+    pressUp: function () {
+        this.up = 1;
+    },
+
+    pressDown: function () {
+        this.down = 1;
+    },
+
     pressJump: function () {
         if (this.z === 0) {
-            this.socket.emit('pressZ', {moving: 'keyDown'});
+            this.socket().emit('pressZ', {moving: 'keyDown'});
         }
 
         this.z = 1;
@@ -115,38 +138,53 @@ var InputControl = Control.extend({
 
     pressBubble: function () {
         if (this.x === 0) {
-            this.socket.emit('pressX', {moving: 'keyDown'});
+            this.socket().emit('pressX', {moving: 'keyDown'});
         }
         this.x = 1;
     },
 
     releaseLeft: function () {
         if (this.left === 1) {
-            this.socket.emit('moveLeft', {moving: 'keyUp'});
+            this.socket().emit('moveLeft', {moving: 'keyUp'});
         }
         this.left = 0;
     },
 
     releaseRight: function () {
         if (this.right === 1) {
-            this.socket.emit('moveRight', {moving: 'keyUp'});
+            this.socket().emit('moveRight', {moving: 'keyUp'});
         }
         this.right = 0;
     },
 
+    releaseDown: function () {
+        this.down = 0;
+    },
+
+    releaseUp: function () {
+        this.up = 0;
+    },
+
     releaseJump: function () {
         if (this.z === 1) {
-            this.socket.emit('pressZ', {moving: 'keyUp'});
+            this.socket().emit('pressZ', {moving: 'keyUp'});
         }
         this.z = 0;
     },
 
     releaseBubble: function () {
         if (this.x === 1) {
-            this.socket.emit('pressX', {moving: 'keyUp'});
+            this.socket().emit('pressX', {moving: 'keyUp'});
         }
         this.x = 0;
     },
+
+    socket: function () {
+        if (this._socket) {
+            return this._socket;
+        }
+        return {emit: function() {}};
+    }
 });
 
 if (typeof exports !== 'undefined') {

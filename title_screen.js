@@ -1,8 +1,12 @@
 "use strict";
 
 var TitleScreen = Class.extend({
-    init: function () {
+    init: function (control) {
         this._timer = 0;
+        this._control = control;
+        this._selectedEntry = 0;
+        this._holdingDown = false;
+        this._holdingUp = false;
     },
 
     _clearBackground: function () {
@@ -15,6 +19,25 @@ var TitleScreen = Class.extend({
         if (this._timer === 12) {
             this._timer = 0;
         }
+
+        if (!this._holdingDown && this._control.isHoldingDown()) {
+            this._holdingDown = true;
+            this._selectedEntry++;
+        }
+
+        if (this._holdingDown && !this._control.isHoldingDown()) {
+            this._holdingDown = false;
+        }
+
+        if (!this._holdingUp && this._control.isHoldingUp()) {
+            this._holdingUp = true;
+            this._selectedEntry--;
+        }
+
+        if (this._holdingUp && !this._control.isHoldingUp()) {
+            this._holdingUp = false;
+        }
+
     },
 
     draw: function () {
@@ -26,14 +49,19 @@ var TitleScreen = Class.extend({
         var centeredY = gameInit.height / 2 - 40;
 
         var color = '#FEFFFF';
-        if (this._timer > 6) {
+        if (this._selectedEntry === 0 && this._timer > 6) {
             color = 'yellow';
         }
 
         this._drawMenuText("Solo Game", centeredX, centeredY, color);
 
+        color = '#FEFFFF';
+        if (this._selectedEntry === 1 && this._timer > 6) {
+            color = 'yellow';
+        }
+
         centeredY = gameInit.height / 2 + 40;
-        this._drawMenuText("Online Game", centeredX, centeredY, "#FEFFFF");
+        this._drawMenuText("Online Game", centeredX, centeredY, color);
     },
 
     _drawMenuText: function(text, x, y, color) {
