@@ -66,14 +66,4 @@ describe("Title Screen", function () {
 
     }));
 
-    it("should not allow the selected entry to be out of bounds", sinon.test(function () {
-        this.stub(titleScreen._control, 'isShooting').returns(true);
-
-        titleScreen.update();
-        expect(titleScreen._selectedEntry).toBe(0);
-        var bub = new Player(200, 100, 'bub', new InputControl(null));
-        var gameController = new GameController(gameInit, [bub]);
-
-    }));
-
 });
