@@ -79,13 +79,6 @@ io.sockets.on('connection', function (socket) {
 
     var playerNum = onlineGameManager.findGame(socket);
 
-    socket.on('disconnect', function () {
-        console.log('\t socket.io:: socket disconnected ' + socket.userid );
-
-        var index = players.indexOf(socket);
-        players.splice(index, 1);
-    });
-
     // socket.on('moveRight', function (data) {
         
     //     gameController.update();
