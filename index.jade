@@ -23,6 +23,7 @@ html
     script(src="dead_enemy.js", type="text/javascript", charset="utf-8")
     script(src="pepper.js", type="text/javascript", charset="utf-8")
     script(src="text.js", type="text/javascript", charset="utf-8")
+    script(src="title_screen.js", type="text/javascript", charset="utf-8")
 
     script(src="stats.js", type="text/javascript", charset="utf-8")
     script(src="/socket.io/socket.io.js")
@@ -54,11 +55,24 @@ html
       })();
 
       
-      var gameImages = new BrowserImages();
       var gameInit = new GameInit();
       var gameContext = $('#gameCanvas').get(0).getContext("2d");
+      var gameImages = new BrowserImages(function() {
+          var titleScreen = new TitleScreen();
 
-      var socket = io.connect('http://192.168.0.105:3000');
+          (function animloop(){
+              stats.begin();
+      
+              titleScreen.update();
+              titleScreen.draw();
+              requestAnimFrame(animloop);
+    
+              stats.end();
+          })();
+      });
+      
+
+      //var socket = io.connect('http://192.168.0.105:3000');
 
       socket.on('gameStarted', function(data){
           if (data.playerNum == 1) {
@@ -73,7 +87,12 @@ html
 
           var gameController = new GameController(gameInit, [bub, bob]);
 
+          var oldPositions = {bub: {x: 200, y: 100}, bob: {x: 600, y: 100}};
+
           socket.on('updatedPositions', $.proxy(function (data) {
+              
+              oldPositions = data;
+
               gameController.onscreenSprites.players[0].x = data.bub.x;
               gameController.onscreenSprites.players[0].y = data.bub.y;
 
@@ -83,15 +102,13 @@ html
           }));
 
           (function animloop(){
-              //        var startTime = new Date().getTime();
               stats.begin();
       
               gameController.update();
               gameController.draw();
               requestAnimFrame(animloop);
+
               stats.end();
-              //var pow = (new Date().getTime()) - startTime
-              //if (pow > 1)console.log(pow);
           })();
 
       });
