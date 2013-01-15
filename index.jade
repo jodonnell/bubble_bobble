@@ -54,6 +54,11 @@ html
                     };
       })();
 
+      window.cancelAnimationFrame = (function(){
+            return  window.cancelRequestAnimFrame       || 
+                    window.mozCancelRequestAnimationFrame
+      })();
+
       
       var gameInit = new GameInit();
       var gameContext = $('#gameCanvas').get(0).getContext("2d");
