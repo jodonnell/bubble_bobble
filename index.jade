@@ -24,6 +24,8 @@ html
     script(src="pepper.js", type="text/javascript", charset="utf-8")
     script(src="text.js", type="text/javascript", charset="utf-8")
     script(src="title_screen.js", type="text/javascript", charset="utf-8")
+    script(src="solo_game.js", type="text/javascript", charset="utf-8")
+    script(src="online_game.js", type="text/javascript", charset="utf-8")
 
     script(src="stats.js", type="text/javascript", charset="utf-8")
     script(src="/socket.io/socket.io.js")
@@ -55,7 +57,7 @@ html
       })();
 
       window.cancelAnimationFrame = (function(){
-            return  window.cancelRequestAnimFrame       || 
+            return  window.cancelAnimationFrame       || 
                     window.mozCancelRequestAnimationFrame
       })();
 
