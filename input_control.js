@@ -8,6 +8,7 @@ var InputControl = Control.extend({
 
     Z_KEY: 90,
     DVORAK_Z_KEY: 186,
+    DVORAK_Z_KEY_FIREFOX: 59,
     X_KEY: 88,
     DVORAK_X_KEY: 81,
 
@@ -68,6 +69,9 @@ var InputControl = Control.extend({
             case this.DVORAK_Z_KEY:
                 this.pressJump();
                 break;
+            case this.DVORAK_Z_KEY_FIREFOX:
+                this.pressJump();
+                break;
             case this.X_KEY:
                 this.pressBubble();
                 break;
@@ -94,6 +98,9 @@ var InputControl = Control.extend({
                 this.releaseJump();
                 break;
             case this.DVORAK_Z_KEY:
+                this.releaseJump();
+                break;
+            case this.DVORAK_Z_KEY_FIREFOX:
                 this.releaseJump();
                 break;
             case this.X_KEY:
