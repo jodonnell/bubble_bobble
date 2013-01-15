@@ -5,7 +5,7 @@ var GameController = Class.extend({
         this.gameInit = gameInit;
 
         this.onscreenSprites = new OnscreenSprites({players: players,
-                                                   enemies: [new BlueMagoo(370, 20, LEFT), new BlueMagoo(370, 70, LEFT), new BlueMagoo(370, 120, LEFT)],
+                                                   enemies: [new BlueMagoo(1, 370, 20, LEFT), new BlueMagoo(2, 370, 70, LEFT), new BlueMagoo(3, 370, 120, LEFT)],
                                                    bubbles: [],
                                                    walls: (new LevelBuilder(this.walls)).walls});
 

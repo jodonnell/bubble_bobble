@@ -27,6 +27,16 @@ var OnlineGame = Class.extend({
 
                 gameController.onscreenSprites.players[1].x = data.bob.x;
                 gameController.onscreenSprites.players[1].y = data.bob.y;
+                
+
+                for (var i = 0; i < data.enemies.length; i++) {
+                    for (var j = 0; j < gameController.onscreenSprites.enemies.length; j++) {
+                        if (gameController.onscreenSprites.enemies[j].id === data.enemies[i].id) {
+                            gameController.onscreenSprites.enemies[j].x = data.enemies[i].x;
+                            gameController.onscreenSprites.enemies[j].y = data.enemies[i].y;
+                        }
+                    }
+                }
 
             }));
 

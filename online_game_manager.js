@@ -44,7 +44,14 @@ var OnlineGameManager = Class.extend({
             this._physicsLoopInterval = setInterval($.proxy(function(){
                 var bub = this.gameController.onscreenSprites.players[0];
                 var bob = this.gameController.onscreenSprites.players[1];
-                var positions = {bub: {x: bub.x, y: bub.y}, bob: {x: bob.x, y: bob.y}};
+                var enemies = this.gameController.onscreenSprites.enemies;
+
+                var enemyPositions = [];
+                for (var i = 0; i < enemies.length; i++) {
+                    enemyPositions.push({id: enemies[i].id, x: enemies[i].x, y: enemies[i].y});
+                }
+
+                var positions = {bub: {x: bub.x, y: bub.y}, bob: {x: bob.x, y: bob.y}, enemies: enemyPositions};
 
                 this._players[0].emit('updatedPositions', positions);
                 this._players[1].emit('updatedPositions', positions);

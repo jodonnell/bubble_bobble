@@ -3,7 +3,8 @@
 var BlueMagoo = Sprite.extend({
     JUMP_HEIGHT: 100,
 
-    init: function (x, y, direction) {
+    init: function (id, x, y, direction) {
+        this.id = id;
         this.x = x;
         this.y = y;
         this.direction = direction;
