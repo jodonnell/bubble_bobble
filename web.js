@@ -1,6 +1,6 @@
 var app = require('express')();
 var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server, {debug: 0});
 var UUID = require('node-uuid');
 
 
@@ -40,6 +40,10 @@ GLOBAL.gameImages = new NodeImages(function() {});
 
 server.listen(3000);
 
+io.configure('development', function(){
+    io.set('log level', 0);
+});
+
 app.set('views', __dirname)
 app.set('view engine', 'jade')
 
@@ -78,43 +82,4 @@ io.sockets.on('connection', function (socket) {
     console.log('\t socket.io:: player ' + socket.userid + ' connected');
 
     var playerNum = onlineGameManager.findGame(socket);
-
-    // socket.on('moveRight', function (data) {
-        
-    //     gameController.update();
-    //     for (var i = 0; i < players.length; i++) {
-    //         if (socket !== players[i]) {
-    //             console.log('emitting ' + data.moving);
-    //             players[i].emit('moveRight', { moving: data.moving });
-    //         }
-    //     }
-    // });
-
-    // socket.on('moveLeft', function (data) {
-    //     for (var i = 0; i < players.length; i++) {
-    //         if (socket !== players[i]) {
-    //             console.log('emitting ' + data.moving);
-    //             players[i].emit('moveLeft', { moving: data.moving });
-    //         }
-    //     }
-    // });
-
-    // socket.on('pressZ', function (data) {
-    //     for (var i = 0; i < players.length; i++) {
-    //         if (socket !== players[i]) {
-    //             console.log('emitting ' + data.moving);
-    //             players[i].emit('pressZ', { moving: data.moving });
-    //         }
-    //     }
-    // });
-
-    // socket.on('pressX', function (data) {
-    //     for (var i = 0; i < players.length; i++) {
-    //         if (socket !== players[i]) {
-    //             console.log('emitting ' + data.moving);
-    //             players[i].emit('pressX', { moving: data.moving });
-    //         }
-    //     }
-    // });
-
 });
