@@ -104,7 +104,7 @@ describe("Player", function () {
     }));
 
     it("dies if it contacts an enemy", function () {
-        args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
+        args.onscreenSprites.enemies = [new BlueMagoo(1, 100, 100, RIGHT)];
         player.update(args);
         expect(player.isDead()).toBeTruthy();
     });
@@ -174,7 +174,7 @@ describe("Player", function () {
 
     it("starts the death animation", sinon.test(function () {
         var spy = this.spy(player._playerAnimations, 'die');
-        args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
+        args.onscreenSprites.enemies = [new BlueMagoo(1, 100, 100, RIGHT)];
         player.update(args);
         expect(player.isDead()).toBeTruthy();
         expect(spy.calledOnce).toBeTruthy();
@@ -182,7 +182,7 @@ describe("Player", function () {
 
     it("comes back from the dead after some time", function () {
         player.x = 200;
-        var magoo = new BlueMagoo(200, 100, RIGHT);
+        var magoo = new BlueMagoo(1, 200, 100, RIGHT);
         args.onscreenSprites.enemies.push(magoo);
         player.update(args);
         args.onscreenSprites.enemies.remove(magoo);
@@ -197,7 +197,7 @@ describe("Player", function () {
 
     it("when invincible cannot be hit by enemies", function () {
         player._invincible = true;
-        args.onscreenSprites.enemies.push(new BlueMagoo(100, 100, RIGHT));
+        args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT));
 
         player.update(args);
         expect(player.isDead()).toBeFalsy();
