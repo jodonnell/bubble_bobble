@@ -26,6 +26,7 @@ html
     script(src="title_screen.js", type="text/javascript", charset="utf-8")
     script(src="solo_game.js", type="text/javascript", charset="utf-8")
     script(src="online_game.js", type="text/javascript", charset="utf-8")
+    script(src="online_blue_magoo.js", type="text/javascript", charset="utf-8")
 
     script(src="stats.js", type="text/javascript", charset="utf-8")
     script(src="/socket.io/socket.io.js")
@@ -64,8 +65,9 @@ html
       
       var gameInit = new GameInit();
       var gameContext = $('#gameCanvas').get(0).getContext("2d");
+      var titleScreen;
       var gameImages = new BrowserImages(function() {
-          var titleScreen = new TitleScreen(new InputControl(null));
+          titleScreen = new TitleScreen(new InputControl(null));
 
           (function animloop(){
               stats.begin();

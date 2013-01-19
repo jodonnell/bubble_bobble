@@ -75,8 +75,6 @@ app.get(/^\/assets\/(.*\.png)/, function (req, res) {
 var onlineGameManager = new OnlineGameManager()
 
 io.sockets.on('connection', function (socket) {
-    var gameController = new GameController(null, 1);
-
     socket.userid = UUID();
 
     console.log('\t socket.io:: player ' + socket.userid + ' connected');

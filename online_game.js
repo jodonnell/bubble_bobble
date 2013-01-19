@@ -14,7 +14,9 @@ var OnlineGame = Class.extend({
                 var bob = new Player(600, 100, 'bob', new InputControl(socket));
             }
 
-            var gameController = new GameController(gameInit, [bub, bob]);
+            var enemies = [new OnlineBlueMagoo(1, 370, 20, LEFT), new OnlineBlueMagoo(2, 370, 70, LEFT), new OnlineBlueMagoo(3, 370, 120, LEFT)];
+
+            var gameController = new GameController(gameInit, [bub, bob], enemies);
 
             var oldPositions = {bub: {x: 200, y: 100}, bob: {x: 600, y: 100}};
 
@@ -32,8 +34,7 @@ var OnlineGame = Class.extend({
                 for (var i = 0; i < data.enemies.length; i++) {
                     for (var j = 0; j < gameController.onscreenSprites.enemies.length; j++) {
                         if (gameController.onscreenSprites.enemies[j].id === data.enemies[i].id) {
-                            gameController.onscreenSprites.enemies[j].x = data.enemies[i].x;
-                            gameController.onscreenSprites.enemies[j].y = data.enemies[i].y;
+                            gameController.onscreenSprites.enemies[j].addCoords({x: data.enemies[i].x, y:data.enemies[i].y});
                         }
                     }
                 }

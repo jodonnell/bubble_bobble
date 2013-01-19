@@ -33,7 +33,11 @@ var OnlineGameManager = Class.extend({
 
             var bub = new Player(200, 100, 'bub', new NetworkedControl(this._players[0]));
             var bob = new Player(600, 100, 'bob', new NetworkedControl(this._players[1]));
-            this.gameController = new GameController(null, [bub, bob]);
+
+
+            var enemies = [new BlueMagoo(1, 370, 20, LEFT), new BlueMagoo(2, 370, 70, LEFT), new BlueMagoo(3, 370, 120, LEFT)];
+
+            this.gameController = new GameController(null, [bub, bob], enemies);
 
             this._updateLoopInterval = setInterval($.proxy(function(){
                 this._pdt = (new Date().getTime() - this._pdte) / 1000.0;

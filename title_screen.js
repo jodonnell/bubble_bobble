@@ -7,6 +7,7 @@ var TitleScreen = Class.extend({
         this._selectedEntry = 0;
         this._holdingDown = false;
         this._holdingUp = false;
+        this._game = null;
     },
 
     _clearBackground: function () {
@@ -44,11 +45,11 @@ var TitleScreen = Class.extend({
 
         if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 0) {
             cancelAnimationFrame(cancelId);
-            new SoloGame();
+            this._game = new SoloGame();
         }
         else if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 1) {
             cancelAnimationFrame(cancelId);
-            new OnlineGame();
+            this._game = new OnlineGame();
         }
 
     },
