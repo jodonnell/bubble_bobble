@@ -23,20 +23,32 @@ var OnlineBlueMagoo = Sprite.extend({
             }
 
             if (this._coords[0].x > this.x) {
-                this.moveRight();
+                this.moveRight(this._coords[0].x);
             }
             else if (this._coords[0].x < this.x) {
-                this.moveLeft();
+                this.moveLeft(this._coords[0].x);
             }
             
-            if (this._coords[0].y < this.y && !this.isJumping()) {
-                this.jumping = 1;
-            }
-            else if (this._coords[0].y > this.y && !this.isJumping()) {
-                this.y += 3;
-            }
+            if (this._coords[0].y < this.y) {
 
-
+                var diff = this.y - this._coords[0].y;
+                if (diff < 4) {
+                    this.y = this._coords[0].y;
+                }
+                else {
+                    this.y -= 4;
+                }
+            }
+            else if (this._shouldFall()) {
+                this.jumping = 0;
+                var diff = this._coords[0].y - this.y;
+                if (diff < 4) {
+                    this.y = this._coords[0].y;
+                }
+                else {
+                    this.y += 4;
+                }
+            }
 
             if (this._coords[0].x === this.x && this._coords[0].y === this.y) {
                 this._coords.shift();
@@ -46,14 +58,6 @@ var OnlineBlueMagoo = Sprite.extend({
         this.timer++;
 
         this.changeAnimation();
-
-        if (this.isJumping()) {
-            this.y -= 3;
-            this.jumping++;
-            if (this.jumping > 50) {
-                this.jumping = 0;
-            }
-        }
     },
 
 
@@ -79,14 +83,26 @@ var OnlineBlueMagoo = Sprite.extend({
     },
 
 
-    moveRight: function () {
+    moveRight: function (moveTo) {
         this.direction = RIGHT;
-        this.x += 3;
+        
+        if (this.x + 4 > moveTo) {
+            this.x = moveTo;
+        }
+        else {
+            this.x += 4;
+        }
     },
 
-    moveLeft: function() {
+    moveLeft: function(moveTo) {
         this.direction = LEFT;
-        this.x -= 3;
+        if (this.x - 4 < moveTo) {
+            this.x = moveTo;
+        }
+        else {
+            this.x -= 4;
+        }
+
     },
 
     getCurrentImage: function () {
@@ -107,6 +123,10 @@ var OnlineBlueMagoo = Sprite.extend({
     isTrapped: function () {
         return this.trapped;
     },
+
+    _shouldFall: function() {
+        return this._coords[0].y > this.y;
+    }
 
 });
 
