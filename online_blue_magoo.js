@@ -30,24 +30,10 @@ var OnlineBlueMagoo = Sprite.extend({
             }
             
             if (this._coords[0].y < this.y) {
-
-                var diff = this.y - this._coords[0].y;
-                if (diff < 4) {
-                    this.y = this._coords[0].y;
-                }
-                else {
-                    this.y -= 4;
-                }
+                this.jump();
             }
             else if (this._shouldFall()) {
-                this.jumping = 0;
-                var diff = this._coords[0].y - this.y;
-                if (diff < 4) {
-                    this.y = this._coords[0].y;
-                }
-                else {
-                    this.y += 4;
-                }
+                this.fall();
             }
 
             if (this._coords[0].x === this.x && this._coords[0].y === this.y) {
@@ -103,6 +89,26 @@ var OnlineBlueMagoo = Sprite.extend({
             this.x -= 4;
         }
 
+    },
+
+    jump: function() {
+        var diff = this.y - this._coords[0].y;
+        if (diff < 4) {
+            this.y = this._coords[0].y;
+        }
+        else {
+            this.y -= 4;
+        }
+    },
+
+    fall: function () {
+        var diff = this._coords[0].y - this.y;
+        if (diff < 4) {
+            this.y = this._coords[0].y;
+        }
+        else {
+            this.y += 4;
+        }
     },
 
     getCurrentImage: function () {
