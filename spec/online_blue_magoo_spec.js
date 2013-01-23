@@ -14,7 +14,7 @@ describe("OnlineBlueMagoo", function () {
     });
 
     it("should move to the right when has right in it's queue", function () {
-        onlineBlueMagoo.addCoords({x: 200, y: 100});
+        onlineBlueMagoo.addCoords({x: 110, y: 100});
         onlineBlueMagoo.update({});
         expect(onlineBlueMagoo.x).toBe(104);
         expect(onlineBlueMagoo.y).toBe(100);
@@ -28,7 +28,7 @@ describe("OnlineBlueMagoo", function () {
     });
 
     it("should jump and move to the right", function () {
-        onlineBlueMagoo.addCoords({x: 200, y: 0});
+        onlineBlueMagoo.addCoords({x: 110, y: 0});
         onlineBlueMagoo.update({});
         expect(onlineBlueMagoo.x).toBe(104);
         expect(onlineBlueMagoo.y).toBe(96);
@@ -63,6 +63,19 @@ describe("OnlineBlueMagoo", function () {
         onlineBlueMagoo.addCoords({x: 100, y: 200});
         onlineBlueMagoo.update({});
         expect(onlineBlueMagoo.y).toBe(104);
+    });
+
+    it("should snap to position if the difference is large", function () {
+        onlineBlueMagoo.addCoords({x: 300, y: 100});
+        onlineBlueMagoo.update({});
+        expect(onlineBlueMagoo.x).toBe(300);
+    });
+
+    it("should snap to left position if the difference is large", function () {
+        onlineBlueMagoo.addCoords({x: 0, y: 100});
+        onlineBlueMagoo.update({});
+        expect(onlineBlueMagoo.x).toBe(0);
+
     });
 
 

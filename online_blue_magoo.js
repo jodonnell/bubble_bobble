@@ -1,8 +1,6 @@
 "use strict";
 
 var OnlineBlueMagoo = Sprite.extend({
-    JUMP_HEIGHT: 100,
-
     init: function (id, x, y, direction) {
         this.id = id;
         this.x = x;
@@ -69,10 +67,16 @@ var OnlineBlueMagoo = Sprite.extend({
     },
 
 
-    moveRight: function (moveTo) {
+    moveRight: function () {
+        var moveTo = this._coords[0].x;
         this.direction = RIGHT;
         
-        if (this.x + 4 > moveTo) {
+
+        var diff = moveTo - this.x;
+        if (diff > 40) {
+            this.x = moveTo;
+        }
+        else if (diff < 4) {
             this.x = moveTo;
         }
         else {
