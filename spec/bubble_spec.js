@@ -4,7 +4,7 @@ describe("Bubble", function () {
     var args, bubble;
 
     beforeEach(function () {
-        bubble = new Bubble(100, 100, RIGHT);
+        bubble = new Bubble(1, 100, 100, RIGHT);
         var onscreenSprites = new OnscreenSprites({bubbles: [bubble]});
         args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
@@ -13,7 +13,7 @@ describe("Bubble", function () {
         bubble.update(args);
         expect(bubble.x).toBeGreaterThan(100);
 
-        bubble = new Bubble(100, 100, LEFT);
+        bubble = new Bubble(1, 100, 100, LEFT);
         bubble.update(args);
         expect(bubble.x).toBeLessThan(100);
     });
@@ -99,7 +99,7 @@ describe("Bubble", function () {
         bubble.x = 400;
         bubble.y = 70;
 
-        var secondBubble = new Bubble(bubble.x - 1, bubble.y);
+        var secondBubble = new Bubble(1, bubble.x - 1, bubble.y);
         secondBubble.fullyFormed = true;
         args.onscreenSprites.bubbles.push(secondBubble);
         bubble.update(args);
