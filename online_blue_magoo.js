@@ -92,7 +92,7 @@ var OnlineBlueMagoo = Sprite.extend({
         if (diff > 40) {
             this.x = moveTo;
         }
-        else if (this.x - 4 < moveTo) {
+        else if (diff < 4) {
             this.x = moveTo;
         }
         else {
