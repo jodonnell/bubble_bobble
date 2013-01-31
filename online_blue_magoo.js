@@ -21,10 +21,10 @@ var OnlineBlueMagoo = Sprite.extend({
             }
 
             if (this._coords[0].x > this.x) {
-                this.moveRight(this._coords[0].x);
+                this.moveRight();
             }
             else if (this._coords[0].x < this.x) {
-                this.moveLeft(this._coords[0].x);
+                this.moveLeft();
             }
             
             if (this._coords[0].y < this.y) {
@@ -68,27 +68,21 @@ var OnlineBlueMagoo = Sprite.extend({
 
 
     moveRight: function () {
-        var moveTo = this._coords[0].x;
         this.direction = RIGHT;
-        
-
-        var diff = moveTo - this.x;
-        if (diff > 40) {
-            this.x = moveTo;
-        }
-        else if (diff < 4) {
-            this.x = moveTo;
-        }
-        else {
-            this.x += 4;
-        }
+        var diff = this._coords[0].x - this.x;
+        this._move(4, diff);
     },
 
     moveLeft: function(moveTo) {
         this.direction = LEFT;
 
-        var diff = this.x - moveTo;
+        var diff = this.x - this._coords[0].x;
+        this._move(-4, diff);
+    },
 
+    _move: function (amount, diff) {
+        var moveTo = this._coords[0].x;
+        
         if (diff > 40) {
             this.x = moveTo;
         }
@@ -96,9 +90,8 @@ var OnlineBlueMagoo = Sprite.extend({
             this.x = moveTo;
         }
         else {
-            this.x -= 4;
+            this.x += amount;
         }
-
     },
 
     jump: function() {
