@@ -43,6 +43,11 @@ var Images = Class.extend({
         this._loadImage("smallBubble", "small_bubble.png");
         this._loadImage("mediumBubble", "medium_bubble.png");
         this._loadImage("bigBubble", "big_bubble.png");
+
+        this._loadImage("smallestBobble", "smallest_bobble.png");
+        this._loadImage("smallBobble", "small_bobble.png");
+        this._loadImage("mediumBobble", "medium_bobble.png");
+        this._loadImage("bigBobble", "big_bobble.png");
     },
 
     bub: function () {

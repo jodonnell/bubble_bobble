@@ -1,9 +1,11 @@
 "use strict";
 
 var Bubble = Sprite.extend({
-    init: function (x, y, direction) {
+    init: function (id, x, y, direction, playerNum) {
+        this.id = id;
         this.x = x;
         this.y = y;
+        this._playerNum = playerNum;
         this.currentImage = 'smallestBubble';
         this.direction = direction;
         this.timer = 0;
@@ -133,6 +135,14 @@ var Bubble = Sprite.extend({
         }
 
         onscreenSprites.bubbles.remove(this);
+    },
+
+    getCurrentImage: function () {
+        if (this._playerNum === 1) {
+            return this.currentImage;
+        }
+
+        return this.currentImage.replace('Bub', 'Bob');
     }
 
 });

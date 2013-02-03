@@ -110,7 +110,7 @@ describe("Player", function () {
     });
 
     it("can pop a bubble", sinon.test(function () {
-        args.onscreenSprites.bubbles.push(new Bubble(100, player.y - 10, RIGHT));
+        args.onscreenSprites.bubbles.push(new Bubble(1, 100, player.y - 10, RIGHT));
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
         var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
@@ -121,7 +121,7 @@ describe("Player", function () {
     }));
 
     it("can pop a bubble and send it to the left", sinon.test(function () {
-        args.onscreenSprites.bubbles.push(new Bubble(player.x, player.y - 10, RIGHT));
+        args.onscreenSprites.bubbles.push(new Bubble(1, player.x, player.y - 10, RIGHT));
         args.onscreenSprites.bubbles[0].x -= args.onscreenSprites.bubbles[0].width() / 2;
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
@@ -133,7 +133,7 @@ describe("Player", function () {
     }));
 
     it("can pop a bubble by falling on it", sinon.test(function () {
-        args.onscreenSprites.bubbles.push(new Bubble(100, player.bottomSide() + 1, RIGHT));
+        args.onscreenSprites.bubbles.push(new Bubble(1, 100, player.bottomSide() + 1, RIGHT));
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
         var spy = this.spy(args.onscreenSprites.bubbles[0], 'pop');
@@ -143,7 +143,7 @@ describe("Player", function () {
     }));
 
     it("does not pop a bubble if colliding with it from the right side", sinon.test(function () {
-        var bubble = new Bubble(player.rightSide() + 1, player.y, RIGHT);
+        var bubble = new Bubble(1, player.rightSide() + 1, player.y, RIGHT);
         args.onscreenSprites.bubbles.push(bubble);
         bubble.fullyFormed = true;
 
@@ -156,7 +156,7 @@ describe("Player", function () {
     }));
 
     it("does not pop a bubble if colliding with it from the left side", sinon.test(function () {
-        var bubble = new Bubble(player.x, player.y, LEFT);
+        var bubble = new Bubble(1, player.x, player.y, LEFT);
         args.onscreenSprites.bubbles.push(bubble);
         bubble.x -= bubble.width() - 1;
         bubble.fullyFormed = true;
