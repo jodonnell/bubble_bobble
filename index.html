@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><script src="jquery.js" type="text/javascript" charset="utf-8"></script><script src="class.js" type="text/javascript" charset="utf-8"></script><script src="constants.js" type="text/javascript" charset="utf-8"></script><script src="control.js" type="text/javascript" charset="utf-8"></script><script src="input_control.js" type="text/javascript" charset="utf-8"></script><script src="networked_control.js" type="text/javascript" charset="utf-8"></script><script src="sprite.js" type="text/javascript" charset="utf-8"></script><script src="game_init.js" type="text/javascript" charset="utf-8"></script><script src="images.js" type="text/javascript" charset="utf-8"></script><script src="browser_images.js" type="text/javascript" charset="utf-8"></script><script src="player.js" type="text/javascript" charset="utf-8"></script><script src="player_animations.js" type="text/javascript" charset="utf-8"></script><script src="game_controller.js" type="text/javascript" charset="utf-8"></script><script src="wall.js" type="text/javascript" charset="utf-8"></script><script src="bubble.js" type="text/javascript" charset="utf-8"></script><script src="blue_magoo.js" type="text/javascript" charset="utf-8"></script><script src="collision_detector.js" type="text/javascript" charset="utf-8"></script><script src="level_builder.js" type="text/javascript" charset="utf-8"></script><script src="onscreen_sprites.js" type="text/javascript" charset="utf-8"></script><script src="dead_enemy.js" type="text/javascript" charset="utf-8"></script><script src="pepper.js" type="text/javascript" charset="utf-8"></script><script src="text.js" type="text/javascript" charset="utf-8"></script><script src="title_screen.js" type="text/javascript" charset="utf-8"></script><script src="solo_game.js" type="text/javascript" charset="utf-8"></script><script src="online_game.js" type="text/javascript" charset="utf-8"></script><script src="online_blue_magoo.js" type="text/javascript" charset="utf-8"></script><script src="stats.js" type="text/javascript" charset="utf-8"></script><script src="/socket.io/socket.io.js"></script></head><title>Game
+</title><body style="background-color: #010000"><script type="text/javascript">var stats = new Stats();
+stats.setMode(0); // 0: fps, 1: ms
+
+// Align top-left
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.right = '0px';
+stats.domElement.style.top = '0px';
+stats.domElement.style.float = 'right';
+
+document.body.appendChild( stats.domElement );
+
+window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       || 
+              window.webkitRequestAnimationFrame || 
+              window.mozRequestAnimationFrame    || 
+              window.oRequestAnimationFrame      || 
+              window.msRequestAnimationFrame     || 
+              function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+              };
+
+})();
+
+window.cancelAnimationFrame = (function(){
+      return  window.cancelAnimationFrame       || 
+              window.mozCancelRequestAnimationFrame
+
+})();
+
+
+var gameInit = new GameInit();
+var gameContext = $('#gameCanvas').get(0).getContext("2d");
+var titleScreen;
+var gameImages = new BrowserImages(function() {
+    titleScreen = new TitleScreen(new InputControl(null));
+
+    (function animloop(){
+        stats.begin();
+
+        var cancelId = requestAnimFrame(animloop);
+        titleScreen.update(cancelId);
+        titleScreen.draw();
+
+        stats.end();
+    })();
+});
+
+</script></body></html>
