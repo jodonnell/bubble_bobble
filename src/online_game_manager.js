@@ -15,7 +15,7 @@ class OnlineGameManager {
         }
         this._players.push(socket);
 
-        socket.on('disconnect', $.proxy(function () {
+        socket.on('disconnect', () => {
             console.log('\t socket.io:: socket disconnected ' + socket.userid );
 
             var index = this._players.indexOf(socket);
@@ -24,7 +24,7 @@ class OnlineGameManager {
             clearInterval(this._updateLoopInterval);
             clearInterval(this._physicsLoopInterval);
             this.gameController = null;
-        }, this));
+        });
 
 
         if (this._players.length === 2) {
@@ -39,13 +39,13 @@ class OnlineGameManager {
 
             this.gameController = new GameController(null, [bub, bob], enemies);
 
-            this._updateLoopInterval = setInterval($.proxy(function(){
+            this._updateLoopInterval = setInterval(() => {
                 this._pdt = (new Date().getTime() - this._pdte) / 1000.0;
                 this._pdte = new Date().getTime();
                 this.gameController.update();
-            }, this), 15);
+            }, 15);
 
-            this._physicsLoopInterval = setInterval($.proxy(function(){
+            this._physicsLoopInterval = setInterval(() => {
                 var bub = this.gameController.onscreenSprites.players[0];
                 var bob = this.gameController.onscreenSprites.players[1];
                 var enemies = this.gameController.onscreenSprites.enemies;
@@ -60,7 +60,7 @@ class OnlineGameManager {
                 this._players[0].emit('updatedPositions', positions);
                 this._players[1].emit('updatedPositions', positions);
 
-            }, this), 45);
+            }, 45);
 
         }
         return this._players.length;

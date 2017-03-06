@@ -44,7 +44,7 @@ class InputControl extends Control {
     }
 
     getKey() {
-        document.addEventListener('touchstart', $.proxy(function(e) {
+        document.addEventListener('touchstart', (e) => {
             e.preventDefault();
             var touch = e.touches[0];
 
@@ -60,21 +60,21 @@ class InputControl extends Control {
             else if (touch.pageX >= 850) {
                 this.pressBubble();
             }
-        }, this), false);
+        }, false);
 
-        var touchEnd = function(e) {
+        var touchEnd = (e) => {
             e.preventDefault();
 
             this.releaseLeft();
             this.releaseRight();
             this.releaseJump();
             this.releaseBubble();
-
         };
-        document.addEventListener('touchend', $.proxy(touchEnd, this), false);
-        document.addEventListener('touchcancel', $.proxy(touchEnd, this), false);
 
-        $(document).keydown($.proxy(function (event) {
+        document.addEventListener('touchend', touchEnd, false);
+        document.addEventListener('touchcancel', touchEnd, false);
+
+        var keydown = (event) => {
             switch (event.which) {
             case this.LEFT_KEY:
                 this.pressLeft();
@@ -104,8 +104,9 @@ class InputControl extends Control {
                 this.pressBubble();
                 break;
             }
-        }, this));
-        $(document).keyup($.proxy(function (event) {
+        };
+
+        var keyup = (event) => {
             switch (event.which) {
             case this.LEFT_KEY:
                 this.releaseLeft();
@@ -135,7 +136,10 @@ class InputControl extends Control {
                 this.releaseBubble();
                 break;
             }
-        }, this));
+        };
+
+        document.addEventListener("keydown", keydown, false);
+        document.addEventListener("keyup", keyup, false);
     }
 
     pressLeft() {

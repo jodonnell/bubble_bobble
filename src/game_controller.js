@@ -15,9 +15,9 @@ class GameController {
     draw() {
         this._clearBackground();
 
-        var drawMethod = $.proxy(function (i, j) {
+        var drawMethod = (i, j) => {
             this.onscreenSprites.sprites[i][j].draw();
-        }, this);
+        };
         this._eachSprite(drawMethod);
     }
 
@@ -27,9 +27,9 @@ class GameController {
     }
 
     update() {
-        var updateMethod = $.proxy(function (i, j) {
+        var updateMethod = (i, j) => {
             this.onscreenSprites.sprites[i][j].update({collisionDetector: this.collisionDetector, onscreenSprites: this.onscreenSprites});
-        }, this);
+        };
         this._eachSprite(updateMethod);
     }
 

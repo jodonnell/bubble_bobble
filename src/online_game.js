@@ -20,7 +20,7 @@ class OnlineGame {
 
             var oldPositions = {bub: {x: 200, y: 100}, bob: {x: 600, y: 100}};
 
-            socket.on('updatedPositions', $.proxy(function (data) {
+            socket.on('updatedPositions', (data) => {
 
                 oldPositions = data;
 
@@ -38,8 +38,7 @@ class OnlineGame {
                         }
                     }
                 }
-
-            }));
+            });
 
             (function animloop(){
                 stats.begin();

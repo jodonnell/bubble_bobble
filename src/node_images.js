@@ -7,7 +7,7 @@ class NodeImages extends Images {
         var im = require('imagemagick');
         var imagePath = "assets/" + imageFile;
 
-        im.identify(imagePath, $.proxy(function(err, features){
+        im.identify(imagePath, (err, features) => {
             if (err) throw err
             this[prop].width = features.width;
             this[prop].height = features.height;
@@ -25,7 +25,7 @@ class NodeImages extends Images {
 
             }
 
-        }, this));
+        });
     }
 }
 

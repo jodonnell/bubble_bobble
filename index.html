@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/constants.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/control.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/input_control.js" type="text/javascript" charset="utf-8"></script>
@@ -63,7 +62,7 @@ window.cancelAnimationFrame = (function(){
 
 
 var gameInit = new GameInit();
-var gameContext = $('#gameCanvas').get(0).getContext("2d");
+var gameContext = document.getElementById('gameCanvas').getContext("2d");
 var titleScreen;
 var gameImages = new BrowserImages(function() {
     titleScreen = new TitleScreen(new InputControl(null));
