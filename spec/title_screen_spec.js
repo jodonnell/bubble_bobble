@@ -22,13 +22,13 @@ describe("Title Screen", function () {
     it("should display Solo Game", sinon.test(function () {
         var fillTextSpy = this.spy(gameContext, 'fillText');
         titleScreen.draw();
-        expect(fillTextSpy).toBeCalledWith("Solo Game", 300, 260);
+        expect(fillTextSpy).toBeCalledWith("Solo Game", 299, 260);
     }));
 
     it("should display Online Game", sinon.test(function () {
         var fillTextSpy = this.spy(gameContext, 'fillText');
         titleScreen.draw();
-        expect(fillTextSpy).toBeCalledWith("Online Game", 281, 340);
+        expect(fillTextSpy).toBeCalledWith("Online Game", 280, 340);
     }));
 
     it("should blink", sinon.test(function () {
