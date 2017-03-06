@@ -1,15 +1,15 @@
 "use strict";
 
-var OnlineGameManager = Class.extend({
-    init: function () {
+class OnlineGameManager {
+    constructor() {
         this._players = [];
         this._pdt = 0.0001;
         this._pdte = new Date().getTime();
         this._physicsLoopInterval = null;
         this._updateLoopInterval = null;
-    },
+    }
 
-    findGame: function (socket) {
+    findGame(socket) {
         if (this._players.length === 2) {
             return null;
         }
@@ -20,7 +20,7 @@ var OnlineGameManager = Class.extend({
 
             var index = this._players.indexOf(socket);
             this._players.splice(index, 1);
-            
+
             clearInterval(this._updateLoopInterval);
             clearInterval(this._physicsLoopInterval);
             this.gameController = null;
@@ -65,7 +65,7 @@ var OnlineGameManager = Class.extend({
         }
         return this._players.length;
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.OnlineGameManager = OnlineGameManager;

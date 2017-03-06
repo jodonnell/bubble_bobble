@@ -1,45 +1,44 @@
 "use strict";
 
-var Control = Class.extend({
-    init: function () {
+class Control {
+    constructor() {
         this.left = 0;
         this.right = 0;
         this.down = 0;
         this.up = 0;
         this.x = 0;
         this.z = 0;
-    },
+    }
 
-    isHoldingRight: function () {
+    isHoldingRight() {
         return this.right;
-    },
+    }
 
-    isHoldingLeft: function () {
+    isHoldingLeft() {
         return this.left;
-    },
+    }
 
-    isJumping: function () {
+    isJumping() {
         return this.z;
-    },
+    }
 
-    isShooting: function () {
+    isShooting() {
         return this.x;
-    },
+    }
 
-    isHoldingDown: function () {
+    isHoldingDown() {
         return this.down;
-    },
+    }
 
-    isHoldingUp: function () {
+    isHoldingUp() {
         return this.up;
-    },
+    }
 
-    notHoldingRightOrLeft: function () {
+    notHoldingRightOrLeft() {
         return !this.isHoldingLeft() && !this.isHoldingRight();
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.Control = Control;
 }
-

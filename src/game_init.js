@@ -1,14 +1,14 @@
 "use strict";
 
-var GameInit = Class.extend({
-    init: function (hide) {
+class GameInit {
+    constructor(hide) {
         this.createCanvas();
         if (hide) {
             this.hide = true;
         }
-    },
+    }
 
-    createCanvas: function () {
+    createCanvas() {
         this.width = 800;
         this.height = 600;
 
@@ -26,9 +26,9 @@ var GameInit = Class.extend({
         if (this.hide) {
             $("#gameCanvas").css('visibilty', 'hidden');
         }
-    },
+    }
 
-    destroyCanvas: function () {
+    destroyCanvas() {
         $("#gameCanvas").remove();
     }
-});
+}

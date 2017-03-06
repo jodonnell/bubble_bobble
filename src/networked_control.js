@@ -1,8 +1,8 @@
 "use strict";
 
-var NetworkedControl = Control.extend({
-    init: function (socket) {
-        this._super();
+class NetworkedControl extends Control {
+    constructor(socket) {
+        super();
         this.socket = socket;
 
         this.socket.on('moveRight', $.proxy(function (data) {
@@ -42,7 +42,7 @@ var NetworkedControl = Control.extend({
         }, this));
 
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.NetworkedControl = NetworkedControl;

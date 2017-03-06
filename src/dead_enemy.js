@@ -1,7 +1,8 @@
 "use strict";
 
-var DeadEnemy = Sprite.extend({
-    init: function (x, y, direction) {
+class DeadEnemy extends Sprite {
+    constructor(x, y, direction) {
+        super();
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -11,16 +12,16 @@ var DeadEnemy = Sprite.extend({
         this.currentImage = 'deadEnemyRight';
         this.timer = 0;
         this.parabolaTimer = 0;
-    },
+    }
 
-    update: function (args) {
+    update(args) {
         this.switchDirectionIfHitWall();
         this.move();
         this.changeAnimation();
         this.changeToFruit(args.onscreenSprites, args.collisionDetector);
-    },
+    }
 
-    move: function () {
+    move() {
         this.parabolaTimer += 2;
         this.y = this.originalY - Math.round(-0.005 * Math.pow(this.parabolaTimer - 200, 2) + 200);
 
@@ -30,18 +31,18 @@ var DeadEnemy = Sprite.extend({
         else {
             this.x -= 2;
         }
-    },
+    }
 
-    switchDirectionIfHitWall: function () {
+    switchDirectionIfHitWall() {
         if (this.rightSide() >= RIGHT_BOUND) {
             this.direction = LEFT;
         }
         else if (this.x <= LEFT_BOUND) {
             this.direction = RIGHT;
         }
-    },
+    }
 
-    changeAnimation: function () {
+    changeAnimation() {
         this.timer++;
 
         if (this.timer !== 3) {
@@ -61,9 +62,9 @@ var DeadEnemy = Sprite.extend({
         else if (this.currentImage === 'deadEnemyTop') {
             this.currentImage = 'deadEnemyRight';
         }
-    },
+    }
 
-    changeToFruit: function (onscreenSprites, collisionDetector) {
+    changeToFruit(onscreenSprites, collisionDetector) {
         if (this.y >= this.originalY) {
             if (collisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
                 onscreenSprites.collectibles.push(new Pepper(this.x, this.y));
@@ -71,8 +72,7 @@ var DeadEnemy = Sprite.extend({
             }
         }
     }
-
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.DeadEnemy = DeadEnemy;

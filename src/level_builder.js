@@ -1,12 +1,12 @@
 "use strict";
 
-var LevelBuilder = Class.extend({
-    init: function () {
+class LevelBuilder {
+    constructor() {
         this.walls = [];
         this.buildLevel1();
-    },
+    }
 
-    buildLevel1: function () {
+    buildLevel1() {
         var i;
         var k;
         for (i = 0; i < 2; i++) {
@@ -42,7 +42,7 @@ var LevelBuilder = Class.extend({
         }
     }
 
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.LevelBuilder = LevelBuilder;

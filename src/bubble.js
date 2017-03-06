@@ -1,7 +1,8 @@
 "use strict";
 
-var Bubble = Sprite.extend({
-    init: function (id, x, y, direction, playerNum) {
+class Bubble extends Sprite {
+    constructor(id, x, y, direction, playerNum) {
+        super();
         this.id = id;
         this.x = x;
         this.y = y;
@@ -12,9 +13,9 @@ var Bubble = Sprite.extend({
         this.trapped = false;
         this.fullyFormed = false;
         this.moveSpeed = 5;
-    },
+    }
 
-    update: function (args) {
+    update(args) {
         var onscreenSprites = args.onscreenSprites;
         var collisionDetector = args.collisionDetector;
         var collidedWith;
@@ -52,9 +53,9 @@ var Bubble = Sprite.extend({
 
             this.shootOut(collisionDetector);
         }
-    },
+    }
 
-    _randomMove: function() {
+    _randomMove() {
         var randomNumber = Math.floor(Math.random()*2);
         if (randomNumber === 1) {
             return -1;
@@ -62,9 +63,9 @@ var Bubble = Sprite.extend({
         else {
             return 1;
         }
-    },
+    }
 
-    floatUp: function (onscreenSprites) {
+    floatUp(onscreenSprites) {
         if (this.y <= 70) {
             if (this.x > 400) {
                 this.x -= 1;
@@ -76,9 +77,9 @@ var Bubble = Sprite.extend({
         }
 
         this.y -= 2;
-    },
-    
-    shootOut: function (collisionDetector) {
+    }
+
+    shootOut(collisionDetector) {
         if (this.direction === RIGHT && collisionDetector.noWallToRight(this)) {
             this.x += this.moveSpeed;
         }
@@ -89,9 +90,9 @@ var Bubble = Sprite.extend({
         if (this.timer % 7 === 0) {
             this.changeFrame();
         }
-    },
+    }
 
-    changeFrame: function () {
+    changeFrame() {
         if (this.currentImage === 'smallestBubble') {
             this.currentImage = 'smallBubble';
         }
@@ -108,14 +109,13 @@ var Bubble = Sprite.extend({
         else if (this.currentImage === 'blueMagooTrappedLeft') {
             this.currentImage = 'blueMagooTrappedRight';
         }
+    }
 
-    },
-
-    isFullyFormed: function () {
+    isFullyFormed() {
         return this.fullyFormed;
-    },
+    }
 
-    trap: function (onscreenSprites, collidedWith) {
+    trap(onscreenSprites, collidedWith) {
         this.x = collidedWith.x;
         this.y = collidedWith.y;
         this.trapped = true;
@@ -123,29 +123,28 @@ var Bubble = Sprite.extend({
         this.fullyFormed = true;
 
         onscreenSprites.enemies.remove(collidedWith);
-    },
+    }
 
-    hasEnemy: function () {
+    hasEnemy() {
         return this.trapped;
-    },
+    }
 
-    pop: function (onscreenSprites, direction) {
+    pop(onscreenSprites, direction) {
         if (this.hasEnemy()) {
             onscreenSprites.deadEnemies.push(new DeadEnemy(this.x, this.y, direction));
         }
 
         onscreenSprites.bubbles.remove(this);
-    },
+    }
 
-    getCurrentImage: function () {
+    getCurrentImage() {
         if (this._playerNum === 1) {
             return this.currentImage;
         }
 
         return this.currentImage.replace('Bub', 'Bob');
     }
-
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.Bubble = Bubble;

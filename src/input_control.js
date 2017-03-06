@@ -1,24 +1,49 @@
 "use strict";
 
-var InputControl = Control.extend({
-    LEFT_KEY: 37,
-    RIGHT_KEY: 39,
-    UP_KEY: 38,
-    DOWN_KEY: 40,
-
-    Z_KEY: 90,
-    DVORAK_Z_KEY: 186,
-    DVORAK_Z_KEY_FIREFOX: 59,
-    X_KEY: 88,
-    DVORAK_X_KEY: 81,
-
-    init: function (socket) {
-        this._super();
+class InputControl extends Control {
+    constructor(socket) {
+        super();
         this._socket = socket;
         this.getKey();
-    },
+    }
 
-    getKey: function () {
+    get LEFT_KEY() {
+        return 37;
+    }
+
+    get RIGHT_KEY() {
+        return 39;
+    }
+
+    get UP_KEY() {
+        return 38;
+    }
+
+    get DOWN_KEY() {
+        return 40;
+    }
+
+    get Z_KEY() {
+        return 90;
+    }
+
+    get DVORAK_Z_KEY() {
+        return 186;
+    }
+
+    get DVORAK_Z_KEY_FIREFOX() {
+        return 59;
+    }
+
+    get X_KEY() {
+        return 88;
+    }
+
+    get DVORAK_X_KEY() {
+        return 81;
+    }
+
+    getKey() {
         document.addEventListener('touchstart', $.proxy(function(e) {
             e.preventDefault();
             var touch = e.touches[0];
@@ -111,88 +136,88 @@ var InputControl = Control.extend({
                 break;
             }
         }, this));
-    },
+    }
 
-    pressLeft: function () {
+    pressLeft() {
         if (this.left === 0) {
             this.socket().emit('moveLeft', {moving: 'keyDown'});
         }
         this.left = 1;
-    },
+    }
 
-    pressRight: function () {
+    pressRight() {
         if (this.right === 0) {
             this.socket().emit('moveRight', {moving: 'keyDown'});
         }
         this.right = 1;
-    },
+    }
 
-    pressUp: function () {
+    pressUp() {
         this.up = 1;
-    },
+    }
 
-    pressDown: function () {
+    pressDown() {
         this.down = 1;
-    },
+    }
 
-    pressJump: function () {
+    pressJump() {
         if (this.z === 0) {
             this.socket().emit('pressZ', {moving: 'keyDown'});
         }
 
         this.z = 1;
-    },
+    }
 
-    pressBubble: function () {
+    pressBubble() {
         if (this.x === 0) {
             this.socket().emit('pressX', {moving: 'keyDown'});
         }
         this.x = 1;
-    },
+    }
 
-    releaseLeft: function () {
+    releaseLeft() {
         if (this.left === 1) {
             this.socket().emit('moveLeft', {moving: 'keyUp'});
         }
         this.left = 0;
-    },
+    }
 
-    releaseRight: function () {
+    releaseRight() {
         if (this.right === 1) {
             this.socket().emit('moveRight', {moving: 'keyUp'});
         }
         this.right = 0;
-    },
+    }
 
-    releaseDown: function () {
+    releaseDown() {
         this.down = 0;
-    },
+    }
 
-    releaseUp: function () {
+    releaseUp() {
         this.up = 0;
-    },
+    }
 
-    releaseJump: function () {
+    releaseJump() {
         if (this.z === 1) {
             this.socket().emit('pressZ', {moving: 'keyUp'});
         }
         this.z = 0;
-    },
+    }
 
-    releaseBubble: function () {
+    releaseBubble() {
         if (this.x === 1) {
             this.socket().emit('pressX', {moving: 'keyUp'});
         }
         this.x = 0;
-    },
+    }
 
-    socket: function () {
+    socket() {
         if (this._socket) {
             return this._socket;
         }
         return {emit: function() {}};
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.InputControl = InputControl;

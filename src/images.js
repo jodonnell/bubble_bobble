@@ -1,7 +1,7 @@
 "use strict";
 
-var Images = Class.extend({
-    init: function (callback) {
+class Images {
+    constructor(callback) {
         this._props = [];
         this._callback = callback;
         this._numImages = 61;
@@ -16,29 +16,29 @@ var Images = Class.extend({
 
         this._loadImage("bubRight", "bub.png");
         //this.bubRight.onload = callback;
-    },
+    }
 
-    collectibles: function () {
+    collectibles() {
         this._loadImage("pepper", "pepper.png");
-    },
+    }
 
-    deadEnemies: function () {
+    deadEnemies() {
         this._loadImage("deadEnemyRight", "blue_magoo_dead.png");
         this._loadImage("deadEnemyBottom", "blue_magoo_dead_vertical.png");
         this._loadImage("deadEnemyLeft", "blue_magoo_dead_left.png");
         this._loadImage("deadEnemyTop", "blue_magoo_dead_vertical_left.png");
-    },
+    }
 
-    enemies: function () {
+    enemies() {
         this._loadImage("blueMagooWalkLeft", "blue_magoo_walk_left.png");
         this._loadImage("blueMagooWalkLegLeft", "blue_magoo_walk_leg_left.png");
         this._loadImage("blueMagooWalkRight", "blue_magoo_walk.png");
         this._loadImage("blueMagooWalkLegRight", "blue_magoo_walk_leg.png");
         this._loadImage("blueMagooTrappedRight", "blue_magoo_trapped.png");
         this._loadImage("blueMagooTrappedLeft", "blue_magoo_trapped_left.png");
-    },
+    }
 
-    bubbles: function () {
+    bubbles() {
         this._loadImage("smallestBubble", "smallest_bubble.png");
         this._loadImage("smallBubble", "small_bubble.png");
         this._loadImage("mediumBubble", "medium_bubble.png");
@@ -48,9 +48,9 @@ var Images = Class.extend({
         this._loadImage("smallBobble", "small_bobble.png");
         this._loadImage("mediumBobble", "medium_bobble.png");
         this._loadImage("bigBobble", "big_bobble.png");
-    },
+    }
 
-    bub: function () {
+    bub() {
         this._loadImage("bubTailRight", "bub_tail.png");
         this._loadImage("bubTailLeft", "bub_tail_left.png");
         this._loadImage("bubWalkRight", "bub_walk.png");
@@ -72,9 +72,9 @@ var Images = Class.extend({
         this._loadImage("bubDie90", "bub_die_90.png");
         this._loadImage("bubDie180", "bub_die_180.png");
         this._loadImage("bubDie270", "bub_die_270.png");
-    },
+    }
 
-    bob: function () {
+    bob() {
         this._loadImage("bobRight", "bob.png");
         this._loadImage("bobTailRight", "bob_tail.png");
         this._loadImage("bobTailLeft", "bob_tail_left.png");
@@ -98,17 +98,15 @@ var Images = Class.extend({
         this._loadImage("bobDie90", "bob_die_90.png");
         this._loadImage("bobDie180", "bob_die_180.png");
         this._loadImage("bobDie270", "bob_die_270.png");
-    },
-
-    walls: function () {
-        this._loadImage("wall", "wall.png");
-    },
-
-    _loadImage: function (prop, imageFile) {
     }
 
+    walls() {
+        this._loadImage("wall", "wall.png");
+    }
 
-});
+    _loadImage(prop, imageFile) {
+    }
+}
 
 if (typeof exports !== 'undefined') {
     exports.Images = Images;

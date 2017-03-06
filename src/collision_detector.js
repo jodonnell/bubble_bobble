@@ -1,32 +1,32 @@
 "use strict";
 
-var CollisionDetector = Class.extend({
-    isStandingOnObjects: function (sprite, objects) {
+class CollisionDetector {
+    isStandingOnObjects(sprite, objects) {
         for (var i = 0; i < objects.length; i++) {
             if (this._xMatchUp(sprite, objects[i]) && this._doesBottomCollide(sprite, objects[i])) {
                 return true;
             }
         }
         return false;
-    },
+    }
 
-    noWallToRight: function (sprite) {
+    noWallToRight(sprite) {
         if (sprite.rightSide() + sprite.moveSpeed > RIGHT_BOUND) {
             sprite.x = RIGHT_BOUND - sprite.width();
             return false;
         }
         return true;
-    },
+    }
 
-    noWallToLeft: function (sprite) {
+    noWallToLeft(sprite) {
         if (sprite.x - sprite.moveSpeed < LEFT_BOUND) {
             sprite.x = LEFT_BOUND;
             return false;
         }
         return true;
-    },
+    }
 
-    areSpritesAboveWithin: function (sprite, sprites, distance) {
+    areSpritesAboveWithin(sprite, sprites, distance) {
         for (var i = 0; i < sprites.length; i++) {
             if (this._xMatchUp(sprite, sprites[i])) {
                 var yWithin = sprites[i].y <= sprite.bottomSide() - 1 &&
@@ -37,9 +37,9 @@ var CollisionDetector = Class.extend({
             }
         }
         return false;
-    },
+    }
 
-    doesCollideWithSprites: function (sprite, sprites) {
+    doesCollideWithSprites(sprite, sprites) {
         for (var i = 0; i < sprites.length; i++) {
             if (this.doesCollideWith(sprite, sprites[i])) {
                 return sprites[i];
@@ -47,16 +47,16 @@ var CollisionDetector = Class.extend({
         }
 
         return false;
-    },
-    
-    doesCollideWith: function (spriteA, spriteB) {
+    }
+
+    doesCollideWith(spriteA, spriteB) {
         if (spriteA === spriteB) {
             return false;
         }
         return spriteA.x < spriteB.rightSide() && spriteA.rightSide() > spriteB.x && spriteA.y < spriteB.bottomSide() && spriteA.bottomSide() > spriteB.y;
-    },
+    }
 
-    _doesBottomCollide: function (sprite, object) {
+    _doesBottomCollide(sprite, object) {
         // this needs to make sure it's under the threshold of speed
         if (object.y === sprite.bottomSide()) {
             return true;
@@ -70,12 +70,12 @@ var CollisionDetector = Class.extend({
             return true;
         }
         return false;
-    },
+    }
 
-    _xMatchUp: function (sprite, object) {
+    _xMatchUp(sprite, object) {
         return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.CollisionDetector = CollisionDetector;

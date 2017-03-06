@@ -1,7 +1,7 @@
 "use strict";
 
-var OnscreenSprites = Class.extend({
-    init: function (sprites) {
+class OnscreenSprites {
+    constructor(sprites) {
         if (!sprites) {
             sprites = {};
         }
@@ -29,7 +29,7 @@ var OnscreenSprites = Class.extend({
         this.bubbles.remove = remove;
         this.texts.remove = remove;
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.OnscreenSprites = OnscreenSprites;

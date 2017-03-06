@@ -1,21 +1,21 @@
 "use strict";
 
-var TitleScreen = Class.extend({
-    init: function (control) {
+class TitleScreen {
+    constructor(control) {
         this._timer = 0;
         this._control = control;
         this._selectedEntry = 0;
         this._holdingDown = false;
         this._holdingUp = false;
         this._game = null;
-    },
+    }
 
-    _clearBackground: function () {
+    _clearBackground() {
         gameContext.fillStyle = "#010000";
         gameContext.fillRect(0, 0, gameInit.width, gameInit.height);
-    },
+    }
 
-    update: function(cancelId) {
+    update(cancelId) {
         this._timer++;
         if (this._timer === 12) {
             this._timer = 0;
@@ -52,16 +52,16 @@ var TitleScreen = Class.extend({
             this._game = new OnlineGame();
         }
 
-    },
+    }
 
-    draw: function () {
+    draw() {
         this._clearBackground();
 
         this._drawMenuText("Solo Game", 0);
         this._drawMenuText("Online Game", 1);
-    },
+    }
 
-    _drawMenuText: function(text, entry) {
+    _drawMenuText(text, entry) {
         gameContext.font = "bold 40px Comic Sans MS";
 
         var centeredY = gameInit.height / 2;
@@ -80,10 +80,9 @@ var TitleScreen = Class.extend({
         this.setFillStyle(color);
 
         gameContext.fillText(text, centeredX, centeredY);
-    },
-
-    setFillStyle: function(fillStyle) {
-        gameContext.fillStyle = fillStyle;
     }
 
-});
+    setFillStyle(fillStyle) {
+        gameContext.fillStyle = fillStyle;
+    }
+}

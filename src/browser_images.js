@@ -1,7 +1,7 @@
 "use strict";
 
-var BrowserImages = Images.extend({
-    _loadImage: function (prop, imageFile) {
+class BrowserImages extends Images {
+    _loadImage(prop, imageFile) {
         this._props.push(prop);
         this[prop] = {ready: false};
 
@@ -10,4 +10,4 @@ var BrowserImages = Images.extend({
         if (prop === 'bubRight')
             this[prop].onload = this._callback;
     }
-});
+}

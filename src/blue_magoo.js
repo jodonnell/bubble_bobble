@@ -1,9 +1,12 @@
 "use strict";
 
-var BlueMagoo = Sprite.extend({
-    JUMP_HEIGHT: 100,
+class BlueMagoo extends Sprite {
+    get JUMP_HEIGHT() {
+        return 100;
+    }
 
-    init: function (id, x, y, direction) {
+    constructor(id, x, y, direction) {
+        super();
         this.id = id;
         this.x = x;
         this.y = y;
@@ -12,9 +15,9 @@ var BlueMagoo = Sprite.extend({
 
         this.currentImage = 'blueMagooWalk';
         this.timer = 0;
-    },
+    }
 
-    update: function (args) {
+    update(args) {
         var collisionDetector = args.collisionDetector;
         var followX = args.onscreenSprites.players[0].x;
         var followY = args.onscreenSprites.players[0].y;
@@ -37,9 +40,9 @@ var BlueMagoo = Sprite.extend({
         else {
             this.y += 3;
         }
-    },
+    }
 
-    changeAnimation: function () {
+    changeAnimation() {
         if (this.timer !== 10) {
             return;
         }
@@ -54,13 +57,13 @@ var BlueMagoo = Sprite.extend({
             this.switchDirection();
         }
         this.timer = 0;
-    },
+    }
 
-    shouldTrack: function () {
+    shouldTrack() {
         return Math.random() > 0.99;
-    },
+    }
 
-    move: function (collisionDetector, followX, followY, walls) {
+    move(collisionDetector, followX, followY, walls) {
         if (this.shouldTrack())  {
             this.track(collisionDetector, followX, followY, walls);
         }
@@ -68,18 +71,18 @@ var BlueMagoo = Sprite.extend({
             this.moveInCurrentDirection();
             this.boundaryCheck(collisionDetector);
         }
-    },
+    }
 
-    moveInCurrentDirection: function () {
+    moveInCurrentDirection() {
         if (this.direction === RIGHT) {
             this.x += 3;
         }
         else {
             this.x -= 3;
         }
-    },
+    }
 
-    track: function (collisionDetector, followX, followY, walls) {
+    track(collisionDetector, followX, followY, walls) {
         if (this.y > followY) {
             if (collisionDetector.areSpritesAboveWithin(this, walls, 150)) {
                 this.jumping = 1;
@@ -97,9 +100,9 @@ var BlueMagoo = Sprite.extend({
             this.direction = LEFT;
             this.x -= 3;
         }
-    },
+    }
 
-    getCurrentImage: function () {
+    getCurrentImage() {
         var imageName = this.currentImage;
         if (this.direction === LEFT) {
             imageName += 'Left';
@@ -108,9 +111,9 @@ var BlueMagoo = Sprite.extend({
             imageName += 'Right';
         }
         return imageName;
-    },
+    }
 
-    boundaryCheck: function (collisionDetector) {
+    boundaryCheck(collisionDetector) {
         this.moveSpeed = 0;
         if (!collisionDetector.noWallToRight(this)) {
             this.direction = LEFT;
@@ -118,17 +121,17 @@ var BlueMagoo = Sprite.extend({
         if (!collisionDetector.noWallToLeft(this)) {
             this.direction = RIGHT;
         }
-    },
+    }
 
-    isJumping: function () {
+    isJumping() {
         return this.jumping;
-    },
+    }
 
-    isTrapped: function () {
+    isTrapped() {
         return this.trapped;
-    },
+    }
 
-    switchDirection: function () {
+    switchDirection() {
         if (this.direction === RIGHT) {
             this.direction = LEFT;
         }
@@ -136,7 +139,7 @@ var BlueMagoo = Sprite.extend({
             this.direction = RIGHT;
         }
     }
-});
+}
 
 if (typeof exports !== 'undefined') {
     exports.BlueMagoo = BlueMagoo;

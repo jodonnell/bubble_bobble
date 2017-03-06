@@ -3,8 +3,9 @@
 //console.log(require('./sprite.js').Sprite);
 //var Sprite = require('./sprite.js');
 
-var Player = Sprite.extend({
-    init: function (x, y, type, control) {
+class Player extends Sprite {
+    constructor(x, y, type, control) {
+        super();
         this.x = x;
         this.y = y;
         this.moveSpeed = 4;
@@ -17,9 +18,9 @@ var Player = Sprite.extend({
         this._dead = 0;
         this._invincible = 0;
         this._score = 0;
-    },
+    }
 
-    update: function (args) {
+    update(args) {
         var collisionDetector = args.collisionDetector;
         var onscreenSprites = args.onscreenSprites;
 
@@ -27,9 +28,9 @@ var Player = Sprite.extend({
         this._playerAnimations.changeAnimation();
         this._updateState(onscreenSprites, collisionDetector);
         this._checkForCollisions(onscreenSprites, collisionDetector);
-    },
+    }
 
-    _respondToControls: function (collisionDetector, onscreenSprites) {
+    _respondToControls(collisionDetector, onscreenSprites) {
         if (this._dead) {
             return;
         }
@@ -53,17 +54,17 @@ var Player = Sprite.extend({
         if (this._control.isShooting()) {
             this._shoot(onscreenSprites);
         }
-    },
+    }
 
-    _shootingUpdate: function () {
+    _shootingUpdate() {
         this._shooting += 1;
-        
+
         if (this._shooting > 35) {
             this._shooting = 0;
         }
-    },
+    }
 
-    _jumpingUpdate: function () {
+    _jumpingUpdate() {
         this.y -= 4;
 
         this._jumping++;
@@ -71,47 +72,47 @@ var Player = Sprite.extend({
             this._jumping = 0;
             this._falling = true;
         }
-    },
+    }
 
-    _moveRight: function () {
+    _moveRight() {
         this._playerAnimations.moveRight();
         this.x += this.moveSpeed;
-    },
+    }
 
-    _moveLeft: function () {
+    _moveLeft() {
         this._playerAnimations.moveLeft();
         this.x -= this.moveSpeed;
-    },
+    }
 
-    _fall: function () {
+    _fall() {
         this._playerAnimations.fall();
         this._falling = true;
         this.y += 3;
-    },
+    }
 
-    _jump: function () {
+    _jump() {
         if (this._jumping || this._falling) {
             return;
         }
         this._playerAnimations.jump();
         this._jumping = 1;
-    },
+    }
 
-    _shoot: function (onscreenSprites) {
+    _shoot(onscreenSprites) {
         if (this._shooting) {
             return;
         }
         this._shooting = 1;
         this._playerAnimations.shoot();
-        
+
         this._createBubble(onscreenSprites);
-    },
+    }
 
-    getCurrentImage: function () {
+    getCurrentImage() {
         return this._playerAnimations.getImageName();
-    },
+    }
 
-    _createBubble: function (onscreenSprites) {
+    _createBubble(onscreenSprites) {
         var x;
         if (this._playerAnimations.direction === RIGHT) {
             x = this.x + this.width() / 2;
@@ -120,17 +121,17 @@ var Player = Sprite.extend({
             x = this.x - this.width() / 2;
         }
         onscreenSprites.bubbles.push(new Bubble(onscreenSprites.bubbles.length + 1, x, this.y, this._playerAnimations.direction));
-    },
-    
-    isDead: function () {
+    }
+
+    isDead() {
         return this._dead;
-    },
+    }
 
-    isInvincible: function () {
+    isInvincible() {
         return this._invincible;
-    },
+    }
 
-    _checkForPoppingBubble: function (onscreenSprites, collisionDetector) {
+    _checkForPoppingBubble(onscreenSprites, collisionDetector) {
         var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
 
         if (bubble && bubble.isFullyFormed()) {
@@ -153,31 +154,31 @@ var Player = Sprite.extend({
             }
             bubble.pop(onscreenSprites, direction);
         }
-    },
+    }
 
-    _checkForDeath: function (onscreenSprites, collisionDetector) {
+    _checkForDeath(onscreenSprites, collisionDetector) {
         if (!this._dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
             this._dead = 1;
             this._playerAnimations.die();
         }
-    },
+    }
 
-    _checkForCollectibles: function (onscreenSprites, collisionDetector) {
+    _checkForCollectibles(onscreenSprites, collisionDetector) {
         var collectible = collisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
-        if (collectible) {        
+        if (collectible) {
             onscreenSprites.collectibles.remove(collectible);
             this._score += collectible.points;
             onscreenSprites.texts.push(new Text(collectible.x, collectible.y + 30, collectible.points));
         }
-    },
+    }
 
-    draw: function () {
+    draw() {
         if (!this.isInvincible() || this._invincible % 2 === 0) {
-            this._super();
+            super.draw();
         }
-    },
+    }
 
-    _deadUpdate: function () {
+    _deadUpdate() {
         this._dead++;
         if (this._dead <= 50) {
             return;
@@ -189,16 +190,16 @@ var Player = Sprite.extend({
         this._shooting = 0;
         this._jumping = 0;
         this._invincible = 1;
-    },
+    }
 
-    _invincibleUpdate: function () {
+    _invincibleUpdate() {
         this._invincible++;
         if (this._invincible > 150) {
             this._invincible = 0;
         }
-    },
+    }
 
-    _checkForCollisions: function (onscreenSprites, collisionDetector) {
+    _checkForCollisions(onscreenSprites, collisionDetector) {
         if (this._dead) {
             return;
         }
@@ -210,9 +211,9 @@ var Player = Sprite.extend({
         }
 
         this._checkForCollectibles(onscreenSprites, collisionDetector);
-    },
+    }
 
-    _updateState: function (onscreenSprites, collisionDetector) {
+    _updateState(onscreenSprites, collisionDetector) {
         if (this._dead) {
             this._deadUpdate();
             return;
@@ -236,14 +237,12 @@ var Player = Sprite.extend({
             this._falling = false;
             this._playerAnimations.stopFalling();
         }
-    },
-
-    getScore: function () {
-        return this._score;
     }
 
-
-});
+    getScore() {
+        return this._score;
+    }
+}
 
 if (typeof exports !== 'undefined') {
     exports.Player = Player;

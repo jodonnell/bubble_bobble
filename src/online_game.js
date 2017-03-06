@@ -1,7 +1,7 @@
 "use strict";
 
-var OnlineGame = Class.extend({
-    init: function() {
+class OnlineGame {
+    constructor() {
         var socket = io.connect('http://192.168.0.105:3000');
 
         socket.on('gameStarted', function(data){
@@ -21,7 +21,7 @@ var OnlineGame = Class.extend({
             var oldPositions = {bub: {x: 200, y: 100}, bob: {x: 600, y: 100}};
 
             socket.on('updatedPositions', $.proxy(function (data) {
-                
+
                 oldPositions = data;
 
                 gameController.onscreenSprites.players[0].x = data.bub.x;
@@ -29,7 +29,7 @@ var OnlineGame = Class.extend({
 
                 gameController.onscreenSprites.players[1].x = data.bob.x;
                 gameController.onscreenSprites.players[1].y = data.bob.y;
-                
+
 
                 for (var i = 0; i < data.enemies.length; i++) {
                     for (var j = 0; j < gameController.onscreenSprites.enemies.length; j++) {
@@ -43,7 +43,7 @@ var OnlineGame = Class.extend({
 
             (function animloop(){
                 stats.begin();
-                
+
                 gameController.update();
                 gameController.draw();
                 requestAnimFrame(animloop);
@@ -53,4 +53,4 @@ var OnlineGame = Class.extend({
 
         });
     }
-})
+}

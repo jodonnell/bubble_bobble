@@ -1,12 +1,12 @@
 "use strict";
 
-var NodeImages = Images.extend({
-    _loadImage: function (prop, imageFile) {
+class NodeImages extends Images {
+    _loadImage(prop, imageFile) {
         this._props.push(prop);
         this[prop] = {ready: false};
         var im = require('imagemagick');
         var imagePath = "assets/" + imageFile;
-        
+
         im.identify(imagePath, $.proxy(function(err, features){
             if (err) throw err
             this[prop].width = features.width;
@@ -26,9 +26,8 @@ var NodeImages = Images.extend({
             }
 
         }, this));
-
     }
-});
+}
 
 root = exports ? exports : this;
 root.NodeImages = NodeImages;
