@@ -104,6 +104,6 @@ describe("Bubble", function () {
         args.onscreenSprites.bubbles.push(secondBubble);
         bubble.update(args);
         expect(bubble.x).toBeGreaterThan(400);
-        expect(bubble.y).toNotBe(70);
+        expect(bubble.y).not.toBe(70);
     });
 });
