@@ -22,7 +22,7 @@ describe("Title Screen", function () {
     it("should display Online Game", sinon.test(function () {
         var fillTextSpy = spyOn(gameContext, 'fillText');
         titleScreen.draw();
-        expect(fillTextSpy).toHaveBeenCalledWith("Online Game", 280, 340);
+        expect(fillTextSpy).toHaveBeenCalledWith("Online Game", 280, 310);
     }));
 
     it("should blink", sinon.test(function () {
@@ -41,23 +41,19 @@ describe("Title Screen", function () {
         expect(titleScreen._selectedEntry).toBe(1);
     }));
 
-    it("should not allow the selected entry to be out of bounds", sinon.test(function () {
+    it("will not allow you to go to a negative menu entry", sinon.test(function () {
         this.stub(titleScreen._control, 'isHoldingUp').returns(true);
         titleScreen.update();
         expect(titleScreen._selectedEntry).toBe(0);
+    }));
 
+    it("should not allow the selected entry to be out of bounds", sinon.test(function () {
         this.stub(titleScreen._control, 'isHoldingDown').returns(true);
         titleScreen.update();
-        titleScreen._control.isHoldingDown.restore();
-        this.stub(titleScreen._control, 'isHoldingDown').returns(false);
         titleScreen.update();
-
-        titleScreen._control.isHoldingDown.restore();
-        this.stub(titleScreen._control, 'isHoldingDown').returns(true);
         titleScreen.update();
 
         expect(titleScreen._selectedEntry).toBe(1);
-
     }));
 
 });

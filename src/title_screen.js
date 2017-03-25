@@ -5,7 +5,6 @@ class TitleScreen {
         this._timer = 0;
         this._control = control;
         this._selectedEntry = 0;
-        this._game = null;
 
         this.options = ['Solo Game', 'Online Game'];
     }
@@ -42,11 +41,11 @@ class TitleScreen {
     selectEntry(cancelId) {
         if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 0) {
             cancelAnimationFrame(cancelId);
-            this._game = new SoloGame();
+            new SoloGame();
         }
         else if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 1) {
             cancelAnimationFrame(cancelId);
-            this._game = new OnlineGame();
+            new OnlineGame();
         }
     }
 
