@@ -5,9 +5,9 @@ class TitleScreen {
         this._timer = 0;
         this._control = control;
         this._selectedEntry = 0;
-        this._holdingDown = false;
-        this._holdingUp = false;
         this._game = null;
+
+        this.options = ['Solo Game', 'Online Game'];
     }
 
     _clearBackground() {
@@ -15,18 +15,24 @@ class TitleScreen {
         gameContext.fillRect(0, 0, gameInit.width, gameInit.height);
     }
 
+    update(cancelId) {
+        this.updateTimer();
+
+        this.nextEntry();
+        this.previousEntry();
+        this.selectEntry(cancelId);
+    }
+
     nextEntry() {
-        if (!this._holdingDown && this._control.isHoldingDown()) {
-            this._holdingDown = true;
-            if (this._selectedEntry === 0) {
+        if (this._control.isHoldingDown()) {
+            if (this._selectedEntry < this.options.length - 1) {
                 this._selectedEntry++;
             }
         }
     }
 
     previousEntry() {
-        if (!this._holdingUp && this._control.isHoldingUp()) {
-            this._holdingUp = true;
+        if (this._control.isHoldingUp()) {
             if (this._selectedEntry > 0) {
                 this._selectedEntry--;
             }
@@ -44,18 +50,6 @@ class TitleScreen {
         }
     }
 
-    endHoldingUp() {
-        if (this._holdingUp && !this._control.isHoldingUp()) {
-            this._holdingUp = false;
-        }
-    }
-
-    endHoldingDown() {
-        if (this._holdingDown && !this._control.isHoldingDown()) {
-            this._holdingDown = false;
-        }
-    }
-
     updateTimer() {
         this._timer++;
         if (this._timer === 12) {
@@ -63,34 +57,26 @@ class TitleScreen {
         }
     }
 
-    update(cancelId) {
-        this.updateTimer();
-
-        this.nextEntry();
-        this.endHoldingDown();
-        this.previousEntry();
-        this.endHoldingUp();
-        this.selectEntry(cancelId);
-    }
-
     draw() {
         this._clearBackground();
 
-        this._drawMenuText("Solo Game", 0);
-        this._drawMenuText("Online Game", 1);
+        for (var i = 0; i < this.options.length; i++) {
+            this._drawMenuText(this.options[i], i);
+        }
     }
 
     _drawMenuText(text, entry) {
         gameContext.font = "bold 40px Comic Sans MS";
 
         var centeredY = gameInit.height / 2;
-        if (entry === 0) {
-            centeredY -= 40;
-        }
-        else {
-            centeredY += 40;
-        }
+
+        centeredY += -40 + (entry * 50);
         var centeredX = Math.floor(gameInit.width / 2 - gameContext.measureText(text).width / 2);
+
+        var car = function() {
+            var shit = 0;
+
+        };
 
         var color = '#FEFFFF';
         if (this._selectedEntry === entry && this._timer > 6) {
