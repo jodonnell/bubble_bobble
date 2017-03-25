@@ -15,34 +15,25 @@ class TitleScreen {
         gameContext.fillRect(0, 0, gameInit.width, gameInit.height);
     }
 
-    update(cancelId) {
-        this._timer++;
-        if (this._timer === 12) {
-            this._timer = 0;
-        }
-
+    nextEntry() {
         if (!this._holdingDown && this._control.isHoldingDown()) {
             this._holdingDown = true;
             if (this._selectedEntry === 0) {
                 this._selectedEntry++;
             }
         }
+    }
 
-        if (this._holdingDown && !this._control.isHoldingDown()) {
-            this._holdingDown = false;
-        }
-
+    previousEntry() {
         if (!this._holdingUp && this._control.isHoldingUp()) {
             this._holdingUp = true;
             if (this._selectedEntry > 0) {
                 this._selectedEntry--;
             }
         }
+    }
 
-        if (this._holdingUp && !this._control.isHoldingUp()) {
-            this._holdingUp = false;
-        }
-
+    selectEntry(cancelId) {
         if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 0) {
             cancelAnimationFrame(cancelId);
             this._game = new SoloGame();
@@ -51,7 +42,35 @@ class TitleScreen {
             cancelAnimationFrame(cancelId);
             this._game = new OnlineGame();
         }
+    }
 
+    endHoldingUp() {
+        if (this._holdingUp && !this._control.isHoldingUp()) {
+            this._holdingUp = false;
+        }
+    }
+
+    endHoldingDown() {
+        if (this._holdingDown && !this._control.isHoldingDown()) {
+            this._holdingDown = false;
+        }
+    }
+
+    updateTimer() {
+        this._timer++;
+        if (this._timer === 12) {
+            this._timer = 0;
+        }
+    }
+
+    update(cancelId) {
+        this.updateTimer();
+
+        this.nextEntry();
+        this.endHoldingDown();
+        this.previousEntry();
+        this.endHoldingUp();
+        this.selectEntry(cancelId);
     }
 
     draw() {

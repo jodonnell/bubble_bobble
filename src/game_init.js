@@ -34,18 +34,16 @@ class GameInit {
 
     viewportWidth() {
         var w = window,
-            d = document,
-            e = d.documentElement,
-            g = d.getElementsByTagName('body')[0];
+            e = document.documentElement,
+            g = document.getElementsByTagName('body')[0];
 
         return w.innerWidth || e.clientWidth || g.clientWidth;
     }
 
     viewportHeight() {
         var w = window,
-            d = document,
-            e = d.documentElement,
-            g = d.getElementsByTagName('body')[0];
+            e = document.documentElement,
+            g = document.getElementsByTagName('body')[0];
 
         return w.innerHeight|| e.clientHeight|| g.clientHeight;
     }
