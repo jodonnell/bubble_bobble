@@ -40,16 +40,7 @@ class OnlineGame {
                 }
             });
 
-            (function animloop(){
-                stats.begin();
-
-                gameController.update();
-                gameController.draw();
-                requestAnimFrame(animloop);
-
-                stats.end();
-            })();
-
+            SceneCreator.create(gameController);
         });
     }
 }

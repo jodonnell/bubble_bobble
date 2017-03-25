@@ -2,6 +2,7 @@
 <html>
     <head>
         <script src="src/constants.js" type="text/javascript" charset="utf-8"></script>
+        <script src="src/scene_creator.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/control.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/input_control.js" type="text/javascript" charset="utf-8"></script>
         <script src="src/networked_control.js" type="text/javascript" charset="utf-8"></script>
@@ -66,16 +67,7 @@ var gameContext = document.getElementById('gameCanvas').getContext("2d");
 var titleScreen;
 var gameImages = new BrowserImages(function() {
     titleScreen = new TitleScreen(new InputControl(null));
-
-    (function animloop(){
-        stats.begin();
-
-        var cancelId = requestAnimFrame(animloop);
-        titleScreen.update(cancelId);
-        titleScreen.draw();
-
-        stats.end();
-    })();
+    SceneCreator.create(titleScreen);
 });
 
 </script></body></html>

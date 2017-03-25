@@ -7,14 +7,6 @@ class SoloGame {
 
         var gameController = new GameController(gameInit, [bub], enemies);
 
-        (function animloop(){
-            stats.begin();
-
-            gameController.update();
-            gameController.draw();
-            requestAnimFrame(animloop);
-
-            stats.end();
-        })();
+        SceneCreator.create(gameController);
     }
 }
