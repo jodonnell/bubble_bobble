@@ -1,3 +1,5 @@
+import Sprite from './sprite';
+
 class Text extends Sprite {
     constructor(x, y, text) {
         super();
@@ -8,9 +10,9 @@ class Text extends Sprite {
     }
 
     draw() {
-        gameContext.font = 'bold 25px Comic Sans MS';
-        gameContext.fillStyle = 'green';
-        gameContext.fillText(this.text, this.x, this.y);
+        window.gameContext.font = 'bold 25px Comic Sans MS';
+        window.gameContext.fillStyle = 'green';
+        window.gameContext.fillText(this.text, this.x, this.y);
     }
 
     update(args) {
@@ -23,6 +25,4 @@ class Text extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Text = Text;
-}
+export default Text;

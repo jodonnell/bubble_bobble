@@ -1,3 +1,7 @@
+import GameInit from './game_init';
+import SoloGame from './solo_game';
+import OnlineGame from './online_game';
+
 class TitleScreen {
     constructor(control) {
         this._timer = 0;
@@ -8,8 +12,8 @@ class TitleScreen {
     }
 
     _clearBackground() {
-        gameContext.fillStyle = '#010000';
-        gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
+        window.gameContext.fillStyle = '#010000';
+        window.gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
     }
 
     update(cancelId) {
@@ -63,12 +67,12 @@ class TitleScreen {
     }
 
     _drawMenuText(text, entry) {
-        gameContext.font = 'bold 40px Comic Sans MS';
+        window.gameContext.font = 'bold 40px Comic Sans MS';
 
         var centeredY = GameInit.height / 2;
 
         centeredY += -40 + (entry * 50);
-        var centeredX = Math.floor(GameInit.width / 2 - gameContext.measureText(text).width / 2);
+        var centeredX = Math.floor(GameInit.width / 2 - window.gameContext.measureText(text).width / 2);
 
         var color = '#FEFFFF';
         if (this._selectedEntry === entry && this._timer > 6) {
@@ -76,10 +80,12 @@ class TitleScreen {
         }
         this.setFillStyle(color);
 
-        gameContext.fillText(text, centeredX, centeredY);
+        window.gameContext.fillText(text, centeredX, centeredY);
     }
 
     setFillStyle(fillStyle) {
-        gameContext.fillStyle = fillStyle;
+        window.gameContext.fillStyle = fillStyle;
     }
 }
+
+export default TitleScreen;

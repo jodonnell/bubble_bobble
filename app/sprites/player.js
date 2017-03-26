@@ -1,3 +1,9 @@
+import Sprite from './sprite';
+import PlayerAnimations from '../player_animations';
+import Bubble from './bubble';
+import Text from './text';
+import {LEFT, RIGHT} from '../constants';
+
 class Player extends Sprite {
     constructor(x, y, type, control) {
         super();
@@ -239,6 +245,4 @@ class Player extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Player = Player;
-}
+export default Player;

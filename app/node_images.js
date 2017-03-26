@@ -1,11 +1,11 @@
-"use strict";
+import Images from './images';
 
 class NodeImages extends Images {
     _loadImage(prop, imageFile) {
         this._props.push(prop);
         this[prop] = {ready: false};
         var im = require('imagemagick');
-        var imagePath = "assets/" + imageFile;
+        var imagePath = 'assets/' + imageFile;
 
         im.identify(imagePath, (err, features) => {
             if (err) throw err;
@@ -29,5 +29,6 @@ class NodeImages extends Images {
     }
 }
 
+export default NodeIm
 root = exports ? exports : this;
 root.NodeImages = NodeImages;

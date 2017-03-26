@@ -1,4 +1,4 @@
-"use strict";
+import {RIGHT, LEFT} from './constants';
 
 class PlayerAnimations {
 
@@ -213,6 +213,4 @@ class PlayerAnimations {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.PlayerAnimations = PlayerAnimations;
-}
+export default PlayerAnimations;

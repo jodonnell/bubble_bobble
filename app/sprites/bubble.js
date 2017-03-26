@@ -1,4 +1,7 @@
-"use strict";
+import Sprite from './sprite';
+import {LEFT, RIGHT} from '../constants';
+import LinearAnimation from '../animations/linear_animation';
+import DeadEnemy from './dead_enemy';
 
 class Bubble extends Sprite {
     constructor(id, x, y, direction, playerNum) {
@@ -31,7 +34,7 @@ class Bubble extends Sprite {
     }
 
     updateFullyFormed(collisionDetector, onscreenSprites) {
-        this.floatUp(onscreenSprites);
+        this.floatUp();
         this.checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites);
     }
 
@@ -73,7 +76,7 @@ class Bubble extends Sprite {
         }
     }
 
-    floatUp(onscreenSprites) {
+    floatUp() {
         if (this.y <= 70) {
             if (this.x > 400) {
                 this.x -= 1;
@@ -135,6 +138,4 @@ class Bubble extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Bubble = Bubble;
-}
+export default Bubble;

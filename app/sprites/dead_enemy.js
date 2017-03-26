@@ -1,3 +1,8 @@
+import Sprite from './sprite';
+import Pepper from './pepper';
+import LinearAnimation from '../animations/linear_animation';
+import {LEFT, RIGHT, LEFT_BOUND, RIGHT_BOUND} from '../constants';
+
 class DeadEnemy extends Sprite {
     constructor(x, y, direction) {
         super();
@@ -57,6 +62,4 @@ class DeadEnemy extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.DeadEnemy = DeadEnemy;
-}
+export default DeadEnemy;

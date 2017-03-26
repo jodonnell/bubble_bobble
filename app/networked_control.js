@@ -1,3 +1,5 @@
+import Control from './control';
+
 class NetworkedControl extends Control {
     constructor(socket) {
         super();
@@ -42,6 +44,4 @@ class NetworkedControl extends Control {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.NetworkedControl = NetworkedControl;
-}
+export default NetworkedControl;

@@ -54,3 +54,5 @@ class LinearAnimation {
         return this.runTimes === 0;
     }
 }
+
+export default LinearAnimation;

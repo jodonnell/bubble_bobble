@@ -1,4 +1,4 @@
-"use strict";
+import Player from './sprites/player';
 
 class OnscreenSprites {
     constructor(sprites) {
@@ -19,7 +19,7 @@ class OnscreenSprites {
         var remove = function (element) {
             var index = this.indexOf(element);
             this.splice(index, 1);
-        }
+        };
 
         this.players.remove = remove;
         this.deadEnemies.remove = remove;
@@ -31,6 +31,4 @@ class OnscreenSprites {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.OnscreenSprites = OnscreenSprites;
-}
+export default OnscreenSprites;

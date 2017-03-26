@@ -1,5 +1,3 @@
-"use strict";
-
 class Control {
     constructor() {
         this.left = 0;
@@ -39,6 +37,4 @@ class Control {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Control = Control;
-}
+export default Control;

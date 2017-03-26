@@ -1,75 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="lib/lodash.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/constants.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/scene_creator.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/control.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/input_control.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/networked_control.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/sprite.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/game_init.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/images.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/browser_images.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/player.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/player_animations.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/game_controller.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/wall.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/bubble.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/blue_magoo.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/collision_detector.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/level_builder.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/onscreen_sprites.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/dead_enemy.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/pepper.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/text.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/title_screen.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/solo_game.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/online_game.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/sprites/online_blue_magoo.js" type="text/javascript" charset="utf-8"></script>
-        <script src="src/animations/linear_animation.js" type="text/javascript" charset="utf-8"></script>
-        <script src="lib/stats.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/socket.io/socket.io.js"></script>
+        <!-- <script src="lib/lodash.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/constants.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/scene_creator.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/control.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/input_control.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/networked_control.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/sprite.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/game_init.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/images.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/browser_images.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/player.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/player_animations.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/game_controller.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/wall.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/bubble.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/blue_magoo.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/collision_detector.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/level_builder.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/onscreen_sprites.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/dead_enemy.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/pepper.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/text.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/title_screen.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/solo_game.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/online_game.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/sprites/online_blue_magoo.js" type="text/javascript" charset="utf-8"></script>
+             <script src="src/animations/linear_animation.js" type="text/javascript" charset="utf-8"></script>
+             <script src="lib/stats.js" type="text/javascript" charset="utf-8"></script>
+             <script src="/socket.io/socket.io.js"></script> -->
     </head>
     <title>Game
 
     </title>
-    <body style="background-color: #010000"><script type="text/javascript">var stats = new Stats();
-stats.setMode(0); // 0: fps, 1: ms
-
-// Align top-left
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.right = '0px';
-stats.domElement.style.top = '0px';
-stats.domElement.style.float = 'right';
-
-document.body.appendChild( stats.domElement );
-
-window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       ||
-              window.webkitRequestAnimationFrame ||
-              window.mozRequestAnimationFrame    ||
-              window.oRequestAnimationFrame      ||
-              window.msRequestAnimationFrame     ||
-              function( callback ){
-                window.setTimeout(callback, 1000 / 60);
-              };
-
-})();
-
-window.cancelAnimationFrame = (function(){
-      return  window.cancelAnimationFrame       ||
-              window.mozCancelRequestAnimationFrame
-
-})();
-
-
-var gameInit = new GameInit();
-var gameContext = document.getElementById('gameCanvas').getContext("2d");
-var titleScreen;
-var gameImages = new BrowserImages(function() {
-    titleScreen = new TitleScreen(new InputControl(null));
-    SceneCreator.create(titleScreen);
-});
-
-</script></body></html>
+    <body style="background-color: #010000">
+        <script src="dist/bundle.js"></script>
+    </body>
+</html>

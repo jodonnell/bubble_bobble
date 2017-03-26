@@ -1,3 +1,5 @@
+import {LEFT_BOUND, RIGHT_BOUND} from './constants';
+
 class CollisionDetector {
     isStandingOnObjects(sprite, objects) {
         for (var i = 0; i < objects.length; i++) {
@@ -75,6 +77,4 @@ class CollisionDetector {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.CollisionDetector = CollisionDetector;
-}
+export default CollisionDetector;

@@ -7,7 +7,8 @@ module.exports = {
     "rules": {
         "indent": [
             "error",
-            4
+            4,
+            {"ObjectExpression": "first"}
         ],
         "linebreak-style": [
             "error",
@@ -26,5 +27,9 @@ module.exports = {
     "globals": {
         "gameContext": false,
         "gameImages": false
+    },
+     "parserOptions": {
+        "sourceType": "module",
     }
+
 };

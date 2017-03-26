@@ -1,3 +1,8 @@
+import OnscreenSprites from './onscreen_sprites';
+import CollisionDetector from './collision_detector';
+import LevelBuilder from './level_builder';
+import GameInit from './game_init';
+
 class GameController {
     constructor(players, enemies) {
         this.onscreenSprites = new OnscreenSprites({players: players,
@@ -20,8 +25,8 @@ class GameController {
     }
 
     _clearBackground() {
-        gameContext.fillStyle = '#010000';
-        gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
+        window.gameContext.fillStyle = '#010000';
+        window.gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
     }
 
     _eachSprite(spriteAction) {
@@ -35,6 +40,4 @@ class GameController {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.GameController = GameController;
-}
+export default GameController;

@@ -1,3 +1,5 @@
+import Images from './images';
+
 class BrowserImages extends Images {
     _loadImage(prop, imageFile) {
         this._props.push(prop);
@@ -9,3 +11,5 @@ class BrowserImages extends Images {
             this[prop].onload = this._callback;
     }
 }
+
+export default BrowserImages;

@@ -1,3 +1,5 @@
+import Sprite from './sprite';
+
 class Wall extends Sprite {
     constructor(x, y) {
         super();
@@ -7,6 +9,4 @@ class Wall extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Wall = Wall;
-}
+export default Wall;

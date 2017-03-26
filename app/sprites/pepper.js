@@ -1,4 +1,4 @@
-"use strict";
+import Sprite from './sprite';
 
 class Pepper extends Sprite {
     constructor(x, y) {
@@ -10,6 +10,4 @@ class Pepper extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Pepper = Pepper;
-}
+export default Pepper;

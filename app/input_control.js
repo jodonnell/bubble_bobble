@@ -1,3 +1,5 @@
+import Control from './control';
+
 class InputControl extends Control {
     constructor(socket) {
         super();
@@ -136,8 +138,8 @@ class InputControl extends Control {
             }
         };
 
-        document.addEventListener("keydown", keydown, false);
-        document.addEventListener("keyup", keyup, false);
+        document.addEventListener('keydown', keydown, false);
+        document.addEventListener('keyup', keyup, false);
     }
 
     pressLeft() {
@@ -221,6 +223,4 @@ class InputControl extends Control {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.InputControl = InputControl;
-}
+export default InputControl;

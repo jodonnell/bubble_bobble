@@ -1,3 +1,5 @@
+import Wall from './sprites/wall';
+
 class LevelBuilder {
     constructor() {
         this.walls = [];
@@ -42,6 +44,4 @@ class LevelBuilder {
 
 }
 
-if (typeof exports !== 'undefined') {
-    exports.LevelBuilder = LevelBuilder;
-}
+export default LevelBuilder;

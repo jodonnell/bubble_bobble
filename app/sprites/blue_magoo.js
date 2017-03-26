@@ -1,4 +1,6 @@
-"use strict";
+import Sprite from './sprite';
+import LinearAnimation from '../animations/linear_animation';
+import {LEFT, RIGHT} from '../constants';
 
 class BlueMagoo extends Sprite {
     get JUMP_HEIGHT() {
@@ -71,15 +73,15 @@ class BlueMagoo extends Sprite {
             }
         }
 
-        if (followX === this.x) {
-        }
-        else if (followX > this.x) {
-            this.direction = RIGHT;
-            this.x += 3;
-        }
-        else {
-            this.direction = LEFT;
-            this.x -= 3;
+        if (followX !== this.x) {
+            if (followX > this.x) {
+                this.direction = RIGHT;
+                this.x += 3;
+            }
+            else {
+                this.direction = LEFT;
+                this.x -= 3;
+            }
         }
     }
 
@@ -122,6 +124,4 @@ class BlueMagoo extends Sprite {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.BlueMagoo = BlueMagoo;
-}
+export default BlueMagoo;

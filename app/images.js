@@ -102,10 +102,8 @@ class Images {
         this._loadImage('wall', 'wall.png');
     }
 
-    _loadImage(prop, imageFile) {
+    _loadImage() {
     }
 }
 
-if (typeof exports !== 'undefined') {
-    exports.Images = Images;
-}
+export default Images;

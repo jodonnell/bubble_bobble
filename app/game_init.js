@@ -1,5 +1,3 @@
-"use strict";
-
 class GameInit {
     constructor(hide) {
         this.createCanvas();
@@ -32,8 +30,6 @@ class GameInit {
         canvas.style.position = 'absolute';
         canvas.style.top = top + 'px';
         canvas.style.left = left + 'px';
-        // canvas.style.width = '1066px';
-        // canvas.style.height = '800px';
 
         if (this.hide) {
             canvas.style.visibilty = 'hidden';
@@ -61,3 +57,5 @@ class GameInit {
         document.body.removeChild(canvas);
     }
 }
+
+export default GameInit;

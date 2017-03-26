@@ -1,4 +1,9 @@
-"use strict";
+import SceneCreator from './scene_creator';
+import Player from './sprites/player';
+import BlueMagoo from './sprites/blue_magoo';
+import GameController from './game_controller';
+import InputControl from './input_control';
+import {LEFT} from './constants';
 
 class SoloGame {
     constructor() {
@@ -10,3 +15,5 @@ class SoloGame {
         SceneCreator.create(gameController);
     }
 }
+
+export default SoloGame;
