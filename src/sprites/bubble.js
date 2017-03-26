@@ -20,7 +20,6 @@ class Bubble extends Sprite {
     update(args) {
         var onscreenSprites = args.onscreenSprites;
         var collisionDetector = args.collisionDetector;
-        var collidedWith;
 
         if (this.trapped) {
             this.currentImage = this.enemyWiggleAnimation.update();
@@ -30,7 +29,7 @@ class Bubble extends Sprite {
             this.updateFullyFormed(collisionDetector, onscreenSprites);
         }
         else {
-            this.updateShootingOut(collidedWith, collisionDetector, onscreenSprites);
+            this.updateShootingOut(collisionDetector, onscreenSprites);
         }
     }
 
@@ -51,8 +50,8 @@ class Bubble extends Sprite {
         }
     }
 
-    updateShootingOut(collidedWith, collisionDetector, onscreenSprites) {
-        collidedWith = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
+    updateShootingOut(collisionDetector, onscreenSprites) {
+        const collidedWith = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
         if (collidedWith) {
             this.trap(onscreenSprites, collidedWith);
             return;

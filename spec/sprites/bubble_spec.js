@@ -43,6 +43,7 @@ describe("Bubble", function () {
     it("should get trapped when hit by a bubble", function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT));
         bubble.update(args);
+        bubble.update(args);
         expect(bubble.hasEnemy()).toBeTruthy();
         expect(bubble.getCurrentImage()).toBe('blueMagooTrappedRight');
         expect(bubble.isFullyFormed()).toBeTruthy();
@@ -66,6 +67,8 @@ describe("Bubble", function () {
     it("should animate a trapped enemy", function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 110, 110, RIGHT));
         bubble.trap(args.onscreenSprites, args.onscreenSprites.enemies[0]);
+
+        bubble.update(args);
         expect(bubble.getCurrentImage()).toBe('blueMagooTrappedRight');
         for (var i = 0; i < 15; i++) {
             bubble.update(args);
