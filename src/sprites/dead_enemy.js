@@ -12,6 +12,8 @@ class DeadEnemy extends Sprite {
         this.currentImage = 'deadEnemyRight';
         this.timer = 0;
         this.parabolaTimer = 0;
+
+        this.animation = new LinearAnimation(3, ['deadEnemyRight', 'deadEnemyBottom', 'deadEnemyLeft', 'deadEnemyTop']);
     }
 
     update(args) {
@@ -43,25 +45,8 @@ class DeadEnemy extends Sprite {
     }
 
     changeAnimation() {
-        this.timer++;
-
-        if (this.timer !== 3) {
-            return;
-        }
-
-        this.timer = 0;
-        if (this.currentImage === 'deadEnemyRight') {
-            this.currentImage = 'deadEnemyBottom';
-        }
-        else if (this.currentImage === 'deadEnemyBottom') {
-            this.currentImage = 'deadEnemyLeft';
-        }
-        else if (this.currentImage === 'deadEnemyLeft') {
-            this.currentImage = 'deadEnemyTop';
-        }
-        else if (this.currentImage === 'deadEnemyTop') {
-            this.currentImage = 'deadEnemyRight';
-        }
+        this.animation.update();
+        this.currentImage = this.animation.currentImage;
     }
 
     changeToFruit(onscreenSprites, collisionDetector) {

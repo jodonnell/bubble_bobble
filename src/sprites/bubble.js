@@ -13,6 +13,8 @@ class Bubble extends Sprite {
         this.trapped = false;
         this.fullyFormed = false;
         this.moveSpeed = 5;
+
+        this.shootOutAnimation = new LinearAnimation(7, ['smallestBubble', 'smallBubble', 'mediumBubble', 'bigBubble'], 1);
     }
 
     update(args) {
@@ -24,7 +26,7 @@ class Bubble extends Sprite {
 
         if (this.trapped) {
             if (this.timer % 10 === 0) {
-                this.changeFrame();
+                this.enemyWiggleAnimation();
             }
         }
 
@@ -87,23 +89,15 @@ class Bubble extends Sprite {
             this.x -= this.moveSpeed;
         }
 
-        if (this.timer % 7 === 0) {
-            this.changeFrame();
+        this.shootOutAnimation.update();
+        this.currentImage = this.shootOutAnimation.currentImage;
+        if (this.shootOutAnimation.isOver()) {
+            this.fullyFormed = true;
         }
     }
 
-    changeFrame() {
-        if (this.currentImage === 'smallestBubble') {
-            this.currentImage = 'smallBubble';
-        }
-        else if (this.currentImage === 'smallBubble') {
-            this.currentImage = 'mediumBubble';
-        }
-        else if (this.currentImage === 'mediumBubble') {
-            this.currentImage = 'bigBubble';
-            this.fullyFormed = true;
-        }
-        else if (this.currentImage === 'blueMagooTrappedRight') {
+    enemyWiggleAnimation() {
+        if (this.currentImage === 'blueMagooTrappedRight') {
             this.currentImage = 'blueMagooTrappedLeft';
         }
         else if (this.currentImage === 'blueMagooTrappedLeft') {
