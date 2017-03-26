@@ -9,7 +9,6 @@ class Bubble extends Sprite {
         this._playerNum = playerNum;
         this.currentImage = 'smallestBubble';
         this.direction = direction;
-        this.timer = 0;
         this.trapped = false;
         this.fullyFormed = false;
         this.moveSpeed = 5;
@@ -22,8 +21,6 @@ class Bubble extends Sprite {
         var onscreenSprites = args.onscreenSprites;
         var collisionDetector = args.collisionDetector;
         var collidedWith;
-
-        this.timer++;
 
         if (this.trapped) {
             this.currentImage = this.enemyWiggleAnimation.update();
