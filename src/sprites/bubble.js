@@ -27,30 +27,38 @@ class Bubble extends Sprite {
         }
 
         if (this.isFullyFormed()) {
-            this.floatUp(onscreenSprites);
-            var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
-            if (bubble) {
-                if (this.x > bubble.x) {
-                    this.x += 2;
-                }
-                else if (this.x < bubble.x) {
-                    this.x -= 2;
-                }
-                else {
-                    this.x += this._randomMove() * 2;
-                }
-                this.y += this._randomMove() * 2;
-            }
+            this.updateFullyFormed(collisionDetector, onscreenSprites);
         }
         else {
-            collidedWith = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
-            if (collidedWith) {
-                this.trap(onscreenSprites, collidedWith);
-                return;
-            }
-
-            this.shootOut(collisionDetector);
+            this.updateShootingOut(collidedWith, collisionDetector, onscreenSprites);
         }
+    }
+
+    updateFullyFormed(collisionDetector, onscreenSprites) {
+        this.floatUp(onscreenSprites);
+        var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+        if (bubble) {
+            if (this.x > bubble.x) {
+                this.x += 2;
+            }
+            else if (this.x < bubble.x) {
+                this.x -= 2;
+            }
+            else {
+                this.x += this._randomMove() * 2;
+            }
+            this.y += this._randomMove() * 2;
+        }
+    }
+
+    updateShootingOut(collidedWith, collisionDetector, onscreenSprites) {
+        collidedWith = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
+        if (collidedWith) {
+            this.trap(onscreenSprites, collidedWith);
+            return;
+        }
+
+        this.shootOut(collisionDetector);
     }
 
     _randomMove() {
