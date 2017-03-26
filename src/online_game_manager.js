@@ -39,13 +39,13 @@ class OnlineGameManager {
 
             this.gameController = new GameController(null, [bub, bob], enemies);
 
-            this._updateLoopInterval = setInterval(() => {
+            this._updateLoopInterval = this.setInterval(() => {
                 this._pdt = (new Date().getTime() - this._pdte) / 1000.0;
                 this._pdte = new Date().getTime();
                 this.gameController.update();
             }, 15);
 
-            this._physicsLoopInterval = setInterval(() => {
+            this._physicsLoopInterval = this.setInterval(() => {
                 var bub = this.gameController.onscreenSprites.players[0];
                 var bob = this.gameController.onscreenSprites.players[1];
                 var enemies = this.gameController.onscreenSprites.enemies;
@@ -64,6 +64,10 @@ class OnlineGameManager {
 
         }
         return this._players.length;
+    }
+
+    setInterval(func) {
+        window.setInterval(func);
     }
 }
 
