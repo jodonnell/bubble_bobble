@@ -1,8 +1,3 @@
-"use strict";
-
-//console.log(require('./sprite.js').Sprite);
-//var Sprite = require('./sprite.js');
-
 class Player extends Sprite {
     constructor(x, y, type, control) {
         super();

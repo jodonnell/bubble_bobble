@@ -1,5 +1,3 @@
-"use strict";
-
 class OnlineBlueMagoo extends Sprite {
     constructor(id, x, y, direction) {
         super();

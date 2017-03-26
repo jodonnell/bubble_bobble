@@ -1,5 +1,3 @@
-"use strict";
-
 class OnlineGame {
     constructor() {
         var socket = io.connect('http://192.168.0.105:3000');

@@ -1,5 +1,3 @@
-"use strict";
-
 class NetworkedControl extends Control {
     constructor(socket) {
         super();

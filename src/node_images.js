@@ -8,7 +8,7 @@ class NodeImages extends Images {
         var imagePath = "assets/" + imageFile;
 
         im.identify(imagePath, (err, features) => {
-            if (err) throw err
+            if (err) throw err;
             this[prop].width = features.width;
             this[prop].height = features.height;
             this[prop].ready = true;

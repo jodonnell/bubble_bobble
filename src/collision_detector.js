@@ -1,5 +1,3 @@
-"use strict";
-
 class CollisionDetector {
     isStandingOnObjects(sprite, objects) {
         for (var i = 0; i < objects.length; i++) {

@@ -1,5 +1,3 @@
-"use strict";
-
 class TitleScreen {
     constructor(control) {
         this._timer = 0;
@@ -10,8 +8,8 @@ class TitleScreen {
     }
 
     _clearBackground() {
-        gameContext.fillStyle = "#010000";
-        gameContext.fillRect(0, 0, gameInit.width, gameInit.height);
+        gameContext.fillStyle = '#010000';
+        gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
     }
 
     update(cancelId) {
@@ -65,17 +63,12 @@ class TitleScreen {
     }
 
     _drawMenuText(text, entry) {
-        gameContext.font = "bold 40px Comic Sans MS";
+        gameContext.font = 'bold 40px Comic Sans MS';
 
-        var centeredY = gameInit.height / 2;
+        var centeredY = GameInit.height / 2;
 
         centeredY += -40 + (entry * 50);
-        var centeredX = Math.floor(gameInit.width / 2 - gameContext.measureText(text).width / 2);
-
-        var car = function() {
-            var shit = 0;
-
-        };
+        var centeredX = Math.floor(GameInit.width / 2 - gameContext.measureText(text).width / 2);
 
         var color = '#FEFFFF';
         if (this._selectedEntry === entry && this._timer > 6) {

@@ -1,5 +1,3 @@
-"use strict";
-
 class LevelBuilder {
     constructor() {
         this.walls = [];

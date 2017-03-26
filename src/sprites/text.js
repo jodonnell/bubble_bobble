@@ -1,5 +1,3 @@
-"use strict";
-
 class Text extends Sprite {
     constructor(x, y, text) {
         super();
@@ -10,8 +8,8 @@ class Text extends Sprite {
     }
 
     draw() {
-        gameContext.font = "bold 25px Comic Sans MS";
-        gameContext.fillStyle = "green";
+        gameContext.font = 'bold 25px Comic Sans MS';
+        gameContext.fillStyle = 'green';
         gameContext.fillText(this.text, this.x, this.y);
     }
 

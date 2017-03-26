@@ -1,5 +1,3 @@
-"use strict";
-
 class InputControl extends Control {
     constructor(socket) {
         super();

@@ -1,5 +1,3 @@
-"use strict";
-
 class Wall extends Sprite {
     constructor(x, y) {
         super();

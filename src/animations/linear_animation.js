@@ -48,7 +48,7 @@ class LinearAnimation {
 
     isOver() {
         if (this.runTimes === null) {
-            throw "You cannot call isOver on an infinite animation";
+            throw 'You cannot call isOver on an infinite animation';
         }
 
         return this.runTimes === 0;

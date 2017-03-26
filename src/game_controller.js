@@ -1,11 +1,9 @@
-"use strict";
-
 class GameController {
     constructor(players, enemies) {
         this.onscreenSprites = new OnscreenSprites({players: players,
-                                                   enemies: enemies,
-                                                   bubbles: [],
-                                                   walls: (new LevelBuilder(this.walls)).walls});
+                                                    enemies: enemies,
+                                                    bubbles: [],
+                                                    walls: (new LevelBuilder(this.walls)).walls});
 
         this.collisionDetector = new CollisionDetector();
     }
@@ -22,7 +20,7 @@ class GameController {
     }
 
     _clearBackground() {
-        gameContext.fillStyle = "#010000";
+        gameContext.fillStyle = '#010000';
         gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
     }
 
