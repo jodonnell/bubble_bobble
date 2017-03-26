@@ -12,7 +12,7 @@ class OnlineBlueMagoo extends Sprite {
         this._coords = [];
 
         this.currentImage = 'blueMagooWalk';
-        this.timer = 0;
+        this.animation = new LinearAnimation(10, ['blueMagooWalk', 'blueMagooWalkLeg']);
     }
 
     update(args) {
@@ -40,32 +40,12 @@ class OnlineBlueMagoo extends Sprite {
             }
         }
 
-        this.timer++;
-
-        this.changeAnimation();
+        this.currentImage = this.animation.update();
     }
 
     addCoords(coordinate) {
         this._coords.push(coordinate);
     }
-
-    changeAnimation() {
-        if (this.timer !== 10) {
-            return;
-        }
-
-        if (this.currentImage === 'blueMagooWalk') {
-            this.currentImage = 'blueMagooWalkLeg';
-        }
-        else if (this.currentImage === 'blueMagooWalkLeg') {
-            this.currentImage = 'blueMagooWalk';
-        }
-        else if (this.currentImage === 'blueMagooTrapped') {
-            this.switchDirection();
-        }
-        this.timer = 0;
-    }
-
 
     moveRight() {
         this.direction = RIGHT;
