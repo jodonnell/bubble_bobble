@@ -32,19 +32,25 @@ class Bubble extends Sprite {
 
     updateFullyFormed(collisionDetector, onscreenSprites) {
         this.floatUp(onscreenSprites);
+        this.checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites);
+    }
+
+    checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites) {
         var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
-        if (bubble) {
-            if (this.x > bubble.x) {
-                this.x += 2;
-            }
-            else if (this.x < bubble.x) {
-                this.x -= 2;
-            }
-            else {
-                this.x += this._randomMove() * 2;
-            }
-            this.y += this._randomMove() * 2;
+        if (!bubble) {
+            return;
         }
+
+        if (this.x > bubble.x) {
+            this.x += 2;
+        }
+        else if (this.x < bubble.x) {
+            this.x -= 2;
+        }
+        else {
+            this.x += this._randomMove() * 2;
+        }
+        this.y += this._randomMove() * 2;
     }
 
     updateShootingOut(collisionDetector, onscreenSprites) {
