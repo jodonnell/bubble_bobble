@@ -12,11 +12,13 @@ class GameController {
 
     draw() {
         this._clearBackground();
+        this._eachSprite((sprite) => { sprite.draw(); });
+    }
 
-        var drawMethod = (i, j) => {
-            this.onscreenSprites.sprites[i][j].draw();
-        };
-        this._eachSprite(drawMethod);
+    update() {
+        this._eachSprite((sprite) => {
+            sprite.update({collisionDetector: this.collisionDetector, onscreenSprites: this.onscreenSprites});
+        });
     }
 
     _clearBackground() {
@@ -24,20 +26,12 @@ class GameController {
         gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
     }
 
-    update() {
-        var updateMethod = (i, j) => {
-            this.onscreenSprites.sprites[i][j].update({collisionDetector: this.collisionDetector, onscreenSprites: this.onscreenSprites});
-        };
-        this._eachSprite(updateMethod);
-    }
-
     _eachSprite(spriteAction) {
-        var i, j, sprites;
-
-        for (i = 0; i < this.onscreenSprites.sprites.length; i++) {
-            sprites = this.onscreenSprites.sprites[i];
-            for (j = 0; j < sprites.length; j++) {
-                spriteAction(i, j);
+        for (let i = 0; i < this.onscreenSprites.sprites.length; i++) {
+            const sprites = this.onscreenSprites.sprites[i];
+            for (let j = 0; j < sprites.length; j++) {
+                const sprite = this.onscreenSprites.sprites[i][j];
+                spriteAction(sprite);
             }
         }
     }
