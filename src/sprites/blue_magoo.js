@@ -14,7 +14,7 @@ class BlueMagoo extends Sprite {
         this.jumping = 0;
 
         this.currentImage = 'blueMagooWalk';
-        this.timer = 0;
+        this.animation = new LinearAnimation(10, ['blueMagooWalk', 'blueMagooWalkLeg']);
     }
 
     update(args) {
@@ -23,9 +23,7 @@ class BlueMagoo extends Sprite {
         var followY = args.onscreenSprites.players[0].y;
         var onscreenSprites = args.onscreenSprites;
 
-        this.timer++;
-
-        this.changeAnimation();
+        this.currentImage = this.animation.update();
 
         if (this.isJumping()) {
             this.y -= 3;
@@ -40,23 +38,6 @@ class BlueMagoo extends Sprite {
         else {
             this.y += 3;
         }
-    }
-
-    changeAnimation() {
-        if (this.timer !== 10) {
-            return;
-        }
-
-        if (this.currentImage === 'blueMagooWalk') {
-            this.currentImage = 'blueMagooWalkLeg';
-        }
-        else if (this.currentImage === 'blueMagooWalkLeg') {
-            this.currentImage = 'blueMagooWalk';
-        }
-        else if (this.currentImage === 'blueMagooTrapped') {
-            this.switchDirection();
-        }
-        this.timer = 0;
     }
 
     shouldTrack() {
