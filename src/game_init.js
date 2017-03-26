@@ -8,6 +8,14 @@ class GameInit {
         }
     }
 
+    static get width() {
+        return 800;
+    }
+
+    static get height() {
+        return 600;
+    }
+
     createCanvas() {
         this.width = 800;
         this.height = 600;

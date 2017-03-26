@@ -1,9 +1,7 @@
 "use strict";
 
 class GameController {
-    constructor(gameInit, players, enemies) {
-        this.gameInit = gameInit;
-
+    constructor(players, enemies) {
         this.onscreenSprites = new OnscreenSprites({players: players,
                                                    enemies: enemies,
                                                    bubbles: [],
@@ -23,7 +21,7 @@ class GameController {
 
     _clearBackground() {
         gameContext.fillStyle = "#010000";
-        gameContext.fillRect(0, 0, this.gameInit.width, this.gameInit.height);
+        gameContext.fillRect(0, 0, GameInit.width, GameInit.height);
     }
 
     update() {
