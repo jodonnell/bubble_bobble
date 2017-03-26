@@ -18,18 +18,15 @@ class Bubble extends Sprite {
     }
 
     update(args) {
-        var onscreenSprites = args.onscreenSprites;
-        var collisionDetector = args.collisionDetector;
-
         if (this.trapped) {
             this.currentImage = this.enemyWiggleAnimation.update();
         }
 
         if (this.isFullyFormed()) {
-            this.updateFullyFormed(collisionDetector, onscreenSprites);
+            this.updateFullyFormed(args.collisionDetector, args.onscreenSprites);
         }
         else {
-            this.updateShootingOut(collisionDetector, onscreenSprites);
+            this.updateShootingOut(args.collisionDetector, args.onscreenSprites);
         }
     }
 
