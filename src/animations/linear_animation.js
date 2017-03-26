@@ -9,12 +9,15 @@ class LinearAnimation {
     }
 
     get currentImage() {
+        if (this.runTimes === 0) {
+            this.currentFrame = this.frames.length - 1;
+        }
+
         return this.frames[this.currentFrame];
     }
 
     animationEnded() {
         this.currentFrame = 0;
-        debugger
         if (this.runTimes !== null) {
             this.runTimes--;
         }
@@ -30,17 +33,17 @@ class LinearAnimation {
 
     update() {
         if (this.runTimes === 0) {
-            return;
+            return this.currentImage;
         }
 
         this.tick++;
         if (this.tick !== this.speed) {
-            return;
+            return this.currentImage;
         }
 
         this.tick = 0;
         this.nextFrame();
-
+        return this.currentImage;
     }
 
     isOver() {

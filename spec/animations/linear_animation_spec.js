@@ -43,12 +43,17 @@ describe("LinearAnimation", function () {
             animation.runTimes = 1;
         });
 
-        it('can just run once and call the callback', function() {
+        it('can just run once and ends', function() {
             advanceOneLoop();
             advanceOneFrame();
-            expect(animation.currentImage).toBe('deadEnemyRight');
+            expect(animation.currentImage).toBe('deadEnemyTop');
+        });
+
+        it('is over', function() {
+            advanceOneLoop();
             expect(animation.isOver()).toBe(true);
         });
+
     });
 
     function advanceOneFrame() {

@@ -15,6 +15,7 @@ class Bubble extends Sprite {
         this.moveSpeed = 5;
 
         this.shootOutAnimation = new LinearAnimation(7, ['smallestBubble', 'smallBubble', 'mediumBubble', 'bigBubble'], 1);
+        this.enemyWiggleAnimation = new LinearAnimation(10, ['blueMagooTrappedRight', 'blueMagooTrappedLeft']);
     }
 
     update(args) {
@@ -25,9 +26,7 @@ class Bubble extends Sprite {
         this.timer++;
 
         if (this.trapped) {
-            if (this.timer % 10 === 0) {
-                this.enemyWiggleAnimation();
-            }
+            this.currentImage = this.enemyWiggleAnimation.update();
         }
 
         if (this.isFullyFormed()) {
@@ -89,19 +88,9 @@ class Bubble extends Sprite {
             this.x -= this.moveSpeed;
         }
 
-        this.shootOutAnimation.update();
-        this.currentImage = this.shootOutAnimation.currentImage;
+        this.currentImage = this.shootOutAnimation.update();
         if (this.shootOutAnimation.isOver()) {
             this.fullyFormed = true;
-        }
-    }
-
-    enemyWiggleAnimation() {
-        if (this.currentImage === 'blueMagooTrappedRight') {
-            this.currentImage = 'blueMagooTrappedLeft';
-        }
-        else if (this.currentImage === 'blueMagooTrappedLeft') {
-            this.currentImage = 'blueMagooTrappedRight';
         }
     }
 
@@ -113,7 +102,6 @@ class Bubble extends Sprite {
         this.x = collidedWith.x;
         this.y = collidedWith.y;
         this.trapped = true;
-        this.currentImage = 'blueMagooTrappedRight';
         this.fullyFormed = true;
 
         onscreenSprites.enemies.remove(collidedWith);
