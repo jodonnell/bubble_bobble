@@ -1,13 +1,11 @@
 import {LEFT_BOUND, RIGHT_BOUND} from './constants';
+import _ from 'lodash';
 
 class CollisionDetector {
     isStandingOnObjects(sprite, objects) {
-        for (let i = 0; i < objects.length; i++) {
-            if (this._xMatchUp(sprite, objects[i]) && this._doesBottomCollide(sprite, objects[i])) {
-                return true;
-            }
-        }
-        return false;
+        return _.find(objects, (object) => {
+            return this._xMatchUp(sprite, object) && this._doesBottomCollide(sprite, object);
+        });
     }
 
     noWallToRight(sprite) {
@@ -40,13 +38,9 @@ class CollisionDetector {
     }
 
     doesCollideWithSprites(sprite, sprites) {
-        for (let i = 0; i < sprites.length; i++) {
-            if (this.doesCollideWith(sprite, sprites[i])) {
-                return sprites[i];
-            }
-        }
-
-        return false;
+        return _.find(sprites, (otherSprite) => {
+            return this.doesCollideWith(sprite, otherSprite);
+        });
     }
 
     doesCollideWith(spriteA, spriteB) {
