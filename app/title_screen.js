@@ -44,8 +44,6 @@ class TitleScreen {
             cancelAnimationFrame(cancelId);
             new SoloGame();
         }
-        else if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 1) {
-        }
     }
 
     updateTimer() {
