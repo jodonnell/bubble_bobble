@@ -7,10 +7,14 @@ class LevelBuilder {
     }
 
     buildLevel1() {
-        let i;
-        let k;
-        for (i = 0; i < 2; i++) {
-            for (k = 0; k < 27; k++)  {
+        this.buildLeftAndRightWalls();
+        this.buildCeilingAndFloorWalls();
+        this.buildFloatingFloors();
+    }
+
+    buildLeftAndRightWalls() {
+        for (let i = 0; i < 2; i++) {
+            for (let k = 0; k < 27; k++)  {
                 if (i === 0) {
                     this.walls.push(new Wall(0, k * 23));
                 }
@@ -19,9 +23,11 @@ class LevelBuilder {
                 }
             }
         }
+    }
 
-        for (i = 0; i < 18; i++) {
-            for (k = 0; k < 2; k++)  {
+    buildCeilingAndFloorWalls() {
+        for (let i = 0; i < 18; i++) {
+            for (let k = 0; k < 2; k++)  {
                 if (k === 0) {
                     this.walls.push(new Wall(i * 45, 0));
                 }
@@ -30,18 +36,18 @@ class LevelBuilder {
                 }
             }
         }
+    }
 
-
-        for (i = 1; i < 17; i++) {
+    buildFloatingFloors() {
+        for (let i = 1; i < 17; i++) {
             if (i === 2 || i === 3 || i === 14 || i === 15) {
                 continue;
             }
-            for (k = 1; k < 4; k++)  {
+            for (let k = 1; k < 4; k++)  {
                 this.walls.push(new Wall(i * 45, k * 120 + 90));
             }
         }
     }
-
 }
 
 export default LevelBuilder;
