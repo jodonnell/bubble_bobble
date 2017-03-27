@@ -1,4 +1,4 @@
-import Stats from '../lib/stats';
+import Stats from './stats';
 
 class SceneCreator {
     static stats() {
