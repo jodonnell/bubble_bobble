@@ -1,13 +1,13 @@
-"use strict";
+import OnscreenSprites from '../app/onscreen_sprites';
 
-describe("OnscreenSprites", function () {
+describe('OnscreenSprites', function () {
     var onscreenSprites;
 
     beforeEach(function () {
         onscreenSprites = new OnscreenSprites({enemies: [1, 2, 3]});
     });
 
-    it("should have 3 enemies", sinon.test(function () {
+    it('should have 3 enemies', function () {
         expect(onscreenSprites.enemies.length).toBe(3);
-    }));
+    });
 });

@@ -1,6 +1,5 @@
 import GameInit from './game_init';
 import SoloGame from './solo_game';
-import OnlineGame from './online_game';
 
 class TitleScreen {
     constructor(control) {
@@ -8,7 +7,7 @@ class TitleScreen {
         this._control = control;
         this._selectedEntry = 0;
 
-        this.options = ['Solo Game', 'Online Game'];
+        this.options = ['Solo Game', 'Settings'];
     }
 
     _clearBackground() {
@@ -46,8 +45,6 @@ class TitleScreen {
             new SoloGame();
         }
         else if ((this._control.isShooting() || this._control.isJumping()) && this._selectedEntry === 1) {
-            cancelAnimationFrame(cancelId);
-            new OnlineGame();
         }
     }
 

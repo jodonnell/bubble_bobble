@@ -1,6 +1,10 @@
-"use strict";
+import Bubble from '../../app/sprites/bubble';
+import BlueMagoo from '../../app/sprites/blue_magoo';
+import OnscreenSprites from '../../app/onscreen_sprites';
+import CollisionDetector from '../../app/collision_detector';
+import {RIGHT, LEFT, RIGHT_BOUND} from '../../app/constants';
 
-describe("Bubble", function () {
+describe('Bubble', function () {
     var args, bubble;
 
     beforeEach(function () {
@@ -9,7 +13,7 @@ describe("Bubble", function () {
         args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
 
-    it("should go the right way", function () {
+    it('should go the right way', function () {
         bubble.update(args);
         expect(bubble.x).toBeGreaterThan(100);
 
@@ -18,7 +22,7 @@ describe("Bubble", function () {
         expect(bubble.x).toBeLessThan(100);
     });
 
-    it("will go up after it is fully formed", function () {
+    it('will go up after it is fully formed', function () {
         while (!bubble.isFullyFormed()) {
             bubble.update(args);
         }
@@ -27,7 +31,7 @@ describe("Bubble", function () {
         expect(bubble.y).toBeLessThan(100);
     });
 
-    it("should move to the top middle of the screen", function () {
+    it('should move to the top middle of the screen', function () {
         bubble.fullyFormed = true;
         bubble.x = 360;
         for (var i = 0; i < 100; i++) {
@@ -40,7 +44,7 @@ describe("Bubble", function () {
         expect(bubble.y).toBe(70);
     });
 
-    it("should get trapped when hit by a bubble", function () {
+    it('should get trapped when hit by a bubble', function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT));
         bubble.update(args);
         bubble.update(args);
@@ -50,21 +54,21 @@ describe("Bubble", function () {
         expect(args.onscreenSprites.enemies.length).toBe(0);
     });
 
-    it("should only trap enemies if the bubble is empty", function () {
+    it('should only trap enemies if the bubble is empty', function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT), new BlueMagoo(1, 100, 100, RIGHT));
         bubble.update(args);
         bubble.update(args);
         expect(args.onscreenSprites.enemies.length).toBe(1);
     });
 
-    it("should move to the trapped enemies position", function () {
+    it('should move to the trapped enemies position', function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 105, 105, RIGHT));
         bubble.update(args);
         expect(bubble.x).toBe(105);
         expect(bubble.y).toBe(105);
     });
 
-    it("should animate a trapped enemy", function () {
+    it('should animate a trapped enemy', function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 110, 110, RIGHT));
         bubble.trap(args.onscreenSprites, args.onscreenSprites.enemies[0]);
 
@@ -77,12 +81,12 @@ describe("Bubble", function () {
         expect(bubble.getCurrentImage()).toBe('blueMagooTrappedLeft');
     });
 
-    it("should be able to pop", function () {
+    it('should be able to pop', function () {
         bubble.pop(args.onscreenSprites);
         expect(args.onscreenSprites.bubbles.length).toBe(0);
     });
 
-    it("should turn a trapped popped bubble into dead enemy", function () {
+    it('should turn a trapped popped bubble into dead enemy', function () {
         args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT));
         bubble.trap(args.onscreenSprites, args.onscreenSprites.enemies[0]);
         bubble.pop(args.onscreenSprites);
@@ -91,13 +95,13 @@ describe("Bubble", function () {
         expect(args.onscreenSprites.deadEnemies[0].y).toBe(100);
     });
 
-    it("should be blocked by walls", function () {
+    it('should be blocked by walls', function () {
         bubble.x = RIGHT_BOUND - bubble.width();
         bubble.update(args);
         expect(bubble.x).toBe(RIGHT_BOUND - bubble.width());
     });
 
-    it("bubbles should repel each other", function () {
+    it('bubbles should repel each other', function () {
         bubble.fullyFormed = true;
         bubble.x = 400;
         bubble.y = 70;

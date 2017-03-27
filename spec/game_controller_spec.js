@@ -1,6 +1,10 @@
-"use strict";
+import Wall from '../app/sprites/wall';
+import BlueMagoo from '../app/sprites/blue_magoo';
+import Player from '../app/sprites/player';
+import GameController from '../app/game_controller';
+import Control from '../app/control';
 
-describe("GameController", function () {
+describe('GameController', function () {
     var gameController;
 
     beforeEach(function () {
@@ -8,7 +12,7 @@ describe("GameController", function () {
         gameController = new GameController([bub]);
     });
 
-    it("can have enemies land on platforms", function () {
+    it('can have enemies land on platforms', function () {
         var blueMagoo = new BlueMagoo(0, 0, 0);
         gameController.onscreenSprites.enemies.push(blueMagoo);
 

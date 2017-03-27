@@ -7,8 +7,9 @@ class BrowserImages extends Images {
 
         this[prop] = new Image();
         this[prop].src = 'assets/' + imageFile;
-        if (prop === 'bubRight')
+        if (prop === 'bubRight') {
             this[prop].onload = this._callback;
+        }
     }
 }
 

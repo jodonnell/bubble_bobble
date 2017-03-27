@@ -1,6 +1,9 @@
-"use strict";
+import BlueMagoo from '../../app/sprites/blue_magoo';
+import CollisionDetector from '../../app/collision_detector';
+import OnscreenSprites from '../../app/onscreen_sprites';
+import {LEFT, RIGHT} from '../../app/constants';
 
-describe("Blue Magoos", function () {
+describe('Blue Magoos', function () {
     var collisionDetector;
     var onscreenSprites;
 
@@ -9,12 +12,12 @@ describe("Blue Magoos", function () {
         onscreenSprites = new OnscreenSprites();
     });
 
-    it("should move towards point if its not falling", sinon.test(function () {
+    it('should move towards point if its not falling', function () {
         var blueMagoo = new BlueMagoo(1, 100, 0, 0);
 
-        this.stub(blueMagoo, 'shouldTrack').returns(true);
-        this.stub(collisionDetector, 'isStandingOnObjects').returns(true);
-        
+        sinon.stub(blueMagoo, 'shouldTrack').returns(true);
+        sinon.stub(collisionDetector, 'isStandingOnObjects').returns(true);
+
         onscreenSprites.players[0].x = 105;
         blueMagoo.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(blueMagoo.x).toBeGreaterThan(100);
@@ -22,14 +25,13 @@ describe("Blue Magoos", function () {
         onscreenSprites.players[0].x = 95;
         blueMagoo.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(blueMagoo.x).toBe(100);
-    }));
+    });
 
-    it("should switch direction if it goes beyond a bound", sinon.test(function () {
+    it('should switch direction if it goes beyond a bound', function () {
         var blueMagoo = new BlueMagoo(1, 48, 2, 0);
 
-        this.stub(blueMagoo, 'shouldTrack').returns(false);
-        this.stub(collisionDetector, 'isStandingOnObjects').returns(true);
-
+        sinon.stub(blueMagoo, 'shouldTrack').returns(false);
+        sinon.stub(collisionDetector, 'isStandingOnObjects').returns(true);
 
         onscreenSprites.players[0].y = 2;
 
@@ -43,39 +45,39 @@ describe("Blue Magoos", function () {
         blueMagoo.x = 752 - blueMagoo.width();
         blueMagoo.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(blueMagoo.direction).toBe(LEFT);
-    }));
+    });
 
 
-    it("should jump if platform is above and the tracking Y is above it", sinon.test(function () {
+    it('should jump if platform is above and the tracking Y is above it', function () {
         var blueMagoo = new BlueMagoo(1, 100, 100, 0);
-        this.stub(blueMagoo, 'shouldTrack').returns(true);
-        this.stub(collisionDetector, 'areSpritesAboveWithin').returns(true);
-        this.stub(collisionDetector, 'isStandingOnObjects').returns(true);
-        
+        sinon.stub(blueMagoo, 'shouldTrack').returns(true);
+        sinon.stub(collisionDetector, 'areSpritesAboveWithin').returns(true);
+        sinon.stub(collisionDetector, 'isStandingOnObjects').returns(true);
+
         onscreenSprites.players[0].x = 100;
         onscreenSprites.players[0].y = 0;
         blueMagoo.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(blueMagoo.isJumping()).toBeTruthy();
-    }));
+    });
 
-    it("should not jump if tracking Y is above it but now platform", sinon.test(function () {
+    it('should not jump if tracking Y is above it but now platform', function () {
         var blueMagoo = new BlueMagoo(1, 100, 100, 0);
-        this.stub(blueMagoo, 'shouldTrack').returns(true);
-        this.stub(collisionDetector, 'areSpritesAboveWithin').returns(false);
+        sinon.stub(blueMagoo, 'shouldTrack').returns(true);
+        sinon.stub(collisionDetector, 'areSpritesAboveWithin').returns(false);
 
         onscreenSprites.players[0].x = 100;
         onscreenSprites.players[0].y = 0;
         blueMagoo.update({collisionDetector: collisionDetector, onscreenSprites: onscreenSprites});
         expect(blueMagoo.isJumping()).toBeFalsy();
-    }));
+    });
 
-    it("should fall", sinon.test(function () {
+    it('should fall', function () {
         var blueMagoo = new BlueMagoo(1, 100, 100, 0);
         onscreenSprites.players[0].x = 0;
         onscreenSprites.players[0].y = 0;
 
         blueMagoo.update({onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()});
         expect(blueMagoo.y).toBeGreaterThan(100);
-    }));
+    });
 
 });

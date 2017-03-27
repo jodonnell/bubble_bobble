@@ -3,6 +3,7 @@ class Images {
         this._props = [];
         this._callback = callback;
         this._numImages = 61;
+        this.loaded = false;
 
         this.bub();
         this.bob();

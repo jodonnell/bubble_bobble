@@ -1,6 +1,10 @@
-"use strict";
+import DeadEnemy from '../../app/sprites/dead_enemy';
+import Wall from '../../app/sprites/wall';
+import OnscreenSprites from '../../app/onscreen_sprites';
+import CollisionDetector from '../../app/collision_detector';
+import {LEFT, RIGHT, RIGHT_BOUND} from '../../app/constants';
 
-describe("Dead Enemy", function () {
+describe('Dead Enemy', function () {
     var args, deadEnemy;
 
     beforeEach(function () {
@@ -8,7 +12,7 @@ describe("Dead Enemy", function () {
         args = {collisionDetector: new CollisionDetector(), onscreenSprites: new OnscreenSprites({deadEnemies: [deadEnemy]})};
     });
 
-    it("should animate correctly", function () {
+    it('should animate correctly', function () {
         expect(deadEnemy.currentImage).toBe('deadEnemyRight');
         nextFrame();
         expect(deadEnemy.currentImage).toBe('deadEnemyBottom');
@@ -20,7 +24,7 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.currentImage).toBe('deadEnemyRight');
     });
 
-    it("should travel in a parabola", function () {
+    it('should travel in a parabola', function () {
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(102);
         expect(deadEnemy.y).toBe(96);
@@ -30,7 +34,7 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.y).toBe(92);
     });
 
-    it("should be able to fly left too", function () {
+    it('should be able to fly left too', function () {
         deadEnemy.direction = LEFT;
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(98);
@@ -41,7 +45,7 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.y).toBe(92);
     });
 
-    it("should bounce off a wall", function () {
+    it('should bounce off a wall', function () {
         deadEnemy.x = RIGHT_BOUND;
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(RIGHT_BOUND - 2);
@@ -52,7 +56,7 @@ describe("Dead Enemy", function () {
         expect(deadEnemy.y).toBe(92);
     });
 
-    it("should become a fruit when it hits the ground", function () {
+    it('should become a fruit when it hits the ground', function () {
         for (var i = 0; i < 300; i++) {
             if (args.onscreenSprites.deadEnemies.length === 0) {
                 break;
