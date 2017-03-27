@@ -9,11 +9,11 @@ import OnscreenSprites from '../../app/onscreen_sprites';
 import {RIGHT, LEFT} from '../../app/constants';
 
 describe('Player', function () {
-    var player, args;
+    let player, args;
 
     beforeEach(function () {
         player = new Player(100, 100, 'bub', new Control());
-        var onscreenSprites = new OnscreenSprites({players: [player]});
+        let onscreenSprites = new OnscreenSprites({players: [player]});
         args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
 
@@ -40,7 +40,7 @@ describe('Player', function () {
     });
 
     it('should land on a floor after a jump', function () {
-        var i;
+        let i;
         args.onscreenSprites.walls = [new Wall(95, player.bottomSide())];
 
         sinon.stub(player._control, 'isJumping').returns(true);
@@ -64,7 +64,7 @@ describe('Player', function () {
         player.update(args);
         expect(player.y).toBe(92);
 
-        for (var i = 0; i < 50; i++) {
+        for (let i = 0; i < 50; i++) {
             player.update(args);
         }
 
@@ -74,18 +74,18 @@ describe('Player', function () {
     it('cannot jump twice', function () {
         sinon.stub(player._control, 'isShooting').returns(true);
 
-        for (var i = 0; i < 44; i++) {
+        for (let i = 0; i < 44; i++) {
             player.update(args);
         }
 
-        var oldY = player.y;
+        let oldY = player.y;
         player.update(args);
         expect(player.y).toBeGreaterThan(oldY);
     });
 
     it('changes to shooting animation', function () {
         sinon.stub(player._control, 'isShooting').returns(true);
-        var spy = sinon.spy(player._playerAnimations, 'shoot');
+        let spy = sinon.spy(player._playerAnimations, 'shoot');
         player.update(args);
         expect(spy.calledOnce).toBeTruthy();
     });
@@ -104,7 +104,7 @@ describe('Player', function () {
         player.update(args);
         expect(args.onscreenSprites.bubbles.length).toBe(1);
 
-        for (var i = 0; i < 34; i++) {
+        for (let i = 0; i < 34; i++) {
             player.update(args);
         }
 
@@ -121,7 +121,7 @@ describe('Player', function () {
         args.onscreenSprites.bubbles.push(new Bubble(1, 100, player.y - 10, RIGHT));
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
-        var spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
+        let spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
         sinon.stub(player._control, 'isJumping').returns(true);
 
         player.update(args);
@@ -133,7 +133,7 @@ describe('Player', function () {
         args.onscreenSprites.bubbles[0].x -= args.onscreenSprites.bubbles[0].width() / 2;
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
-        var spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
+        let spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
         sinon.stub(player._control, 'isJumping').returns(true);
 
         player.update(args);
@@ -144,19 +144,19 @@ describe('Player', function () {
         args.onscreenSprites.bubbles.push(new Bubble(1, 100, player.bottomSide() + 1, RIGHT));
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
-        var spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
+        let spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
 
         player.update(args);
         expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
     });
 
     it('does not pop a bubble if colliding with it from the right side', function () {
-        var bubble = new Bubble(1, player.rightSide() + 1, player.y, RIGHT);
+        let bubble = new Bubble(1, player.rightSide() + 1, player.y, RIGHT);
         args.onscreenSprites.bubbles.push(bubble);
         bubble.fullyFormed = true;
 
         sinon.stub(player._control, 'isHoldingRight').returns(true);
-        var spy = sinon.spy(bubble, 'pop');
+        let spy = sinon.spy(bubble, 'pop');
 
         player.update(args);
         expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeFalsy();
@@ -164,15 +164,15 @@ describe('Player', function () {
     });
 
     it('does not pop a bubble if colliding with it from the left side', function () {
-        var bubble = new Bubble(1, player.x, player.y, LEFT);
+        let bubble = new Bubble(1, player.x, player.y, LEFT);
         args.onscreenSprites.bubbles.push(bubble);
         bubble.x -= bubble.width() - 1;
         bubble.fullyFormed = true;
 
-        var oldX = bubble.x;
+        let oldX = bubble.x;
 
         sinon.stub(player._control, 'isHoldingLeft').returns(true);
-        var spy = sinon.spy(bubble, 'pop');
+        let spy = sinon.spy(bubble, 'pop');
 
         player.update(args);
         expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeFalsy();
@@ -181,7 +181,7 @@ describe('Player', function () {
     });
 
     it('starts the death animation', function () {
-        var spy = sinon.spy(player._playerAnimations, 'die');
+        let spy = sinon.spy(player._playerAnimations, 'die');
         args.onscreenSprites.enemies = [new BlueMagoo(1, 100, 100, RIGHT)];
         player.update(args);
         expect(player.isDead()).toBeTruthy();
@@ -190,12 +190,12 @@ describe('Player', function () {
 
     it('comes back from the dead after some time', function () {
         player.x = 200;
-        var magoo = new BlueMagoo(1, 200, 100, RIGHT);
+        let magoo = new BlueMagoo(1, 200, 100, RIGHT);
         args.onscreenSprites.enemies.push(magoo);
         player.update(args);
         args.onscreenSprites.enemies.remove(magoo);
 
-        for (var i=0; i < 80; i++) {
+        for (let i=0; i < 80; i++) {
             player.update(args);
         }
         expect(player.isDead()).toBeFalsy();
@@ -213,7 +213,7 @@ describe('Player', function () {
 
     it('invinciblity wears off', function () {
         player.invincible = true;
-        for (var i=0; i < 200; i++) {
+        for (let i=0; i < 200; i++) {
             player.update(args);
         }
         expect(player.isInvincible()).toBeFalsy();
@@ -221,7 +221,7 @@ describe('Player', function () {
 
     it('should blink if invincible', function () {
         player.invincible = true;
-        for (var i=0; i < 200; i++) {
+        for (let i=0; i < 200; i++) {
             player.update(args);
         }
         expect(player.isInvincible()).toBeFalsy();

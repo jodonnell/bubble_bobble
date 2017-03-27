@@ -39,7 +39,7 @@ class Bubble extends Sprite {
     }
 
     checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites) {
-        var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+        let bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
         if (!bubble) {
             return;
         }
@@ -67,7 +67,7 @@ class Bubble extends Sprite {
     }
 
     _randomMove() {
-        var randomNumber = Math.floor(Math.random()*2);
+        let randomNumber = Math.floor(Math.random()*2);
         if (randomNumber === 1) {
             return -1;
         }

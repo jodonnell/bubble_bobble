@@ -1,7 +1,7 @@
 import OnscreenSprites from '../app/onscreen_sprites';
 
 describe('OnscreenSprites', function () {
-    var onscreenSprites;
+    let onscreenSprites;
 
     beforeEach(function () {
         onscreenSprites = new OnscreenSprites({enemies: [1, 2, 3]});

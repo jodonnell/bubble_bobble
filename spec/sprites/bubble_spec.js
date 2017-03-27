@@ -5,11 +5,11 @@ import CollisionDetector from '../../app/collision_detector';
 import {RIGHT, LEFT, RIGHT_BOUND} from '../../app/constants';
 
 describe('Bubble', function () {
-    var args, bubble;
+    let args, bubble;
 
     beforeEach(function () {
         bubble = new Bubble(1, 100, 100, RIGHT);
-        var onscreenSprites = new OnscreenSprites({bubbles: [bubble]});
+        let onscreenSprites = new OnscreenSprites({bubbles: [bubble]});
         args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
     });
 
@@ -34,7 +34,7 @@ describe('Bubble', function () {
     it('should move to the top middle of the screen', function () {
         bubble.fullyFormed = true;
         bubble.x = 360;
-        for (var i = 0; i < 100; i++) {
+        for (let i = 0; i < 100; i++) {
             bubble.update(args);
         }
 
@@ -74,7 +74,7 @@ describe('Bubble', function () {
 
         bubble.update(args);
         expect(bubble.getCurrentImage()).toBe('blueMagooTrappedRight');
-        for (var i = 0; i < 15; i++) {
+        for (let i = 0; i < 15; i++) {
             bubble.update(args);
         }
 
@@ -106,7 +106,7 @@ describe('Bubble', function () {
         bubble.x = 400;
         bubble.y = 70;
 
-        var secondBubble = new Bubble(1, bubble.x - 1, bubble.y);
+        let secondBubble = new Bubble(1, bubble.x - 1, bubble.y);
         secondBubble.fullyFormed = true;
         args.onscreenSprites.bubbles.push(secondBubble);
         bubble.update(args);

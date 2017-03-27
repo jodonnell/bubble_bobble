@@ -17,7 +17,7 @@ class SceneCreator {
     static create(controller) {
         (function animationLoop(){
             window.stats.begin();
-            var cancelId = window.requestAnimFrame(animationLoop);
+            let cancelId = window.requestAnimFrame(animationLoop);
             controller.update(cancelId);
             controller.draw();
 

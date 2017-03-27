@@ -1,7 +1,7 @@
 import Wall from '../../app/sprites/wall';
 
 describe('Wall', function () {
-    var wall;
+    let wall;
 
     beforeEach(function () {
         wall = new Wall(100, 200);

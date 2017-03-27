@@ -20,10 +20,10 @@ class BlueMagoo extends Sprite {
     }
 
     update(args) {
-        var collisionDetector = args.collisionDetector;
-        var followX = args.onscreenSprites.players[0].x;
-        var followY = args.onscreenSprites.players[0].y;
-        var onscreenSprites = args.onscreenSprites;
+        let collisionDetector = args.collisionDetector;
+        let followX = args.onscreenSprites.players[0].x;
+        let followY = args.onscreenSprites.players[0].y;
+        let onscreenSprites = args.onscreenSprites;
 
         this.currentImage = this.animation.update();
 
@@ -86,7 +86,7 @@ class BlueMagoo extends Sprite {
     }
 
     getCurrentImage() {
-        var imageName = this.currentImage;
+        let imageName = this.currentImage;
         if (this.direction === LEFT) {
             imageName += 'Left';
         }

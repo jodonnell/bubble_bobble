@@ -1,7 +1,7 @@
 import BrowserImages from '../app/browser_images';
 import GameInit from '../app/game_init';
 
-var loaded = 0;
+let loaded = 0;
 window.gameImages = new BrowserImages(function() {
     loaded = 1;
 });

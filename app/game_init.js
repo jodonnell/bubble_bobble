@@ -18,10 +18,10 @@ class GameInit {
         this.width = 800;
         this.height = 600;
 
-        var left = this.viewportWidth() / 2 - this.width / 2;
-        var top = this.viewportHeight() / 2 - this.height / 2;
+        let left = this.viewportWidth() / 2 - this.width / 2;
+        let top = this.viewportHeight() / 2 - this.height / 2;
 
-        var canvas = document.createElement('canvas');
+        let canvas = document.createElement('canvas');
         canvas.id = 'gameCanvas';
         canvas.width = this.width;
         canvas.height = this.height;
@@ -37,7 +37,7 @@ class GameInit {
     }
 
     viewportWidth() {
-        var w = window,
+        let w = window,
             e = document.documentElement,
             g = document.getElementsByTagName('body')[0];
 
@@ -45,7 +45,7 @@ class GameInit {
     }
 
     viewportHeight() {
-        var w = window,
+        let w = window,
             e = document.documentElement,
             g = document.getElementsByTagName('body')[0];
 
@@ -53,7 +53,7 @@ class GameInit {
     }
 
     destroyCanvas() {
-        var canvas = document.getElementById('gameCanvas');
+        let canvas = document.getElementById('gameCanvas');
         document.body.removeChild(canvas);
     }
 }

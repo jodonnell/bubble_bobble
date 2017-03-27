@@ -2,7 +2,7 @@ import {LEFT_BOUND, RIGHT_BOUND} from './constants';
 
 class CollisionDetector {
     isStandingOnObjects(sprite, objects) {
-        for (var i = 0; i < objects.length; i++) {
+        for (let i = 0; i < objects.length; i++) {
             if (this._xMatchUp(sprite, objects[i]) && this._doesBottomCollide(sprite, objects[i])) {
                 return true;
             }
@@ -27,9 +27,9 @@ class CollisionDetector {
     }
 
     areSpritesAboveWithin(sprite, sprites, distance) {
-        for (var i = 0; i < sprites.length; i++) {
+        for (let i = 0; i < sprites.length; i++) {
             if (this._xMatchUp(sprite, sprites[i])) {
-                var yWithin = sprites[i].y <= sprite.bottomSide() - 1 &&
+                let yWithin = sprites[i].y <= sprite.bottomSide() - 1 &&
                     sprites[i].y >= sprite.bottomSide() - 1 - distance;
                 if (yWithin) {
                     return true;
@@ -40,7 +40,7 @@ class CollisionDetector {
     }
 
     doesCollideWithSprites(sprite, sprites) {
-        for (var i = 0; i < sprites.length; i++) {
+        for (let i = 0; i < sprites.length; i++) {
             if (this.doesCollideWith(sprite, sprites[i])) {
                 return sprites[i];
             }

@@ -197,7 +197,7 @@ class PlayerAnimations {
     }
 
     getImageName() {
-        var imageName = this.prefix + this.currentImage;
+        let imageName = this.prefix + this.currentImage;
 
         if (this.currentImage.indexOf('Die') !== -1) {
             return imageName;

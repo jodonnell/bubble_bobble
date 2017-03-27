@@ -22,8 +22,8 @@ class Player extends Sprite {
     }
 
     update(args) {
-        var collisionDetector = args.collisionDetector;
-        var onscreenSprites = args.onscreenSprites;
+        let collisionDetector = args.collisionDetector;
+        let onscreenSprites = args.onscreenSprites;
 
         this._respondToControls(collisionDetector, onscreenSprites);
         this._playerAnimations.changeAnimation();
@@ -114,7 +114,7 @@ class Player extends Sprite {
     }
 
     _createBubble(onscreenSprites) {
-        var x;
+        let x;
         if (this._playerAnimations.direction === RIGHT) {
             x = this.x + this.width() / 2;
         }
@@ -133,7 +133,7 @@ class Player extends Sprite {
     }
 
     _checkForPoppingBubble(onscreenSprites, collisionDetector) {
-        var bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+        let bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
 
         if (bubble && bubble.isFullyFormed()) {
             if (this.rightSide() < bubble.x + 10) {
@@ -146,7 +146,7 @@ class Player extends Sprite {
                 return;
             }
 
-            var direction;
+            let direction;
             if (this.x < bubble.x + bubble.width() / 2) {
                 direction = RIGHT;
             }
@@ -165,7 +165,7 @@ class Player extends Sprite {
     }
 
     _checkForCollectibles(onscreenSprites, collisionDetector) {
-        var collectible = collisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
+        let collectible = collisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
         if (collectible) {
             onscreenSprites.collectibles.remove(collectible);
             this._score += collectible.points;

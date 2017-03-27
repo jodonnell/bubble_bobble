@@ -23,7 +23,11 @@ module.exports = {
             "error",
             "always"
         ],
-        "eqeqeq": ["error", "always"]
+        "eqeqeq": ["error", "always"],
+        "no-useless-return": 2,
+        "no-useless-escape": 2,
+        "camelcase": 2,
+        "no-var": 2
     },
     "globals": {
         "gameContext": false,

@@ -1,6 +1,6 @@
 class Sprite {
     draw() {
-        var image = window.gameImages[this.getCurrentImage()];
+        let image = window.gameImages[this.getCurrentImage()];
         window.gameContext.drawImage(image, this.x, this.y);
     }
 

@@ -5,15 +5,15 @@ import GameController from '../app/game_controller';
 import Control from '../app/control';
 
 describe('GameController', function () {
-    var gameController;
+    let gameController;
 
     beforeEach(function () {
-        var bub = new Player(200, 100, 'bub', new Control());
+        let bub = new Player(200, 100, 'bub', new Control());
         gameController = new GameController([bub]);
     });
 
     it('can have enemies land on platforms', function () {
-        var blueMagoo = new BlueMagoo(0, 0, 0);
+        let blueMagoo = new BlueMagoo(0, 0, 0);
         gameController.onscreenSprites.enemies.push(blueMagoo);
 
         gameController.onscreenSprites.walls.push(new Wall(0, blueMagoo.bottomSide() + 3));

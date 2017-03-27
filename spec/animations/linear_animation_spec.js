@@ -1,7 +1,7 @@
 import LinearAnimation from '../../app/animations/linear_animation';
 
 describe('LinearAnimation', function () {
-    var animation;
+    let animation;
 
     beforeEach(function () {
         animation = new LinearAnimation(3, ['deadEnemyRight', 'deadEnemyBottom', 'deadEnemyLeft', 'deadEnemyTop']);

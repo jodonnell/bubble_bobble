@@ -46,7 +46,7 @@ class InputControl extends Control {
     getKey() {
         document.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            var touch = e.touches[0];
+            let touch = e.touches[0];
 
             if (touch.pageX < 100) {
                 this.pressLeft();
@@ -62,7 +62,7 @@ class InputControl extends Control {
             }
         }, false);
 
-        var touchEnd = (e) => {
+        let touchEnd = (e) => {
             e.preventDefault();
 
             this.releaseLeft();
@@ -74,7 +74,7 @@ class InputControl extends Control {
         document.addEventListener('touchend', touchEnd, false);
         document.addEventListener('touchcancel', touchEnd, false);
 
-        var keydown = (event) => {
+        let keydown = (event) => {
             switch (event.which) {
             case this.LEFT_KEY:
                 this.pressLeft();
@@ -106,7 +106,7 @@ class InputControl extends Control {
             }
         };
 
-        var keyup = (event) => {
+        let keyup = (event) => {
             switch (event.which) {
             case this.LEFT_KEY:
                 this.releaseLeft();

@@ -56,7 +56,7 @@ class TitleScreen {
     draw() {
         this._clearBackground();
 
-        for (var i = 0; i < this.options.length; i++) {
+        for (let i = 0; i < this.options.length; i++) {
             this._drawMenuText(this.options[i], i);
         }
     }
@@ -64,12 +64,12 @@ class TitleScreen {
     _drawMenuText(text, entry) {
         window.gameContext.font = 'bold 40px Comic Sans MS';
 
-        var centeredY = GameInit.height / 2;
+        let centeredY = GameInit.height / 2;
 
         centeredY += -40 + (entry * 50);
-        var centeredX = Math.floor(GameInit.width / 2 - window.gameContext.measureText(text).width / 2);
+        let centeredX = Math.floor(GameInit.width / 2 - window.gameContext.measureText(text).width / 2);
 
-        var color = '#FEFFFF';
+        let color = '#FEFFFF';
         if (this._selectedEntry === entry && this._timer > 6) {
             color = 'yellow';
         }

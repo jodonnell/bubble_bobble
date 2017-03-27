@@ -2,7 +2,7 @@ import PlayerAnimations from '../app/player_animations';
 import {LEFT, RIGHT} from '../app/constants';
 
 describe('PlayerAnimations', function () {
-    var playerAnimations;
+    let playerAnimations;
 
 
     beforeEach(function () {
@@ -76,7 +76,7 @@ describe('PlayerAnimations', function () {
 
     it('ends the shooting animation after 15 frame', function () {
         playerAnimations.shoot();
-        for (var i = 0; i < 15; i++) {
+        for (let i = 0; i < 15; i++) {
             playerAnimations.changeAnimation();
         }
 
@@ -85,7 +85,7 @@ describe('PlayerAnimations', function () {
 
     it('should go to the secondary frame when shooting finishes', function () {
         playerAnimations.shoot();
-        for (var i = 0; i < 35; i++) {
+        for (let i = 0; i < 35; i++) {
             if (i === 30) {
                 playerAnimations.moveRight();
             }

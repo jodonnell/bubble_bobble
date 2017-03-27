@@ -7,8 +7,8 @@ class LevelBuilder {
     }
 
     buildLevel1() {
-        var i;
-        var k;
+        let i;
+        let k;
         for (i = 0; i < 2; i++) {
             for (k = 0; k < 27; k++)  {
                 if (i === 0) {

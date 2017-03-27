@@ -5,7 +5,7 @@ import CollisionDetector from '../../app/collision_detector';
 import {LEFT, RIGHT, RIGHT_BOUND} from '../../app/constants';
 
 describe('Dead Enemy', function () {
-    var args, deadEnemy;
+    let args, deadEnemy;
 
     beforeEach(function () {
         deadEnemy = new DeadEnemy(100, 100, RIGHT);
@@ -57,7 +57,7 @@ describe('Dead Enemy', function () {
     });
 
     it('should become a fruit when it hits the ground', function () {
-        for (var i = 0; i < 300; i++) {
+        for (let i = 0; i < 300; i++) {
             if (args.onscreenSprites.deadEnemies.length === 0) {
                 break;
             }
@@ -73,7 +73,7 @@ describe('Dead Enemy', function () {
     });
 
     function nextFrame() {
-        for (var i = 0; i < 3; i++) {
+        for (let i = 0; i < 3; i++) {
             deadEnemy.update(args);
         }
     }

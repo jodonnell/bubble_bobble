@@ -16,8 +16,8 @@ class OnscreenSprites {
 
         this.sprites = [this.players].concat([this.bubbles], [this.walls], [this.enemies], [this.deadEnemies], [this.collectibles], [this.texts]);
 
-        var remove = function (element) {
-            var index = this.indexOf(element);
+        let remove = function (element) {
+            let index = this.indexOf(element);
             this.splice(index, 1);
         };
 
