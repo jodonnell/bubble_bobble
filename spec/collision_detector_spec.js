@@ -49,10 +49,10 @@ describe('CollisionDetector', function () {
     });
 
     it('should not find a match if the sprite it finds is itself', function () {
-        let bubbles = [new Bubble(1, 100, 100, RIGHT)];
+        let bubbles = [new Bubble(100, 100, RIGHT)];
         expect(collisionDetector.doesCollideWithSprites(bubbles[0], bubbles)).toBeFalsy();
 
-        bubbles.push(new Bubble(2, 100, 100, RIGHT));
+        bubbles.push(new Bubble(100, 100, RIGHT));
         expect(collisionDetector.doesCollideWithSprites(bubbles[0], bubbles)).toBeTruthy();
     });
 

@@ -121,7 +121,7 @@ class Player extends Sprite {
         else {
             x = this.x - this.width() / 2;
         }
-        onscreenSprites.bubbles.push(new Bubble(onscreenSprites.bubbles.length + 1, x, this.y, this._playerAnimations.direction));
+        onscreenSprites.bubbles.push(new Bubble(x, this.y, this._playerAnimations.direction));
     }
 
     isDead() {

@@ -4,9 +4,8 @@ import LinearAnimation from '../animations/linear_animation';
 import DeadEnemy from './dead_enemy';
 
 class Bubble extends Sprite {
-    constructor(id, x, y, direction, playerNum) {
+    constructor(x, y, direction, playerNum) {
         super();
-        this.id = id;
         this.x = x;
         this.y = y;
         this._playerNum = playerNum;

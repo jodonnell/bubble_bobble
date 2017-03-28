@@ -15,7 +15,6 @@ class PlayerAnimations {
 
         this.currentAnimation = this.standingAnimation;
         this.queuedAnimation = this.standingAnimation;
-
     }
 
     shoot() {
