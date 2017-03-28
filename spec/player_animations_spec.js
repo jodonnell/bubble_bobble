@@ -1,5 +1,6 @@
 import PlayerAnimations from '../app/player_animations';
 import {LEFT, RIGHT} from '../app/constants';
+import _ from 'lodash';
 
 describe('PlayerAnimations', function () {
     let playerAnimations;
@@ -13,6 +14,7 @@ describe('PlayerAnimations', function () {
         expect(playerAnimations.getImageName()).toBe('bubRight');
 
         nextTickNewAnimation();
+        playerAnimations.changeAnimation();
         playerAnimations.changeAnimation();
 
         expect(playerAnimations.getImageName()).toBe('bubTailRight');
@@ -30,56 +32,57 @@ describe('PlayerAnimations', function () {
 
     it('can transition to the jumping animation', function () {
         playerAnimations.jump();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.getImageName()).toBe('bubJumpRight');
 
         nextTickNewAnimation();
-        playerAnimations.changeAnimation();
-
         expect(playerAnimations.getImageName()).toBe('bubJumpTailRight');
     });
 
     it('can transition to the falling animation', function () {
         playerAnimations.fall();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.getImageName()).toBe('bubFallRight');
 
         nextTickNewAnimation();
-        playerAnimations.changeAnimation();
-
         expect(playerAnimations.getImageName()).toBe('bubFallTailRight');
     });
 
     it('can transition to the shooting animation', function () {
         playerAnimations.shoot();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.getImageName()).toBe('bubShootRight');
     });
 
     it('can transition to the dieing animation', function () {
         playerAnimations.die();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.getImageName()).toBe('bubDie');
     });
 
     it('knows if a player is going left or right', function () {
         playerAnimations.moveLeft();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.direction).toBe(LEFT);
 
         playerAnimations.moveRight();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.direction).toBe(RIGHT);
     });
 
     it('overides all animations with the shooting animation', function () {
         playerAnimations.shoot();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.getImageName()).toBe('bubShootRight');
 
         playerAnimations.moveRight();
+        playerAnimations.changeAnimation();
         expect(playerAnimations.getImageName()).toBe('bubShootRight');
     });
 
     it('ends the shooting animation after 15 frame', function () {
         playerAnimations.shoot();
-        for (let i = 0; i < 15; i++) {
-            playerAnimations.changeAnimation();
-        }
-
+        _.times(16, () => playerAnimations.changeAnimation());
         expect(playerAnimations.getImageName()).toBe('bubRight');
     });
 
@@ -95,7 +98,7 @@ describe('PlayerAnimations', function () {
     });
 
     function nextTickNewAnimation() {
-        playerAnimations.timer = playerAnimations.ANIMATION_LENGTH - 1;
+        _.times(20, () => {playerAnimations.changeAnimation(); });
     }
 
 });

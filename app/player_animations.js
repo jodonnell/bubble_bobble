@@ -1,31 +1,33 @@
 import {RIGHT, LEFT} from './constants';
+import LinearAnimation from './animations/linear_animation';
 
 class PlayerAnimations {
-
-    get ANIMATION_LENGTH() {
-        return 20;
-    }
-
     constructor(prefix) {
-        this.timer = 0;
         this.currentImage = '';
         this.direction = RIGHT;
-        this.queuedImage = '';
         this.prefix = prefix;
+
+        this.deathAnimation = new LinearAnimation(8, ['Die', 'Die90', 'Die180', 'Die270']);
+        this.jumpingAnimation = new LinearAnimation(20, ['Jump', 'JumpTail']);
+        this.standingAnimation = new LinearAnimation(20, ['', 'Tail']);
+        this.fallingAnimation = new LinearAnimation(20, ['Fall', 'FallTail']);
+        this.walkingAnimation = new LinearAnimation(20, ['Walk', 'WalkTail']);
+
+        this.currentAnimation = this.standingAnimation;
+        this.queuedAnimation = this.standingAnimation;
+
     }
 
     shoot() {
-        this.currentImage = 'Shoot';
-        this.timer = 0;
+        this.currentAnimation = new LinearAnimation(15, ['Shoot'], 1);
     }
 
     jump() {
         if (this._isShooting()) {
-            this.queuedImage = 'Jump';
+            this.queuedAnimation = this.jumpingAnimation;
             return;
         }
-        this.currentImage = 'Jump';
-        this.timer = 0;
+        this.currentAnimation = this.jumpingAnimation;
     }
 
     fall() {
@@ -34,16 +36,15 @@ class PlayerAnimations {
         }
 
         if (this.currentImage === 'Shoot') {
-            this.queuedImage = 'Fall';
+            this.queuedAnimation = this.fallingAnimation;
             return;
         }
-        this.currentImage = 'Fall';
-        this.timer = 0;
+
+        this.currentAnimation = this.fallingAnimation;
     }
 
     die() {
-        this.currentImage = 'Die';
-        this.timer = 0;
+        this.currentAnimation = this.deathAnimation;
     }
 
     moveRight() {
@@ -54,12 +55,11 @@ class PlayerAnimations {
         }
 
         if (this._isJumping() || this._isFalling() || this._isShooting()) {
-            this.queuedImage = 'Walk';
+            this.queuedAnimation = this.walkingAnimation;
             return;
         }
 
-        this.currentImage = 'Walk';
-        this.timer = 0;
+        this.currentAnimation = this.walkingAnimation;
     }
 
     moveLeft() {
@@ -69,12 +69,11 @@ class PlayerAnimations {
         }
 
         if (this._isJumping() || this._isFalling() || this._isShooting()) {
-            this.queuedImage = 'Walk';
+            this.queuedAnimation = this.walkingAnimation;
             return;
         }
 
-        this.currentImage = 'Walk';
-        this.timer = 0;
+        this.currentAnimation = this.walkingAnimation;
     }
 
     stopFalling() {
@@ -82,25 +81,19 @@ class PlayerAnimations {
             return;
         }
 
-        this.currentImage = this.queuedImage;
-        this.timer = 0;
+        this.currentAnimation = this.queuedAnimation;
     }
 
     stand() {
-        if (this._isStanding()) {
+        if (this._isStanding() || this._isShooting()) {
             return;
         }
 
-        this.currentImage = '';
-        this.timer = 0;
+        this.currentAnimation = this.standingAnimation;
     }
 
     _isShooting() {
         return this.currentImage === 'Shoot';
-    }
-
-    _isDead() {
-        return this.currentImage.indexOf('Die') !== -1;
     }
 
     _isStanding() {
@@ -124,76 +117,11 @@ class PlayerAnimations {
     }
 
     changeAnimation() {
-        this.timer++;
-
-        if (this._isShooting() && this.timer === 15) {
-            this.timer = 0;
-            this.currentImage = this.queuedImage;
+        if (this._isShooting() && this.currentAnimation.isOver()) {
+            this.currentAnimation = this.queuedAnimation;
         }
 
-        if (this._isFalling()) {
-            this._fallingAnimation();
-        }
-        else if (this._isStanding()) {
-            this._standingAnimation();
-        }
-        else if (this._isMovingRight() || this._isMovingLeft()) {
-            this._walkingRightAnimation();
-        }
-        else if (this._isJumping()) {
-            this._jumpingAnimation();
-        }
-        else if (this._isDead()) {
-            this._deathAnimation();
-        }
-    }
-
-    _fallingAnimation() {
-        this._transitionState('Fall', 'FallTail');
-    }
-
-    _standingAnimation() {
-        this._transitionState('', 'Tail');
-    }
-
-    _jumpingAnimation() {
-        this._transitionState('Jump', 'JumpTail');
-    }
-
-    _walkingRightAnimation() {
-        this._transitionState('Walk', 'WalkTail');
-    }
-
-    _deathAnimation() {
-        if (this.timer === 8) {
-            this.timer = 0;
-
-            if (this.currentImage === 'Die') {
-                this.currentImage = 'Die90';
-            }
-            else if (this.currentImage === 'Die90') {
-                this.currentImage = 'Die180';
-            }
-            else if (this.currentImage === 'Die180') {
-                this.currentImage = 'Die270';
-            }
-            else if (this.currentImage === 'Die270') {
-                this.currentImage = 'Die';
-            }
-        }
-    }
-
-    _transitionState(animationA, animationB) {
-        if (this.timer === this.ANIMATION_LENGTH) {
-            this.timer = 0;
-
-            if (this.currentImage === animationA) {
-                this.currentImage = animationB;
-            }
-            else if (this.currentImage === animationB) {
-                this.currentImage = animationA;
-            }
-        }
+        this.currentImage = this.currentAnimation.update();
     }
 
     getImageName() {
