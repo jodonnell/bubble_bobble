@@ -37,12 +37,7 @@ class Bubble extends Sprite {
         this.checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites);
     }
 
-    checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites) {
-        let bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
-        if (!bubble) {
-            return;
-        }
-
+    pushBubbleAwayX(bubble) {
         if (this.x > bubble.x) {
             this.x += 2;
         }
@@ -52,13 +47,26 @@ class Bubble extends Sprite {
         else {
             this.x += this._randomMove() * 2;
         }
+    }
+
+    pushBubbleAwayY() {
         this.y += this._randomMove() * 2;
     }
 
+    checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites) {
+        const bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+        if (!bubble) {
+            return;
+        }
+
+        this.pushBubbleAwayX(bubble);
+        this.pushBubbleAwayY();
+    }
+
     updateShootingOut(collisionDetector, onscreenSprites) {
-        const collidedWith = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
-        if (collidedWith) {
-            this.trap(onscreenSprites, collidedWith);
+        const collidedWithEnemy = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
+        if (collidedWithEnemy) {
+            this.trap(onscreenSprites, collidedWithEnemy);
             return;
         }
 
@@ -76,17 +84,25 @@ class Bubble extends Sprite {
     }
 
     floatUp() {
-        if (this.y <= 70) {
-            if (this.x > 400) {
-                this.x -= 1;
-            }
-            else if (this.x < 400) {
-                this.x += 1;
-            }
+        if (this.isAtTop()) {
+            this.floatTowardsCenter();
             return;
         }
 
         this.y -= 2;
+    }
+
+    floatTowardsCenter() {
+        if (this.x > 400) {
+            this.x -= 1;
+        }
+        else if (this.x < 400) {
+            this.x += 1;
+        }
+    }
+
+    isAtTop() {
+        return this.y <= 70;
     }
 
     shootOut(collisionDetector) {
@@ -107,13 +123,13 @@ class Bubble extends Sprite {
         return this.fullyFormed;
     }
 
-    trap(onscreenSprites, collidedWith) {
-        this.x = collidedWith.x;
-        this.y = collidedWith.y;
+    trap(onscreenSprites, enemy) {
+        this.x = enemy.x;
+        this.y = enemy.y;
         this.trapped = true;
         this.fullyFormed = true;
 
-        onscreenSprites.enemies.remove(collidedWith);
+        onscreenSprites.enemies.remove(enemy);
     }
 
     hasEnemy() {
@@ -129,11 +145,7 @@ class Bubble extends Sprite {
     }
 
     getCurrentImage() {
-        if (this._playerNum === 1) {
-            return this.currentImage;
-        }
-
-        return this.currentImage.replace('Bub', 'Bob');
+        return this.currentImage;
     }
 }
 
