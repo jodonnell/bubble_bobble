@@ -1,8 +1,8 @@
-import BrowserImages from '../app/browser_images';
+import Images from '../app/images';
 import GameInit from '../app/game_init';
 
 let loaded = 0;
-window.gameImages = new BrowserImages(function() {
+window.gameImages = new Images(function() {
     loaded = 1;
 });
 

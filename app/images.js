@@ -103,7 +103,15 @@ class Images {
         this._loadImage('wall', 'wall.png');
     }
 
-    _loadImage() {
+    _loadImage(prop, imageFile) {
+        this._props.push(prop);
+        this[prop] = {ready: false};
+
+        this[prop] = new Image();
+        this[prop].src = 'assets/' + imageFile;
+        if (prop === 'bubRight') {
+            this[prop].onload = this._callback;
+        }
     }
 }
 

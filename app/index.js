@@ -1,7 +1,7 @@
 import TitleScreen from './title_screen';
 import GameInit from './game_init';
 import SceneCreator from './scene_creator';
-import BrowserImages from './browser_images';
+import Images from './images';
 
 import InputControl from './input_control';
 
@@ -27,7 +27,7 @@ window.cancelAnimationFrame = (function(){
 
 new GameInit();
 window.gameContext = document.getElementById('gameCanvas').getContext('2d');
-window.gameImages = new BrowserImages(function() {
+window.gameImages = new Images(function() {
     let titleScreen = new TitleScreen(new InputControl(null));
     SceneCreator.create(titleScreen);
 });
