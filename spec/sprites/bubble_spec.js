@@ -45,7 +45,7 @@ describe('Bubble', function () {
     });
 
     it('should get trapped when hit by a bubble', function () {
-        args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT));
+        args.onscreenSprites.enemies.push(new BlueMagoo(100, 100, RIGHT));
         bubble.update(args);
         bubble.update(args);
         expect(bubble.hasEnemy()).toBeTruthy();
@@ -55,14 +55,14 @@ describe('Bubble', function () {
     });
 
     it('should only trap enemies if the bubble is empty', function () {
-        args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT), new BlueMagoo(1, 100, 100, RIGHT));
+        args.onscreenSprites.enemies.push(new BlueMagoo(100, 100, RIGHT), new BlueMagoo(100, 100, RIGHT));
         bubble.update(args);
         bubble.update(args);
         expect(args.onscreenSprites.enemies.length).toBe(1);
     });
 
     it('should move to the trapped enemies position', function () {
-        args.onscreenSprites.enemies.push(new BlueMagoo(1, 105, 105, RIGHT));
+        args.onscreenSprites.enemies.push(new BlueMagoo(105, 105, RIGHT));
         bubble.update(args);
         expect(bubble.x).toBe(105);
         expect(bubble.y).toBe(105);
@@ -87,7 +87,7 @@ describe('Bubble', function () {
     });
 
     it('should turn a trapped popped bubble into dead enemy', function () {
-        args.onscreenSprites.enemies.push(new BlueMagoo(1, 100, 100, RIGHT));
+        args.onscreenSprites.enemies.push(new BlueMagoo(100, 100, RIGHT));
         bubble.trap(args.onscreenSprites, args.onscreenSprites.enemies[0]);
         bubble.pop(args.onscreenSprites);
         expect(args.onscreenSprites.deadEnemies.length).toBe(1);

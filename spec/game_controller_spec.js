@@ -13,7 +13,7 @@ describe('GameController', function () {
     });
 
     it('can have enemies land on platforms', function () {
-        let blueMagoo = new BlueMagoo(0, 0, 0);
+        let blueMagoo = new BlueMagoo(0, 0);
         gameController.onscreenSprites.enemies.push(blueMagoo);
 
         gameController.onscreenSprites.walls.push(new Wall(0, blueMagoo.bottomSide() + 3));

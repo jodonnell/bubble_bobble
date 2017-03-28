@@ -7,9 +7,8 @@ class BlueMagoo extends Sprite {
         return 100;
     }
 
-    constructor(id, x, y, direction) {
+    constructor(x, y, direction) {
         super();
-        this.id = id;
         this.x = x;
         this.y = y;
         this.direction = direction;

@@ -13,7 +13,7 @@ describe('Blue Magoos', function () {
     });
 
     it('should move towards point if its not falling', function () {
-        let blueMagoo = new BlueMagoo(1, 100, 0, 0);
+        let blueMagoo = new BlueMagoo(100, 0, 0);
 
         sinon.stub(blueMagoo, 'shouldTrack').returns(true);
         sinon.stub(collisionDetector, 'isStandingOnObjects').returns(true);
@@ -28,7 +28,7 @@ describe('Blue Magoos', function () {
     });
 
     it('should switch direction if it goes beyond a bound', function () {
-        let blueMagoo = new BlueMagoo(1, 48, 2, 0);
+        let blueMagoo = new BlueMagoo(48, 2, 0);
 
         sinon.stub(blueMagoo, 'shouldTrack').returns(false);
         sinon.stub(collisionDetector, 'isStandingOnObjects').returns(true);
@@ -49,7 +49,7 @@ describe('Blue Magoos', function () {
 
 
     it('should jump if platform is above and the tracking Y is above it', function () {
-        let blueMagoo = new BlueMagoo(1, 100, 100, 0);
+        let blueMagoo = new BlueMagoo(100, 100, 0);
         sinon.stub(blueMagoo, 'shouldTrack').returns(true);
         sinon.stub(collisionDetector, 'areSpritesAboveWithin').returns(true);
         sinon.stub(collisionDetector, 'isStandingOnObjects').returns(true);
@@ -61,7 +61,7 @@ describe('Blue Magoos', function () {
     });
 
     it('should not jump if tracking Y is above it but now platform', function () {
-        let blueMagoo = new BlueMagoo(1, 100, 100, 0);
+        let blueMagoo = new BlueMagoo(100, 100, 0);
         sinon.stub(blueMagoo, 'shouldTrack').returns(true);
         sinon.stub(collisionDetector, 'areSpritesAboveWithin').returns(false);
 
@@ -72,7 +72,7 @@ describe('Blue Magoos', function () {
     });
 
     it('should fall', function () {
-        let blueMagoo = new BlueMagoo(1, 100, 100, 0);
+        let blueMagoo = new BlueMagoo(100, 100, 0);
         onscreenSprites.players[0].x = 0;
         onscreenSprites.players[0].y = 0;
 
