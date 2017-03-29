@@ -3,7 +3,6 @@ import Wall from '../../app/sprites/wall';
 import BlueMagoo from '../../app/sprites/blue_magoo';
 import Pepper from '../../app/sprites/pepper';
 import Bubble from '../../app/sprites/bubble';
-import CollisionDetector from '../../app/collision_detector';
 import Control from '../../app/control';
 import OnscreenSprites from '../../app/onscreen_sprites';
 import {RIGHT, LEFT} from '../../app/constants';
@@ -14,7 +13,7 @@ describe('Player', function () {
     beforeEach(function () {
         player = new Player(100, 100, 'bub', new Control());
         let onscreenSprites = new OnscreenSprites({players: [player]});
-        args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
+        args = {onscreenSprites: onscreenSprites};
     });
 
     it('should have a location', function () {

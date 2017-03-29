@@ -2,6 +2,7 @@ import Sprite from './sprite';
 import {LEFT, RIGHT} from '../constants';
 import LinearAnimation from '../animations/linear_animation';
 import DeadEnemy from './dead_enemy';
+import CollisionDetector from '../collision_detector';
 
 class Bubble extends Sprite {
     constructor(x, y, direction, playerNum) {
@@ -25,16 +26,16 @@ class Bubble extends Sprite {
         }
 
         if (this.isFullyFormed()) {
-            this.updateFullyFormed(args.collisionDetector, args.onscreenSprites);
+            this.updateFullyFormed(args.onscreenSprites);
         }
         else {
-            this.updateShootingOut(args.collisionDetector, args.onscreenSprites);
+            this.updateShootingOut(args.onscreenSprites);
         }
     }
 
-    updateFullyFormed(collisionDetector, onscreenSprites) {
+    updateFullyFormed(onscreenSprites) {
         this.floatUp();
-        this.checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites);
+        this.checkForCollideWithAnotherBubble(onscreenSprites);
     }
 
     pushBubbleAwayX(bubble) {
@@ -53,8 +54,8 @@ class Bubble extends Sprite {
         this.y += this._randomMove() * 2;
     }
 
-    checkForCollideWithAnotherBubble(collisionDetector, onscreenSprites) {
-        const bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+    checkForCollideWithAnotherBubble(onscreenSprites) {
+        const bubble = CollisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
         if (!bubble) {
             return;
         }
@@ -63,14 +64,14 @@ class Bubble extends Sprite {
         this.pushBubbleAwayY();
     }
 
-    updateShootingOut(collisionDetector, onscreenSprites) {
-        const collidedWithEnemy = collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
+    updateShootingOut(onscreenSprites) {
+        const collidedWithEnemy = CollisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies);
         if (collidedWithEnemy) {
             this.trap(onscreenSprites, collidedWithEnemy);
             return;
         }
 
-        this.shootOut(collisionDetector);
+        this.shootOut();
     }
 
     _randomMove() {
@@ -105,11 +106,11 @@ class Bubble extends Sprite {
         return this.y <= 70;
     }
 
-    shootOut(collisionDetector) {
-        if (this.direction === RIGHT && collisionDetector.noWallToRight(this)) {
+    shootOut() {
+        if (this.direction === RIGHT && CollisionDetector.noWallToRight(this)) {
             this.x += this.moveSpeed;
         }
-        else if (this.direction === LEFT && collisionDetector.noWallToLeft(this)){
+        else if (this.direction === LEFT && CollisionDetector.noWallToLeft(this)){
             this.x -= this.moveSpeed;
         }
 

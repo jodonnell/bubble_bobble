@@ -1,7 +1,6 @@
 import DeadEnemy from '../../app/sprites/dead_enemy';
 import Wall from '../../app/sprites/wall';
 import OnscreenSprites from '../../app/onscreen_sprites';
-import CollisionDetector from '../../app/collision_detector';
 import {LEFT, RIGHT, RIGHT_BOUND} from '../../app/constants';
 
 describe('Dead Enemy', function () {
@@ -9,7 +8,7 @@ describe('Dead Enemy', function () {
 
     beforeEach(function () {
         deadEnemy = new DeadEnemy(100, 100, RIGHT);
-        args = {collisionDetector: new CollisionDetector(), onscreenSprites: new OnscreenSprites({deadEnemies: [deadEnemy]})};
+        args = {onscreenSprites: new OnscreenSprites({deadEnemies: [deadEnemy]})};
     });
 
     it('should animate correctly', function () {

@@ -1,6 +1,7 @@
 import Sprite from './sprite';
 import LinearAnimation from '../animations/linear_animation';
 import {LEFT, RIGHT} from '../constants';
+import CollisionDetector from '../collision_detector';
 
 class BlueMagoo extends Sprite {
     get JUMP_HEIGHT() {
@@ -19,7 +20,6 @@ class BlueMagoo extends Sprite {
     }
 
     update(args) {
-        let collisionDetector = args.collisionDetector;
         let followX = args.onscreenSprites.players[0].x;
         let followY = args.onscreenSprites.players[0].y;
         let onscreenSprites = args.onscreenSprites;
@@ -33,8 +33,8 @@ class BlueMagoo extends Sprite {
                 this.jumping = 0;
             }
         }
-        else if (collisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
-            this.move(collisionDetector, followX, followY, onscreenSprites.walls);
+        else if (CollisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
+            this.move(followX, followY, onscreenSprites.walls);
         }
         else {
             this.y += 3;
@@ -45,13 +45,13 @@ class BlueMagoo extends Sprite {
         return Math.random() > 0.99;
     }
 
-    move(collisionDetector, followX, followY, walls) {
+    move(followX, followY, walls) {
         if (this.shouldTrack())  {
-            this.track(collisionDetector, followX, followY, walls);
+            this.track(followX, followY, walls);
         }
         else {
             this.moveInCurrentDirection();
-            this.boundaryCheck(collisionDetector);
+            this.boundaryCheck();
         }
     }
 
@@ -64,9 +64,9 @@ class BlueMagoo extends Sprite {
         }
     }
 
-    track(collisionDetector, followX, followY, walls) {
+    track(followX, followY, walls) {
         if (this.y > followY) {
-            if (collisionDetector.areSpritesAboveWithin(this, walls, 150)) {
+            if (CollisionDetector.areSpritesAboveWithin(this, walls, 150)) {
                 this.jumping = 1;
                 return;
             }
@@ -95,12 +95,12 @@ class BlueMagoo extends Sprite {
         return imageName;
     }
 
-    boundaryCheck(collisionDetector) {
+    boundaryCheck() {
         this.moveSpeed = 0;
-        if (!collisionDetector.noWallToRight(this)) {
+        if (!CollisionDetector.noWallToRight(this)) {
             this.direction = LEFT;
         }
-        if (!collisionDetector.noWallToLeft(this)) {
+        if (!CollisionDetector.noWallToLeft(this)) {
             this.direction = RIGHT;
         }
     }

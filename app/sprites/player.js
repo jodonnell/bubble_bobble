@@ -3,6 +3,7 @@ import PlayerAnimations from '../player_animations';
 import Bubble from './bubble';
 import Text from './text';
 import {LEFT, RIGHT} from '../constants';
+import CollisionDetector from '../collision_detector';
 
 class Player extends Sprite {
     constructor(x, y, type, control) {
@@ -22,25 +23,24 @@ class Player extends Sprite {
     }
 
     update(args) {
-        let collisionDetector = args.collisionDetector;
-        let onscreenSprites = args.onscreenSprites;
+        const onscreenSprites = args.onscreenSprites;
 
-        this._respondToControls(collisionDetector, onscreenSprites);
+        this._respondToControls(onscreenSprites);
         this._playerAnimations.changeAnimation();
-        this._updateState(onscreenSprites, collisionDetector);
-        this._checkForCollisions(onscreenSprites, collisionDetector);
+        this._updateState(onscreenSprites);
+        this._checkForCollisions(onscreenSprites);
     }
 
-    _respondToControls(collisionDetector, onscreenSprites) {
+    _respondToControls(onscreenSprites) {
         if (this._dead) {
             return;
         }
 
-        if (this._control.isHoldingRight() && collisionDetector.noWallToRight(this)) {
+        if (this._control.isHoldingRight() && CollisionDetector.noWallToRight(this)) {
             this._moveRight();
         }
 
-        if (this._control.isHoldingLeft() && collisionDetector.noWallToLeft(this)) {
+        if (this._control.isHoldingLeft() && CollisionDetector.noWallToLeft(this)) {
             this._moveLeft();
         }
 
@@ -132,45 +132,49 @@ class Player extends Sprite {
         return this._invincible;
     }
 
-    _checkForPoppingBubble(onscreenSprites, collisionDetector) {
-        let bubble = collisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
+    _checkForPoppingBubble(onscreenSprites) {
+        let bubble = CollisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
 
-        if (bubble && bubble.isFullyFormed()) {
-            if (this.rightSide() < bubble.x + 10) {
-                bubble.x += 4;
-                return;
-            }
-
-            if (this.x > bubble.rightSide() - 10) {
-                bubble.x -= 4;
-                return;
-            }
-
-            let direction;
-            if (this.x < bubble.x + bubble.width() / 2) {
-                direction = RIGHT;
-            }
-            else {
-                direction = LEFT;
-            }
-            bubble.pop(onscreenSprites, direction);
+        if (!bubble || !bubble.isFullyFormed()) {
+            return;
         }
+
+        if (this.rightSide() < bubble.x + 10) {
+            bubble.x += 4;
+            return;
+        }
+
+        if (this.x > bubble.rightSide() - 10) {
+            bubble.x -= 4;
+            return;
+        }
+
+        let direction;
+        if (this.x < bubble.x + bubble.width() / 2) {
+            direction = RIGHT;
+        }
+        else {
+            direction = LEFT;
+        }
+        bubble.pop(onscreenSprites, direction);
     }
 
-    _checkForDeath(onscreenSprites, collisionDetector) {
-        if (!this._dead && collisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
+    _checkForDeath(onscreenSprites) {
+        if (!this._dead && CollisionDetector.doesCollideWithSprites(this, onscreenSprites.enemies)) {
             this._dead = 1;
             this._playerAnimations.die();
         }
     }
 
-    _checkForCollectibles(onscreenSprites, collisionDetector) {
-        let collectible = collisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
-        if (collectible) {
-            onscreenSprites.collectibles.remove(collectible);
-            this._score += collectible.points;
-            onscreenSprites.texts.push(new Text(collectible.x, collectible.y + 30, collectible.points));
+    _checkForCollectibles(onscreenSprites) {
+        const collectible = CollisionDetector.doesCollideWithSprites(this, onscreenSprites.collectibles);
+        if (!collectible) {
+            return;
         }
+
+        onscreenSprites.collectibles.remove(collectible);
+        this._score += collectible.points;
+        onscreenSprites.texts.push(new Text(collectible.x, collectible.y + 30, collectible.points));
     }
 
     draw() {
@@ -200,21 +204,21 @@ class Player extends Sprite {
         }
     }
 
-    _checkForCollisions(onscreenSprites, collisionDetector) {
+    _checkForCollisions(onscreenSprites) {
         if (this._dead) {
             return;
         }
 
-        this._checkForPoppingBubble(onscreenSprites, collisionDetector);
+        this._checkForPoppingBubble(onscreenSprites);
 
         if (!this._invincible) {
-            this._checkForDeath(onscreenSprites, collisionDetector);
+            this._checkForDeath(onscreenSprites);
         }
 
-        this._checkForCollectibles(onscreenSprites, collisionDetector);
+        this._checkForCollectibles(onscreenSprites);
     }
 
-    _updateState(onscreenSprites, collisionDetector) {
+    _updateState(onscreenSprites) {
         if (this._dead) {
             this._deadUpdate();
             return;
@@ -231,7 +235,7 @@ class Player extends Sprite {
         if (this._jumping) {
             this._jumpingUpdate();
         }
-        else if (!(collisionDetector.isStandingOnObjects(this, onscreenSprites.walls))) {
+        else if (!(CollisionDetector.isStandingOnObjects(this, onscreenSprites.walls))) {
             this._fall();
         }
         else {

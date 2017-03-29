@@ -2,6 +2,7 @@ import Sprite from './sprite';
 import Pepper from './pepper';
 import LinearAnimation from '../animations/linear_animation';
 import {LEFT, RIGHT, LEFT_BOUND, RIGHT_BOUND} from '../constants';
+import CollisionDetector from '../collision_detector';
 
 class DeadEnemy extends Sprite {
     constructor(x, y, direction) {
@@ -23,7 +24,7 @@ class DeadEnemy extends Sprite {
         this.switchDirectionIfHitWall();
         this.move();
         this.changeAnimation();
-        this.changeToFruit(args.onscreenSprites, args.collisionDetector);
+        this.changeToFruit(args.onscreenSprites);
     }
 
     move() {
@@ -52,9 +53,9 @@ class DeadEnemy extends Sprite {
         this.currentImage = this.animation.currentImage;
     }
 
-    changeToFruit(onscreenSprites, collisionDetector) {
+    changeToFruit(onscreenSprites) {
         if (this.y >= this.originalY) {
-            if (collisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
+            if (CollisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
                 onscreenSprites.collectibles.push(new Pepper(this.x, this.y));
                 onscreenSprites.deadEnemies.remove(this);
             }

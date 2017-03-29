@@ -1,7 +1,6 @@
 import Bubble from '../../app/sprites/bubble';
 import BlueMagoo from '../../app/sprites/blue_magoo';
 import OnscreenSprites from '../../app/onscreen_sprites';
-import CollisionDetector from '../../app/collision_detector';
 import {RIGHT, LEFT, RIGHT_BOUND} from '../../app/constants';
 
 describe('Bubble', function () {
@@ -10,7 +9,7 @@ describe('Bubble', function () {
     beforeEach(function () {
         bubble = new Bubble(100, 100, RIGHT);
         let onscreenSprites = new OnscreenSprites({bubbles: [bubble]});
-        args = {onscreenSprites: onscreenSprites, collisionDetector: new CollisionDetector()};
+        args = {onscreenSprites: onscreenSprites};
     });
 
     it('should go the right way', function () {

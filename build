@@ -1,1 +1,1 @@
-./node_modules/.bin/eslint app/* spec/*
+./node_modules/.bin/eslint app/* spec/* --quiet

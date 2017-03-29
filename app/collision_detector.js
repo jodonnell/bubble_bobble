@@ -2,13 +2,13 @@ import {LEFT_BOUND, RIGHT_BOUND} from './constants';
 import _ from 'lodash';
 
 class CollisionDetector {
-    isStandingOnObjects(sprite, objects) {
+    static isStandingOnObjects(sprite, objects) {
         return _.find(objects, (object) => {
             return this._xMatchUp(sprite, object) && this._doesBottomCollide(sprite, object);
         });
     }
 
-    noWallToRight(sprite) {
+    static noWallToRight(sprite) {
         if (sprite.rightSide() + sprite.moveSpeed > RIGHT_BOUND) {
             sprite.x = RIGHT_BOUND - sprite.width();
             return false;
@@ -16,7 +16,7 @@ class CollisionDetector {
         return true;
     }
 
-    noWallToLeft(sprite) {
+    static noWallToLeft(sprite) {
         if (sprite.x - sprite.moveSpeed < LEFT_BOUND) {
             sprite.x = LEFT_BOUND;
             return false;
@@ -24,7 +24,7 @@ class CollisionDetector {
         return true;
     }
 
-    areSpritesAboveWithin(sprite, sprites, distance) {
+    static areSpritesAboveWithin(sprite, sprites, distance) {
         for (let i = 0; i < sprites.length; i++) {
             if (this._xMatchUp(sprite, sprites[i])) {
                 let yWithin = sprites[i].y <= sprite.bottomSide() - 1 &&
@@ -37,20 +37,20 @@ class CollisionDetector {
         return false;
     }
 
-    doesCollideWithSprites(sprite, sprites) {
+    static doesCollideWithSprites(sprite, sprites) {
         return _.find(sprites, (otherSprite) => {
             return this.doesCollideWith(sprite, otherSprite);
         });
     }
 
-    doesCollideWith(spriteA, spriteB) {
+    static doesCollideWith(spriteA, spriteB) {
         if (spriteA === spriteB) {
             return false;
         }
         return spriteA.x < spriteB.rightSide() && spriteA.rightSide() > spriteB.x && spriteA.y < spriteB.bottomSide() && spriteA.bottomSide() > spriteB.y;
     }
 
-    _doesBottomCollide(sprite, object) {
+    static _doesBottomCollide(sprite, object) {
         // this needs to make sure it's under the threshold of speed
         if (object.y === sprite.bottomSide()) {
             return true;
@@ -66,7 +66,7 @@ class CollisionDetector {
         return false;
     }
 
-    _xMatchUp(sprite, object) {
+    static _xMatchUp(sprite, object) {
         return object.x <= sprite.rightSide() && object.rightSide() >= sprite.x;
     }
 }

@@ -1,5 +1,4 @@
 import OnscreenSprites from './onscreen_sprites';
-import CollisionDetector from './collision_detector';
 import LevelBuilder from './level_builder';
 import GameInit from './game_init';
 
@@ -10,7 +9,6 @@ class GameController {
                                                     bubbles: [],
                                                     walls: (new LevelBuilder(this.walls)).walls});
 
-        this.collisionDetector = new CollisionDetector();
     }
 
     draw() {
@@ -20,7 +18,7 @@ class GameController {
 
     update() {
         this._eachSprite((sprite) => {
-            sprite.update({collisionDetector: this.collisionDetector, onscreenSprites: this.onscreenSprites});
+            sprite.update({onscreenSprites: this.onscreenSprites});
         });
     }
 
