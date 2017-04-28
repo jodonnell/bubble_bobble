@@ -23,6 +23,7 @@ module.exports = {
             "error",
             "always"
         ],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "eqeqeq": ["error", "always"],
         "no-useless-return": 2,
         "no-useless-escape": 2,

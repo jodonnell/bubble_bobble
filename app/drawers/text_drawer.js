@@ -1,7 +1,7 @@
 import GameInit from '../game_init';
 
 class TextDrawer {
-    static draw(sprite, camera) {
+    static draw(sprite, _camera) {
         const y = GameInit.height - sprite.y;
 
         window.gameContext.font = 'bold 25px Comic Sans MS';

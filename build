@@ -1,1 +1,3 @@
-./node_modules/.bin/eslint app/* spec/* --quiet
+#!/usr/bin/env bash
+
+npm run -s lint && npm run -s test
