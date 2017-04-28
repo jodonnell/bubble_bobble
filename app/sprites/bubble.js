@@ -51,7 +51,7 @@ class Bubble extends Sprite {
     }
 
     pushBubbleAwayY() {
-        this.y += this._randomMove() * 2;
+        this.y -= this._randomMove() * 2;
     }
 
     checkForCollideWithAnotherBubble(onscreenSprites) {
@@ -90,7 +90,7 @@ class Bubble extends Sprite {
             return;
         }
 
-        this.y -= 2;
+        this.y += 2;
     }
 
     floatTowardsCenter() {
@@ -103,7 +103,7 @@ class Bubble extends Sprite {
     }
 
     isAtTop() {
-        return this.y <= 70;
+        return this.y >= 550;
     }
 
     shootOut() {

@@ -29,7 +29,15 @@ class DeadEnemy extends Sprite {
 
     move() {
         this.parabolaTimer += 2;
-        this.y = this.originalY - Math.round(-0.005 * Math.pow(this.parabolaTimer - 200, 2) + 200);
+
+        //a(x - h)^2 + k
+        const a = -0.005;
+        const x = this.parabolaTimer;
+        const h = 200;
+        const k = 200;
+
+        const y = Math.round(a * Math.pow(x - h, 2) + k);
+        this.y = y + this.originalY;
 
         if (this.direction === RIGHT) {
             this.x += 2;
@@ -54,7 +62,7 @@ class DeadEnemy extends Sprite {
     }
 
     changeToFruit(onscreenSprites) {
-        if (this.y >= this.originalY) {
+        if (this.y <= this.originalY) {
             if (CollisionDetector.isStandingOnObjects(this, onscreenSprites.walls)) {
                 onscreenSprites.collectibles.push(new Pepper(this.x, this.y));
                 onscreenSprites.deadEnemies.remove(this);

@@ -18,3 +18,4 @@
 ** Hurry!
 ** Fix left/right collision detection
 ** Fix bug where falling at high speeds tunnels
+** Fix bug where isOver is called freezing game when killed while shooting

@@ -17,8 +17,17 @@ module.exports = function(config) {
             'spec/**/*_spec.js': ['webpack']
         },
 
+        reporters: [ 'dots' ],
+
         proxies: {
             "/assets/": "http://localhost:9876/base/assets/"
+        },
+
+
+        browserConsoleLogOptions: {
+            level: 'log',
+            format: '%b %T: %m',
+            terminal: true
         },
 
         webpack: {

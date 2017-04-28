@@ -12,7 +12,7 @@ describe('CollisionDetector', function () {
     });
 
     it('should be able to stand on an object', function () {
-        let walls = [new Wall(100, player.y + player.height())];
+        let walls = [new Wall(100, player.y - player.height())];
         expect(CollisionDetector.isStandingOnObjects(player, walls)).toBeTruthy();
     });
 
@@ -40,7 +40,7 @@ describe('CollisionDetector', function () {
     });
 
     it('should land on a platform and move the player to make sure there are no missing pixels', function () {
-        let walls = [new Wall(100, player.y + player.height() - 2)];
+        let walls = [new Wall(100, player.bottomSide() - 2)];
         expect(player.y).toBe(100);
         expect(CollisionDetector.isStandingOnObjects(player, walls)).toBeTruthy();
         expect(player.y).toBe(98);

@@ -35,7 +35,7 @@ describe('Player', function () {
 
     it('should fall when nothing is under it', function () {
         player.update(args);
-        expect(player.y).toBeGreaterThan(100);
+        expect(player.y).toBeLessThan(100);
     });
 
     it('should land on a floor after a jump', function () {
@@ -58,20 +58,20 @@ describe('Player', function () {
         sinon.stub(player._control, 'isJumping').returns(true);
 
         player.update(args);
-        expect(player.y).toBe(96);
+        expect(player.y).toBe(104);
 
         player.update(args);
-        expect(player.y).toBe(92);
+        expect(player.y).toBe(108);
 
         for (let i = 0; i < 50; i++) {
             player.update(args);
         }
 
-        expect(player.y).toBe(11);
+        expect(player.y).toBe(189);
     });
 
     it('cannot jump twice', function () {
-        sinon.stub(player._control, 'isShooting').returns(true);
+        sinon.stub(player._control, 'isJumping').returns(true);
 
         for (let i = 0; i < 44; i++) {
             player.update(args);
@@ -79,7 +79,7 @@ describe('Player', function () {
 
         let oldY = player.y;
         player.update(args);
-        expect(player.y).toBeGreaterThan(oldY);
+        expect(player.y).toBeLessThan(oldY);
     });
 
     it('changes to shooting animation', function () {

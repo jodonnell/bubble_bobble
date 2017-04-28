@@ -27,20 +27,20 @@ describe('Bubble', function () {
         }
 
         bubble.update(args);
-        expect(bubble.y).toBeLessThan(100);
+        expect(bubble.y).toBeGreaterThan(100);
     });
 
     it('should move to the top middle of the screen', function () {
         bubble.fullyFormed = true;
         bubble.x = 360;
+        bubble.y = 500;
         for (let i = 0; i < 100; i++) {
             bubble.update(args);
         }
 
         bubble.update(args);
         expect(bubble.x).toBe(400);
-        expect(bubble.y).toBeGreaterThan(60);
-        expect(bubble.y).toBe(70);
+        expect(bubble.y).toBe(550);
     });
 
     it('should get trapped when hit by a bubble', function () {
@@ -103,13 +103,13 @@ describe('Bubble', function () {
     it('bubbles should repel each other', function () {
         bubble.fullyFormed = true;
         bubble.x = 400;
-        bubble.y = 70;
+        bubble.y = 550;
 
         let secondBubble = new Bubble(bubble.x - 1, bubble.y);
         secondBubble.fullyFormed = true;
         args.onscreenSprites.bubbles.push(secondBubble);
         bubble.update(args);
         expect(bubble.x).toBeGreaterThan(400);
-        expect(bubble.y).not.toBe(70);
+        expect(bubble.y).not.toBe(550);
     });
 });

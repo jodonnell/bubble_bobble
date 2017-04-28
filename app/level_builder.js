@@ -29,10 +29,10 @@ class LevelBuilder {
         for (let i = 0; i < 18; i++) {
             for (let k = 0; k < 2; k++)  {
                 if (k === 0) {
-                    this.walls.push(new Wall(i * 45, 0));
+                    this.walls.push(new Wall(i * 45, 580));
                 }
                 else {
-                    this.walls.push(new Wall(i * 45, 577));
+                    this.walls.push(new Wall(i * 45, 20));
                 }
             }
         }
@@ -44,7 +44,7 @@ class LevelBuilder {
                 continue;
             }
             for (let k = 1; k < 4; k++)  {
-                this.walls.push(new Wall(i * 45, k * 120 + 90));
+                this.walls.push(new Wall(i * 45, k * 120 + 30));
             }
         }
     }

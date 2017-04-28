@@ -10,6 +10,7 @@ beforeEach(function(done) {
     window.gameInit = new GameInit(true);
     window.gameContext = document.getElementById('gameCanvas').getContext('2d');
 
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     if (loaded) {
         done();
     }

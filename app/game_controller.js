@@ -1,6 +1,7 @@
 import OnscreenSprites from './onscreen_sprites';
 import LevelBuilder from './level_builder';
 import GameInit from './game_init';
+import Camera from './camera';
 
 class GameController {
     constructor(players, enemies) {
@@ -8,12 +9,13 @@ class GameController {
                                                     enemies: enemies,
                                                     bubbles: [],
                                                     walls: (new LevelBuilder(this.walls)).walls});
+        this.camera = new Camera();
 
     }
 
     draw() {
         this._clearBackground();
-        this._eachSprite((sprite) => { sprite.draw(); });
+        this._eachSprite((sprite) => { sprite.draw(this.camera); });
     }
 
     update() {

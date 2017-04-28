@@ -1,7 +1,8 @@
+import ImageDrawer from '../drawers/image_drawer';
+
 class Sprite {
-    draw() {
-        let image = window.gameImages[this.getCurrentImage()];
-        window.gameContext.drawImage(image, this.x, this.y);
+    draw(camera) {
+        ImageDrawer.draw(this, camera);
     }
 
     height() {
@@ -21,7 +22,7 @@ class Sprite {
     }
 
     bottomSide() {
-        return this.y + this.height();
+        return this.y - this.height();
     }
 
     update() {

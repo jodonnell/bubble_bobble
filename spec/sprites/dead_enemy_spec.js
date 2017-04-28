@@ -26,33 +26,33 @@ describe('Dead Enemy', function () {
     it('should travel in a parabola', function () {
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(102);
-        expect(deadEnemy.y).toBe(96);
+        expect(deadEnemy.y).toBe(104);
 
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(104);
-        expect(deadEnemy.y).toBe(92);
+        expect(deadEnemy.y).toBe(108);
     });
 
     it('should be able to fly left too', function () {
         deadEnemy.direction = LEFT;
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(98);
-        expect(deadEnemy.y).toBe(96);
+        expect(deadEnemy.y).toBe(104);
 
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(96);
-        expect(deadEnemy.y).toBe(92);
+        expect(deadEnemy.y).toBe(108);
     });
 
     it('should bounce off a wall', function () {
         deadEnemy.x = RIGHT_BOUND;
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(RIGHT_BOUND - 2);
-        expect(deadEnemy.y).toBe(96);
+        expect(deadEnemy.y).toBe(104);
 
         deadEnemy.update(args);
         expect(deadEnemy.x).toBe(RIGHT_BOUND - 4);
-        expect(deadEnemy.y).toBe(92);
+        expect(deadEnemy.y).toBe(108);
     });
 
     it('should become a fruit when it hits the ground', function () {
@@ -62,8 +62,8 @@ describe('Dead Enemy', function () {
             }
 
             deadEnemy.update(args);
-            if (deadEnemy.y >= 100) {
-                args.onscreenSprites.walls.push(new Wall(deadEnemy.x, deadEnemy.bottomSide() + 2));
+            if (deadEnemy.y < 100) {
+                args.onscreenSprites.walls.push(new Wall(deadEnemy.x, deadEnemy.bottomSide() - 10));
             }
         }
 

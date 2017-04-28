@@ -66,7 +66,7 @@ class Player extends Sprite {
     }
 
     _jumpingUpdate() {
-        this.y -= 4;
+        this.y += 4;
 
         this._jumping++;
         if (this._jumping > 35) {
@@ -88,7 +88,7 @@ class Player extends Sprite {
     _fall() {
         this._playerAnimations.fall();
         this._falling = true;
-        this.y += 3;
+        this.y -= 3;
     }
 
     _jump() {
@@ -191,7 +191,7 @@ class Player extends Sprite {
 
         this._dead = 0;
         this.x = 100;
-        this.y = 100;
+        this.y = 500;
         this._shooting = 0;
         this._jumping = 0;
         this._invincible = 1;

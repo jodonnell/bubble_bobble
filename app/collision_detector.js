@@ -27,8 +27,8 @@ class CollisionDetector {
     static areSpritesAboveWithin(sprite, sprites, distance) {
         for (let i = 0; i < sprites.length; i++) {
             if (this._xMatchUp(sprite, sprites[i])) {
-                let yWithin = sprites[i].y <= sprite.bottomSide() - 1 &&
-                    sprites[i].y >= sprite.bottomSide() - 1 - distance;
+                let yWithin = sprites[i].y >= sprite.bottomSide() + 1 &&
+                    sprites[i].y <= sprite.bottomSide() + 1 + distance;
                 if (yWithin) {
                     return true;
                 }
@@ -47,7 +47,9 @@ class CollisionDetector {
         if (spriteA === spriteB) {
             return false;
         }
-        return spriteA.x < spriteB.rightSide() && spriteA.rightSide() > spriteB.x && spriteA.y < spriteB.bottomSide() && spriteA.bottomSide() > spriteB.y;
+        const xMatch = spriteA.x < spriteB.rightSide() && spriteA.rightSide() > spriteB.x;
+        const yMatch = spriteA.y > spriteB.bottomSide() && spriteA.bottomSide() < spriteB.y;
+        return xMatch && yMatch;
     }
 
     static _doesBottomCollide(sprite, object) {
@@ -61,6 +63,14 @@ class CollisionDetector {
         }
         if (object.y === sprite.bottomSide() - 2) {
             sprite.y -= 2;
+            return true;
+        }
+        if (object.y === sprite.bottomSide() - 3) {
+            sprite.y -= 3;
+            return true;
+        }
+        if (object.y === sprite.bottomSide() - 4) {
+            sprite.y -= 4;
             return true;
         }
         return false;

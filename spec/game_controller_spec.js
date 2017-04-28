@@ -13,13 +13,13 @@ describe('GameController', function () {
     });
 
     it('can have enemies land on platforms', function () {
-        let blueMagoo = new BlueMagoo(0, 0);
+        let blueMagoo = new BlueMagoo(0, 100);
         gameController.onscreenSprites.enemies.push(blueMagoo);
 
-        gameController.onscreenSprites.walls.push(new Wall(0, blueMagoo.bottomSide() + 3));
+        gameController.onscreenSprites.walls.push(new Wall(0, blueMagoo.bottomSide() - 3));
         gameController.update();
         gameController.update();
-        expect(blueMagoo.y).toBe(3);
+        expect(blueMagoo.y).toBe(94);
     });
 
 });

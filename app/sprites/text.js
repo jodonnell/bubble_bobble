@@ -1,3 +1,4 @@
+import TextDrawer from '../drawers/text_drawer';
 import Sprite from './sprite';
 
 class Text extends Sprite {
@@ -9,14 +10,12 @@ class Text extends Sprite {
         this.timer = 0;
     }
 
-    draw() {
-        window.gameContext.font = 'bold 25px Comic Sans MS';
-        window.gameContext.fillStyle = 'green';
-        window.gameContext.fillText(this.text, this.x, this.y);
+    draw(camera) {
+        TextDrawer.draw(this, camera);
     }
 
     update(args) {
-        this.y -= 1;
+        this.y += 1;
         this.timer++;
 
         if (this.timer > 40) {

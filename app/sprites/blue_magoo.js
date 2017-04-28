@@ -27,7 +27,7 @@ class BlueMagoo extends Sprite {
         this.currentImage = this.animation.update();
 
         if (this.isJumping()) {
-            this.y -= 3;
+            this.y += 3;
             this.jumping++;
             if (this.jumping > 50) {
                 this.jumping = 0;
@@ -37,7 +37,7 @@ class BlueMagoo extends Sprite {
             this.move(followX, followY, onscreenSprites.walls);
         }
         else {
-            this.y += 3;
+            this.y -= 3;
         }
     }
 
@@ -65,7 +65,7 @@ class BlueMagoo extends Sprite {
     }
 
     track(followX, followY, walls) {
-        if (this.y > followY) {
+        if (this.y < followY) {
             if (CollisionDetector.areSpritesAboveWithin(this, walls, 150)) {
                 this.jumping = 1;
                 return;

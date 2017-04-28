@@ -53,7 +53,7 @@ describe('Blue Magoos', function () {
         spyOn(CollisionDetector, 'isStandingOnObjects').and.returnValue(true);
 
         onscreenSprites.players[0].x = 100;
-        onscreenSprites.players[0].y = 0;
+        onscreenSprites.players[0].y = 150;
         blueMagoo.update({onscreenSprites: onscreenSprites});
         expect(blueMagoo.isJumping()).toBeTruthy();
     });
@@ -75,7 +75,7 @@ describe('Blue Magoos', function () {
         onscreenSprites.players[0].y = 0;
 
         blueMagoo.update({onscreenSprites: onscreenSprites});
-        expect(blueMagoo.y).toBeGreaterThan(100);
+        expect(blueMagoo.y).toBeLessThan(100);
     });
 
 });
