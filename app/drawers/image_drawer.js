@@ -1,11 +1,10 @@
-import GameInit from '../game_init';
-
 class ImageDrawer {
-    static draw(sprite, _camera) {
+    static draw(sprite, camera) {
         let image = window.gameImages[sprite.getCurrentImage()];
 
-        const y = GameInit.height - sprite.y;
-        window.gameContext.drawImage(image, sprite.x, y);
+        const x = camera.relativeX(sprite.x);
+        const y = camera.relativeY(sprite.y);
+        window.gameContext.drawImage(image, x, y);
     }
 }
 

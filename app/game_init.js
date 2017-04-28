@@ -14,6 +14,10 @@ class GameInit {
         return 600;
     }
 
+    static get centerY() {
+        return this.height / 2;
+    }
+
     createCanvas() {
         this.width = 800;
         this.height = 600;

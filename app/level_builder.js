@@ -29,7 +29,7 @@ class LevelBuilder {
         for (let i = 0; i < 18; i++) {
             for (let k = 0; k < 2; k++)  {
                 if (k === 0) {
-                    this.walls.push(new Wall(i * 45, 580));
+                    this.walls.push(new Wall(i * 45, 500));
                 }
                 else {
                     this.walls.push(new Wall(i * 45, 20));

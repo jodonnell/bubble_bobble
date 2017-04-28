@@ -177,9 +177,10 @@ class Player extends Sprite {
         onscreenSprites.texts.push(new Text(collectible.x, collectible.y + 30, collectible.points));
     }
 
-    draw() {
+    draw(camera) {
+        camera.moveTo(this.y);
         if (!this.isInvincible() || this._invincible % 2 === 0) {
-            super.draw();
+            super.draw(camera);
         }
     }
 

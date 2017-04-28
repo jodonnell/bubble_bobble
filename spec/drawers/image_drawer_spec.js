@@ -12,18 +12,9 @@ describe('ImageDrawer', function () {
 
     it('makes 0 the bottom y instead of top', function () {
         const camera = new Camera();
-        const wall = new Wall(0, 0);
+        const wall = new Wall(0, 300);
 
         ImageDrawer.draw(wall, camera);
-        expect(drawSpy).toHaveBeenCalledWith(jasmine.any(Object), 0, GameInit.height);
+        expect(drawSpy).toHaveBeenCalledWith(jasmine.any(Object), 0, GameInit.height / 2);
     });
-
-    it('makes 0 the bottom y instead of top', function () {
-        const camera = new Camera();
-        const wall = new Wall(0, 100);
-
-        ImageDrawer.draw(wall, camera);
-        expect(drawSpy).toHaveBeenCalledWith(jasmine.any(Object), 0, GameInit.height - 100);
-    });
-
 });
