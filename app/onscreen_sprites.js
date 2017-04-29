@@ -1,4 +1,5 @@
 import Player from './sprites/player';
+import _ from 'lodash';
 
 class OnscreenSprites {
     constructor(sprites) {
@@ -28,6 +29,12 @@ class OnscreenSprites {
         this.collectibles.remove = remove;
         this.bubbles.remove = remove;
         this.texts.remove = remove;
+    }
+
+    hasSprite(sprite) {
+        return _.some(this.sprites, (spriteTypes) => {
+            return spriteTypes.includes(sprite);
+        });
     }
 }
 

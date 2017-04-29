@@ -16,12 +16,21 @@ class Bubble extends Sprite {
         this.trapped = false;
         this.fullyFormed = false;
         this.moveSpeed = 5;
+        this.liveTime = 999;
 
         this.shootOutAnimation = new LinearAnimation(7, ['smallestBubble', 'smallBubble', 'mediumBubble', 'bigBubble'], 1);
         this.enemyWiggleAnimation = new LinearAnimation(10, ['blueMagooTrappedRight', 'blueMagooTrappedLeft']);
     }
 
     update(args) {
+        this.liveTime -= 1;
+        if (this.liveTime === 0) {
+            if (args.onscreenSprites.hasSprite(this)) {
+                this.pop(args.onscreenSprites);
+            }
+            return;
+        }
+
         if (this.trapped) {
             this.currentImage = this.enemyWiggleAnimation.update();
         }

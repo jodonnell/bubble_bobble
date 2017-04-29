@@ -109,4 +109,11 @@ describe('Bubble', function () {
         expect(bubble.x).toBeGreaterThan(400);
         expect(bubble.y).not.toBe(550);
     });
+
+    it('pops after a while', function () {
+        bubble.fullyFormed = true;
+
+        _.times(1000, () => bubble.update(args));
+        expect(args.onscreenSprites.bubbles.length).toBe(0);
+    });
 });
