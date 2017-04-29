@@ -14,7 +14,7 @@ class LevelBuilder {
 
     buildLeftAndRightWalls() {
         for (let i = 0; i < 2; i++) {
-            for (let k = 0; k < 27; k++)  {
+            for (let k = 0; k < 70; k++)  {
                 if (i === 0) {
                     this.walls.push(new Wall(0, k * 23));
                 }
@@ -28,7 +28,7 @@ class LevelBuilder {
     buildCeilingAndFloorWalls() {
         for (let i = 0; i < 18; i++) {
             for (let k = 0; k < 2; k++)  {
-                if (k === 0) {
+                if (k === 0 && (i !== 3 && i !== 4)) {
                     this.walls.push(new Wall(i * 45, 500));
                 }
                 else {
@@ -43,7 +43,7 @@ class LevelBuilder {
             if (i === 2 || i === 3 || i === 14 || i === 15) {
                 continue;
             }
-            for (let k = 1; k < 4; k++)  {
+            for (let k = 1; k < 14; k++)  {
                 this.walls.push(new Wall(i * 45, k * 120 + 30));
             }
         }
