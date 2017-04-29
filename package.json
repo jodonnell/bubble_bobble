@@ -24,7 +24,7 @@
   },
     "scripts": {
         "dev": "webpack -d --watch",
-        "build": "webpack -p",
+        "prod": "webpack -p",
       "test-start": "karma start",
       "test": "karma run",
       "lint": "find app/ spec/ -name '*.js' | xargs ./node_modules/.bin/eslint --quiet"

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+./build || exit 1
+git checkout -b gh-pages && npm run prod && git rm -rf . && git checkout HEAD -- index.html && git checkout HEAD -- assets && git add -f dist/bundle.js && git commit --no-verify -m 'adding bundle' && git push origin -f gh-pages:gh-pages && rm dist/bundle.js && git checkout master && git branch -D gh-pages
