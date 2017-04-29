@@ -14,6 +14,10 @@ class PlayerBubbleCollide {
             return;
         }
 
+        if (this.player.isHoldingJump()) {
+            return this.player.jump();
+        }
+
         if (this._pushBubbleRight() || this._pushBubbleLeft()) {
             return;
         }

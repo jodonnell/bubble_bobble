@@ -231,6 +231,10 @@ class Player extends Sprite {
     getScore() {
         return this._score;
     }
+
+    isHoldingJump() {
+        return this._control.isJumping();
+    }
 }
 
 export default Player;
