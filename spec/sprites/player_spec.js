@@ -120,11 +120,10 @@ describe('Player', function () {
         args.onscreenSprites.bubbles.push(new Bubble(100, player.y - 10, RIGHT));
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
-        let spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
-        sinon.stub(player._control, 'isJumping').returns(true);
+        const spy = spyOn(args.onscreenSprites.bubbles[0], 'pop');
 
         player.update(args);
-        expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
+        expect(spy).toHaveBeenCalledWith(args.onscreenSprites, RIGHT);
     });
 
     it('can pop a bubble and send it to the left', function () {
@@ -132,11 +131,10 @@ describe('Player', function () {
         args.onscreenSprites.bubbles[0].x -= args.onscreenSprites.bubbles[0].width() / 2;
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
-        let spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
-        sinon.stub(player._control, 'isJumping').returns(true);
+        const spy = spyOn(args.onscreenSprites.bubbles[0], 'pop');
 
         player.update(args);
-        expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeTruthy();
+        expect(spy).toHaveBeenCalledWith(args.onscreenSprites, LEFT);
     });
 
     it('can pop a bubble by falling on it', function () {

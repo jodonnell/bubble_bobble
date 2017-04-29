@@ -50,7 +50,7 @@ class Player extends Sprite {
         }
 
         if (this._control.isJumping()) {
-            this._jump();
+            this._ifCanJumpThanJump();
         }
 
         if (this._control.isShooting()) {
@@ -92,10 +92,14 @@ class Player extends Sprite {
         this.y -= 3;
     }
 
-    _jump() {
+    _ifCanJumpThanJump() {
         if (this._jumping || this._falling) {
             return;
         }
+        this.jump();
+    }
+
+    jump() {
         this._playerAnimations.jump();
         this._jumping = 1;
     }
