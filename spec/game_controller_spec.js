@@ -16,7 +16,7 @@ describe('GameController', function () {
         let blueMagoo = new BlueMagoo(0, 100);
         gameController.onscreenSprites.enemies.push(blueMagoo);
 
-        gameController.onscreenSprites.walls.push(new Wall(0, blueMagoo.bottomSide() - 3));
+        gameController.onscreenSprites.walls.push(new Wall(0, blueMagoo.bottomSide() + 2));
         gameController.update();
         gameController.update();
         expect(blueMagoo.y).toBe(94);
