@@ -223,7 +223,7 @@ describe('Player', function () {
         args.onscreenSprites.collectibles.push(new Pepper(100, 100));
         player.update(args);
         expect(args.onscreenSprites.collectibles.length).toBe(0);
-        expect(player.getScore()).toBe(3000);
+        expect(player.getScore()).toBe(30);
     });
 
 });

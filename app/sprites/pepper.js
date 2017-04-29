@@ -6,7 +6,7 @@ class Pepper extends Sprite {
         this.x = x;
         this.y = y;
         this.currentImage = 'pepper';
-        this.points = 3000;
+        this.points = 30;
     }
 }
 
