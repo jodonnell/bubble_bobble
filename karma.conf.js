@@ -2,7 +2,7 @@
 module.exports = function(config) {
     config.set({
         // ... normal karma configuration
-        frameworks: ['jasmine', 'sinon'],
+        frameworks: ['jasmine'],
 
         files: [
             {pattern: 'assets/*.png', watched: false, included: false, served: true, nocache: false},

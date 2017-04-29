@@ -37,19 +37,19 @@ describe('Title Screen', function () {
     });
 
     it('should blink on the second option when down is hit', function () {
-        sinon.stub(titleScreen._control, 'isHoldingDown').returns(true);
+        spyOn(titleScreen._control, 'isHoldingDown').and.returnValue(true);
         titleScreen.update();
         expect(titleScreen._selectedEntry).toBe(1);
     });
 
     it('will not allow you to go to a negative menu entry', function () {
-        sinon.stub(titleScreen._control, 'isHoldingUp').returns(true);
+        spyOn(titleScreen._control, 'isHoldingUp').and.returnValue(true);
         titleScreen.update();
         expect(titleScreen._selectedEntry).toBe(0);
     });
 
     it('should not allow the selected entry to be out of bounds', function () {
-        sinon.stub(titleScreen._control, 'isHoldingDown').returns(true);
+        spyOn(titleScreen._control, 'isHoldingDown').and.returnValue(true);
         titleScreen.update();
         titleScreen.update();
         titleScreen.update();

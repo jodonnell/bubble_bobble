@@ -13,7 +13,7 @@ describe('Blue Magoos', function () {
     it('should move towards point if its not falling', function () {
         let blueMagoo = new BlueMagoo(100, 0, 0);
 
-        sinon.stub(blueMagoo, 'shouldTrack').returns(true);
+        spyOn(blueMagoo, 'shouldTrack').and.returnValue(true);
         spyOn(CollisionDetector, 'isStandingOnObjects').and.returnValue(true);
 
         onscreenSprites.players[0].x = 105;

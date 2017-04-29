@@ -22,13 +22,13 @@ describe('Player', function () {
     });
 
     it('can move right', function () {
-        sinon.stub(player._control, 'isHoldingRight').returns(true);
+        spyOn(player._control, 'isHoldingRight').and.returnValue(true);
         player.update(args);
         expect(player.x).toBeGreaterThan(100);
     });
 
     it('can move left', function () {
-        sinon.stub(player._control, 'isHoldingLeft').returns(true);
+        spyOn(player._control, 'isHoldingLeft').and.returnValue(true);
         player.update(args);
         expect(player.x).toBeLessThan(100);
     });
@@ -39,23 +39,18 @@ describe('Player', function () {
     });
 
     it('should land on a floor after a jump', function () {
-        let i;
         args.onscreenSprites.walls = [new Wall(95, player.bottomSide())];
 
-        sinon.stub(player._control, 'isJumping').returns(true);
-        player.update(args);
+        spyOn(player._control, 'isJumping').and.returnValues(true, false);
 
-        player._control.isJumping.restore();
-        sinon.stub(player._control, 'isJumping').returns(false);
-
-        for (i = 0; i < 100; i++) {
+        for (let i = 0; i < 100; i++) {
             player.update(args);
         }
         expect(player.y).toBe(100);
     });
 
     it('can jump', function () {
-        sinon.stub(player._control, 'isJumping').returns(true);
+        spyOn(player._control, 'isJumping').and.returnValue(true);
 
         player.update(args);
         expect(player.y).toBe(104);
@@ -71,7 +66,7 @@ describe('Player', function () {
     });
 
     it('cannot jump twice', function () {
-        sinon.stub(player._control, 'isJumping').returns(true);
+        spyOn(player._control, 'isJumping').and.returnValue(true);
 
         for (let i = 0; i < 44; i++) {
             player.update(args);
@@ -83,21 +78,21 @@ describe('Player', function () {
     });
 
     it('changes to shooting animation', function () {
-        sinon.stub(player._control, 'isShooting').returns(true);
-        let spy = sinon.spy(player._playerAnimations, 'shoot');
+        spyOn(player._control, 'isShooting').and.returnValue(true);
+        let spy = spyOn(player._playerAnimations, 'shoot');
         player.update(args);
-        expect(spy.calledOnce).toBeTruthy();
+        expect(spy).toHaveBeenCalled();
     });
 
     it('should be able to shoot bubbles', function () {
-        sinon.stub(player._control, 'isShooting').returns(true);
+        spyOn(player._control, 'isShooting').and.returnValue(true);
 
         player.update(args);
         expect(args.onscreenSprites.bubbles.length).toBe(1);
     });
 
     it('should be able to shoot one bubble every once in a while', function () {
-        sinon.stub(player._control, 'isShooting').returns(true);
+        spyOn(player._control, 'isShooting').and.returnValue(true);
 
         player.update(args);
         player.update(args);
@@ -141,10 +136,10 @@ describe('Player', function () {
         args.onscreenSprites.bubbles.push(new Bubble(100, player.bottomSide() + 1, RIGHT));
         args.onscreenSprites.bubbles[0].fullyFormed = true;
 
-        let spy = sinon.spy(args.onscreenSprites.bubbles[0], 'pop');
+        let spy = spyOn(args.onscreenSprites.bubbles[0], 'pop');
 
         player.update(args);
-        expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeTruthy();
+        expect(spy).toHaveBeenCalledWith(args.onscreenSprites, RIGHT);
     });
 
     it('does not pop a bubble if colliding with it from the right side', function () {
@@ -152,11 +147,11 @@ describe('Player', function () {
         args.onscreenSprites.bubbles.push(bubble);
         bubble.fullyFormed = true;
 
-        sinon.stub(player._control, 'isHoldingRight').returns(true);
-        let spy = sinon.spy(bubble, 'pop');
+        spyOn(player._control, 'isHoldingRight').and.returnValue(true);
+        let spy = spyOn(bubble, 'pop');
 
         player.update(args);
-        expect(spy.calledWith(args.onscreenSprites, RIGHT)).toBeFalsy();
+        expect(spy).not.toHaveBeenCalledWith(args.onscreenSprites, RIGHT);
         expect(bubble.x).toBe(player.rightSide() + 1);
     });
 
@@ -168,21 +163,21 @@ describe('Player', function () {
 
         let oldX = bubble.x;
 
-        sinon.stub(player._control, 'isHoldingLeft').returns(true);
-        let spy = sinon.spy(bubble, 'pop');
+        spyOn(player._control, 'isHoldingLeft').and.returnValue(true);
+        let spy = spyOn(bubble, 'pop');
 
         player.update(args);
-        expect(spy.calledWith(args.onscreenSprites, LEFT)).toBeFalsy();
+        expect(spy).not.toHaveBeenCalledWith(args.onscreenSprites, LEFT);
         expect(bubble.x).toBe(oldX - 4);
 
     });
 
     it('starts the death animation', function () {
-        let spy = sinon.spy(player._playerAnimations, 'die');
+        let spy = spyOn(player._playerAnimations, 'die');
         args.onscreenSprites.enemies = [new BlueMagoo(100, 100, RIGHT)];
         player.update(args);
         expect(player.isDead()).toBeTruthy();
-        expect(spy.calledOnce).toBeTruthy();
+        expect(spy).toHaveBeenCalled();
     });
 
     it('comes back from the dead after some time', function () {
