@@ -3,6 +3,7 @@ import BlueMagoo from '../app/sprites/blue_magoo';
 import Player from '../app/sprites/player';
 import GameController from '../app/game_controller';
 import Control from '../app/control';
+import GameInit from '../app/game_init';
 
 describe('GameController', function () {
     let gameController;
@@ -22,4 +23,9 @@ describe('GameController', function () {
         expect(blueMagoo.y).toBe(94);
     });
 
+    it('displays the score', function () {
+        let fillTextSpy = spyOn(window.gameContext, 'fillText');
+        gameController.draw();
+        expect(fillTextSpy).toHaveBeenCalledWith('0', GameInit.width - 100, 40);
+    });
 });

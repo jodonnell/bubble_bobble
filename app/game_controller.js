@@ -16,12 +16,22 @@ class GameController {
     draw() {
         this._clearBackground();
         this._eachSprite((sprite) => { sprite.draw(this.camera); });
+
+
+        this._displayScore();
     }
 
     update() {
         this._eachSprite((sprite) => {
             sprite.update({onscreenSprites: this.onscreenSprites});
         });
+    }
+
+    _displayScore() {
+        window.gameContext.font = 'bold 45px Comic Sans MS';
+        window.gameContext.fillStyle = 'green';
+
+        window.gameContext.fillText(this.onscreenSprites.players[0].getScore().toString(), GameInit.width - 100, 40);
     }
 
     _clearBackground() {
