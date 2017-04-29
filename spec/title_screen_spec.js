@@ -18,13 +18,13 @@ describe('Title Screen', function () {
     it('should display Solo Game', function () {
         let fillTextSpy = spyOn(window.gameContext, 'fillText');
         titleScreen.draw();
-        expect(fillTextSpy).toHaveBeenCalledWith('Solo Game', 299, 260);
+        expect(fillTextSpy).toHaveBeenCalledWith('Solo Game', 399, 260);
     });
 
     it('should display Settings', function () {
         let fillTextSpy = spyOn(window.gameContext, 'fillText');
         titleScreen.draw();
-        expect(fillTextSpy).toHaveBeenCalledWith('Settings', 319, 310);
+        expect(fillTextSpy).toHaveBeenCalledWith('Settings', 419, 310);
     });
 
     it('should blink', function () {

@@ -7,7 +7,7 @@ class GameInit {
     }
 
     static get width() {
-        return 800;
+        return 1000;
     }
 
     static get height() {
@@ -19,16 +19,13 @@ class GameInit {
     }
 
     createCanvas() {
-        this.width = 800;
-        this.height = 600;
-
-        let left = this.viewportWidth() / 2 - this.width / 2;
-        let top = this.viewportHeight() / 2 - this.height / 2;
+        let left = this.viewportWidth() / 2 - GameInit.width / 2;
+        let top = this.viewportHeight() / 2 - GameInit.height / 2;
 
         let canvas = document.createElement('canvas');
         canvas.id = 'gameCanvas';
-        canvas.width = this.width;
-        canvas.height = this.height;
+        canvas.width = GameInit.width;
+        canvas.height = GameInit.height;
         document.body.appendChild(canvas);
 
         canvas.style.position = 'absolute';
