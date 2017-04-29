@@ -13,8 +13,8 @@ module.exports = function(config) {
 
         preprocessors: {
             'spec/spec_helper.js': ['webpack'],
-            'spec/*_spec.js': ['webpack'],
-            'spec/**/*_spec.js': ['webpack']
+            'spec/*_spec.js': ['webpack', 'sourcemap'],
+            'spec/**/*_spec.js': ['webpack', 'sourcemap']
         },
 
         reporters: [ 'dots' ],
@@ -36,6 +36,7 @@ module.exports = function(config) {
             // webpack watches dependencies
 
             // webpack configuration
+            devtool: 'inline-source-map'
         },
 
         webpackMiddleware: {

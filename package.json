@@ -22,11 +22,11 @@
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   },
-    "scripts": {
-        "dev": "webpack -d --watch",
-        "prod": "webpack -p",
-      "test-start": "karma start",
-      "test": "karma run",
-      "lint": "find app/ spec/ -name '*.js' | xargs ./node_modules/.bin/eslint --quiet"
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "prod": "webpack -p",
+    "test-start": "karma start",
+    "test": "karma run",
+    "lint": "find app/ spec/ -name '*.js' | xargs ./node_modules/.bin/eslint --quiet"
   }
 }
