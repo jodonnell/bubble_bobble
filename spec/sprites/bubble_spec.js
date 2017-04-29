@@ -2,6 +2,7 @@ import Bubble from '../../app/sprites/bubble';
 import BlueMagoo from '../../app/sprites/blue_magoo';
 import OnscreenSprites from '../../app/onscreen_sprites';
 import {RIGHT, LEFT, RIGHT_BOUND} from '../../app/constants';
+import _ from 'lodash';
 
 describe('Bubble', function () {
     let args, bubble;
@@ -32,15 +33,11 @@ describe('Bubble', function () {
 
     it('should move to the top middle of the screen', function () {
         bubble.fullyFormed = true;
-        bubble.x = 360;
-        bubble.y = 500;
-        for (let i = 0; i < 100; i++) {
-            bubble.update(args);
-        }
 
-        bubble.update(args);
+        _.times(500, () => { bubble.update(args); });
+
         expect(bubble.x).toBe(400);
-        expect(bubble.y).toBe(550);
+        expect(bubble.y).toBe(500);
     });
 
     it('should get trapped when hit by a bubble', function () {

@@ -9,6 +9,7 @@ class Bubble extends Sprite {
         super();
         this.x = x;
         this.y = y;
+        this.originalY = this.y;
         this._playerNum = playerNum;
         this.currentImage = 'smallestBubble';
         this.direction = direction;
@@ -103,7 +104,7 @@ class Bubble extends Sprite {
     }
 
     isAtTop() {
-        return this.y >= 550;
+        return this.y >= this.originalY + 400;
     }
 
     shootOut() {
