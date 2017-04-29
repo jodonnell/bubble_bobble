@@ -2,8 +2,9 @@ import Sprite from './sprite';
 import PlayerAnimations from '../player_animations';
 import Bubble from './bubble';
 import Text from './text';
-import {LEFT, RIGHT} from '../constants';
+import {RIGHT} from '../constants';
 import CollisionDetector from '../collision_detector';
+import PlayerBubbleCollide from '../interactions/player_bubble_collide';
 
 class Player extends Sprite {
     constructor(x, y, type, control) {
@@ -133,30 +134,8 @@ class Player extends Sprite {
     }
 
     _checkForPoppingBubble(onscreenSprites) {
-        let bubble = CollisionDetector.doesCollideWithSprites(this, onscreenSprites.bubbles);
-
-        if (!bubble || !bubble.isFullyFormed()) {
-            return;
-        }
-
-        if (this.rightSide() < bubble.x + 10) {
-            bubble.x += 4;
-            return;
-        }
-
-        if (this.x > bubble.rightSide() - 10) {
-            bubble.x -= 4;
-            return;
-        }
-
-        let direction;
-        if (this.x < bubble.x + bubble.width() / 2) {
-            direction = RIGHT;
-        }
-        else {
-            direction = LEFT;
-        }
-        bubble.pop(onscreenSprites, direction);
+        const collider = new PlayerBubbleCollide(this, onscreenSprites);
+        collider.collide();
     }
 
     _checkForDeath(onscreenSprites) {
